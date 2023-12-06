@@ -1,0 +1,402 @@
+#include <iostream>
+#include <thread>
+#include "sockpp/tcp_acceptor.h"
+#include <iomanip>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <sys/ioctl.h>
+#include <sys/types.h>
+#include <sys/time.h>
+#include <sys/mman.h>
+#include <linux/videodev2.h>
+#include <libv4l2.h>
+using namespace std;
+
+
+
+#define CLEAR(x) memset(&(x), 0, sizeof(x))
+
+struct buffer {
+    void   *start;
+    size_t length;
+};
+
+static void xioctl(int fh, int request, void *arg)
+{
+    int r;
+
+    do {
+        r = v4l2_ioctl(fh, request, arg);
+    } while (r == -1 && ((errno == EINTR) || (errno == EAGAIN)));
+
+    if (r == -1) {
+        fprintf(stderr, "error %d, %s\\n", errno, strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+}
+
+
+enum {
+	VVCSIOC_RESET = 0x100,
+	VVCSIOC_POWERON,
+	VVCSIOC_POWEROFF,
+	VVCSIOC_STREAMON,
+	VVCSIOC_STREAMOFF,
+	VVCSIOC_S_FMT,
+	VVCSIOC_S_HDR,
+};
+
+
+struct csi_sam_format {
+	int64_t format;
+	__u32 width;
+	__u32 height;
+};
+
+
+int acquire_img(unsigned char* frame_buf)
+{
+    struct v4l2_format              fmt;
+    struct v4l2_buffer              buf;
+    struct v4l2_requestbuffers      req;
+    enum v4l2_buf_type              type;
+    fd_set                          fds;
+    struct timeval                  tv;
+    int                             r, fd = -1,fd2= -1;
+    unsigned int                    i, n_buffers;
+    char                            *dev_name = "/dev/video1";
+    char                            *dev_name2 = "/dev/v4l-subdev0";
+    char                            out_name[256];
+    FILE                            *fout;
+    struct buffer                   *buffers;
+    csi_sam_format	m_csi_sam_format;
+
+
+    fd = v4l2_open(dev_name, O_RDWR | O_NONBLOCK, 0);
+    if (fd < 0) {
+            perror("Cannot open device");
+            exit(EXIT_FAILURE);
+    }
+
+    fd2 = v4l2_open(dev_name2, O_RDWR | O_NONBLOCK, 0);
+    if (fd2 < 0) {
+            perror("Cannot open device2");
+            exit(EXIT_FAILURE);
+    }
+
+    m_csi_sam_format.format = V4L2_PIX_FMT_RGB24;
+    m_csi_sam_format.width = 3456;
+    m_csi_sam_format.height = 3180;
+    xioctl(fd2, VVCSIOC_S_FMT, &m_csi_sam_format);
+
+
+
+    CLEAR(fmt);
+    fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+    fmt.fmt.pix.width       = 3456;
+    fmt.fmt.pix.height      = 3180;
+    fmt.fmt.pix.pixelformat =  V4L2_PIX_FMT_RGB24;
+    fmt.fmt.pix.field       = V4L2_FIELD_INTERLACED;
+    xioctl(fd, VIDIOC_S_FMT, &fmt);
+    if ((fmt.fmt.pix.width != 3456) || (fmt.fmt.pix.height != 3180))
+            printf("Warning: driver is sending image at %dx%d\\n",
+                    fmt.fmt.pix.width, fmt.fmt.pix.height);
+
+    CLEAR(req);
+    req.count = 2;
+    req.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+    req.memory = V4L2_MEMORY_MMAP;
+    xioctl(fd, VIDIOC_REQBUFS, &req);
+
+    buffers = calloc(req.count, sizeof(*buffers));
+    for (n_buffers = 0; n_buffers < req.count; ++n_buffers) {
+            CLEAR(buf);
+
+            buf.type        = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+            buf.memory      = V4L2_MEMORY_MMAP;
+            buf.index       = n_buffers;
+
+            xioctl(fd, VIDIOC_QUERYBUF, &buf);
+
+            buffers[n_buffers].length = buf.length;
+            buffers[n_buffers].start = v4l2_mmap(NULL, buf.length,
+                          PROT_READ | PROT_WRITE, MAP_SHARED,
+                          fd, buf.m.offset);
+
+            if (MAP_FAILED == buffers[n_buffers].start) {
+                    perror("mmap");
+                    exit(EXIT_FAILURE);
+            }
+    }
+
+    for (i = 0; i < n_buffers; ++i) {
+            CLEAR(buf);
+            buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+            buf.memory = V4L2_MEMORY_MMAP;
+            buf.index = i;
+            xioctl(fd, VIDIOC_QBUF, &buf);
+    }
+    type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+
+    xioctl(fd, VIDIOC_STREAMON, &type);
+    for (i = 0; i < 1; i++) {
+            do {
+                    FD_ZERO(&fds);
+                    FD_SET(fd, &fds);
+
+                    /* Timeout. */
+                    tv.tv_sec = 2;
+                    tv.tv_usec = 0;
+
+                    r = select(fd + 1, &fds, NULL, NULL, &tv);
+            } while ((r == -1 && (errno = EINTR)));
+            if (r == -1) {
+                    perror("select");
+                    return errno;
+            }
+
+            CLEAR(buf);
+            buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+            buf.memory = V4L2_MEMORY_MMAP;
+            xioctl(fd, VIDIOC_DQBUF, &buf);
+
+            sprintf(out_name, "PRB_81_RAW_16bit_3456x3180_checkpoint.raw", i);
+            fout = fopen(out_name, "w");
+            if (!fout) {
+                    perror("Cannot open image");
+                    exit(EXIT_FAILURE);
+            }
+//                fprintf(fout, "P6\\n%d %d 255\\n",
+//                        fmt.fmt.pix.width, fmt.fmt.pix.height);
+//                fwrite(buffers[buf.index].start, buf.bytesused, 1, fout);
+            int nr_pixel = buf.bytesused / 3;
+            for (int j=0; j < nr_pixel; j++)
+            {
+            	 fwrite(buffers[buf.index].start+j*3+1, 2, 1, fout);
+            	 memcpy(frame_buf+j*2,buffers[buf.index].start +j*3+1,2);
+            	// frame_buf[frame_buf+j*3+1]
+            }
+
+            fclose(fout);
+
+            xioctl(fd, VIDIOC_QBUF, &buf);
+    }
+
+    type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+    xioctl(fd, VIDIOC_STREAMOFF, &type);
+    for (i = 0; i < n_buffers; ++i)
+            v4l2_munmap(buffers[i].start, buffers[i].length);
+    v4l2_close(fd);
+    v4l2_close(fd2);
+    return 0;
+
+//    struct v4l2_format              fmt;
+//    struct v4l2_buffer              buf;
+//    struct v4l2_requestbuffers      req;
+//    enum v4l2_buf_type              type;
+//    fd_set                          fds;
+//    struct timeval                  tv;
+//    int                             r, fd = -1;
+//    unsigned int                    i, n_buffers;
+//    char                            *dev_name = "/dev/video1";
+//    char                            out_name[256];
+//    FILE                            *fout;
+//    struct buffer                   *buffers;
+//
+//    fd = v4l2_open(dev_name, O_RDWR | O_NONBLOCK, 0);
+//    if (fd < 0) {
+//        perror("Cannot open device");
+//        exit(EXIT_FAILURE);
+//    }
+//// fmt:RGB888_1X24/3455x3179
+//    CLEAR(fmt);
+//    fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+//    fmt.fmt.pix.width       = 3456;
+//    fmt.fmt.pix.height      = 3180;
+// //   fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_RGB24;
+//   fmt.fmt.pix.pixelformat  = V4L2_PIX_FMT_YYUV;
+//  //  fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_RGB565;
+//
+//
+//    xioctl(fd, VIDIOC_S_FMT, &fmt);
+//  //  if (fmt.fmt.pix.pixelformat != V4L2_PIX_FMT_YUYV) {
+//    if (fmt.fmt.pix.pixelformat != V4L2_PIX_FMT_RGB565) {
+//        printf("Libv4l didn't accept RGB24 format. Can't proceed.\\n");
+//        exit(EXIT_FAILURE);
+//    }
+//    if ((fmt.fmt.pix.width != 3456) || (fmt.fmt.pix.height != 3180))
+//        printf("Warning: driver is sending image at %dx%d\\n",
+//            fmt.fmt.pix.width, fmt.fmt.pix.height);
+//
+//    CLEAR(req);
+//    req.count = 2;
+//    req.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+//    req.memory = V4L2_MEMORY_MMAP;
+//  //  req.memory = V4L2_MEMORY_DMABUF;
+//
+//    xioctl(fd, VIDIOC_REQBUFS, &req);
+//
+//    buffers = calloc(req.count, sizeof(*buffers));
+//    for (n_buffers = 0; n_buffers < req.count; ++n_buffers) {
+//        CLEAR(buf);
+//
+//        buf.type        = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+//       buf.memory      = V4L2_MEMORY_MMAP;
+////        buf.memory      = V4L2_MEMORY_DMABUF;
+//        buf.index       = n_buffers;
+//
+//        xioctl(fd, VIDIOC_QUERYBUF, &buf);
+//
+//        buffers[n_buffers].length = buf.length;
+//        buffers[n_buffers].start = v4l2_mmap(NULL, buf.length,
+//                PROT_READ | PROT_WRITE, MAP_SHARED,
+//                fd, buf.m.offset);
+//
+//        if (MAP_FAILED == buffers[n_buffers].start) {
+//            perror("mmap");
+//            exit(EXIT_FAILURE);
+//        }
+//    }
+//
+//    for (i = 0; i < n_buffers; ++i) {
+//        CLEAR(buf);
+//        buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+//        buf.memory = V4L2_MEMORY_MMAP;
+//        buf.index = i;
+//        xioctl(fd, VIDIOC_QBUF, &buf);
+//    }
+//    type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+//
+//    xioctl(fd, VIDIOC_STREAMON, &type);
+//    for (i = 0; i < 3;
+//    		i++) {
+//        do {
+//            FD_ZERO(&fds);
+//            FD_SET(fd, &fds);
+//
+//            /* Timeout. */
+//            tv.tv_sec = 2;
+//            tv.tv_usec = 0;
+//
+//            r = select(fd + 1, &fds, NULL, NULL, &tv);
+//        } while ((r == -1 && (errno = EINTR)));
+//        if (r == -1) {
+//            perror("select");
+//            return errno;
+//        }
+//
+//        CLEAR(buf);
+//        buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+//        buf.memory = V4L2_MEMORY_MMAP;
+//        xioctl(fd, VIDIOC_DQBUF, &buf);
+//        if(i==2){
+//            sprintf(out_name, "imx8_test.raw");
+//            fout = fopen(out_name, "w");
+//            if (!fout) {
+//                perror("Cannot open image");
+//                exit(EXIT_FAILURE);
+//            }
+//            memcpy(frame_buf,buffers[buf.index].start,buf.bytesused);
+//            fwrite(buffers[buf.index].start, buf.bytesused, 1, fout);
+//            fclose(fout);
+//            fout = fopen("frame_buf_1.raw", "w");
+//            fwrite(frame_buf, 21980160, 1, fout);
+//            fclose(fout);
+//        }
+//
+//
+//        xioctl(fd, VIDIOC_QBUF, &buf);
+//    }
+//
+//    type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+//    xioctl(fd, VIDIOC_STREAMOFF, &type);
+//    for (i = 0; i < n_buffers; ++i)
+//        v4l2_munmap(buffers[i].start, buffers[i].length);
+//    v4l2_close(fd);
+//
+//    return 0;
+}
+
+
+// --------------------------------------------------------------------------
+// The main thread runs the TCP port acceptor. Each time a connection is
+// made a new thread is spawned to handle it leaving this main thread to
+// immediately wait for the next incoming connection.
+
+int main(int argc, char* argv[])
+{
+    FILE                            *fout;
+
+	unsigned char * frame_buf = new unsigned char[21980160];
+	memset(frame_buf, 0x00, 21980160);
+	for (int i = 0; i < 21980160; i++)
+	{
+		frame_buf[i] = i % 255;
+	}
+	in_port_t port = 12435;
+	acquire_img(frame_buf);
+
+	sockpp::initialize();
+
+	sockpp::tcp_acceptor acc(port);
+
+	if (!acc) {
+		cerr << "Error creating the acceptor: " << acc.last_error_str() << endl;
+		return 1;
+	}
+	cout << "Awaiting connections on port " << port << "..." << endl;
+
+	while (true) {
+		sockpp::inet_address peer;
+
+		// Accept a new client connection
+		sockpp::tcp_socket sock = acc.accept(&peer);
+		cout << "Received a connection request from " << peer << endl;
+
+		if (!sock) {
+			cerr << "Error accepting incoming connection: "
+				<< acc.last_error_str() << endl;
+		}
+		else {
+			ssize_t n;
+			unsigned char buf[5];
+			memset(buf, 0, 5);
+
+			while ((n = sock.read(buf, sizeof(buf))) > 0) {
+				//	std::string str(buf, n);
+				//	std::cout << "Server is getting:" << n << " bytes | " << "getting:" << std::setw(2) << str.c_str() << std::endl;
+				for (int i = 0; i < n; i++)
+				{
+					cout << "Packt."<< i <<":" << (int)buf[i]<< endl;
+				}
+				if (buf[1] == 0x07)
+					break;
+			}
+
+		//	acquire_img(frame_buf);
+            fout = fopen("frame_buf_2.raw", "w");
+            fwrite(frame_buf, 21980160, 1, fout);
+            fclose(fout);
+			sock.write_n(frame_buf , 3456 * 3180* 2);
+			cout << "Going to sending frame buffer to Mgard300! " << "..." << endl;
+
+		//	sleep(1);
+			sleep(1);
+			cout << "Going to exit! " << "..." << endl;
+			//send out 1
+			//sock.write_n(buf, n);
+			break;
+			std::cout << "Connection closed from " << sock.peer_address() << std::endl;
+		}
+	}
+
+	delete[] frame_buf;
+
+	return 0;
+}
+
+
+
