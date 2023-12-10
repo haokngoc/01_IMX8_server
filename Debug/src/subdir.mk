@@ -4,6 +4,8 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../src/MsgHandler.cpp \
+../src/State.cpp \
 ../src/acceptor.cpp \
 ../src/connector.cpp \
 ../src/exception.cpp \
@@ -14,6 +16,8 @@ CPP_SRCS += \
 ../src/stream_socket.cpp 
 
 OBJS += \
+./src/MsgHandler.o \
+./src/State.o \
 ./src/acceptor.o \
 ./src/connector.o \
 ./src/exception.o \
@@ -24,6 +28,8 @@ OBJS += \
 ./src/stream_socket.o 
 
 CPP_DEPS += \
+./src/MsgHandler.d \
+./src/State.d \
 ./src/acceptor.d \
 ./src/connector.d \
 ./src/exception.d \
