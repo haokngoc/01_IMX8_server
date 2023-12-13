@@ -17,10 +17,6 @@ private:
     ssize_t n_read_bytes;
     unsigned char buf[5];
     State* currentState;
-
     sockpp::tcp_socket currentSocket;
-
     void parseMsgClient(sockpp::tcp_socket& socket);
-
-
 };

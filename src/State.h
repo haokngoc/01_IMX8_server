@@ -3,9 +3,11 @@
 class MsgHandler; // Forward declaration
 
 class State {
-public:
-    virtual ~State() {}
-    virtual void handle(MsgHandler& handler) = 0;
+	public:
+		virtual ~State() {}
+		virtual void handle(MsgHandler& handler) = 0;
+	private:
+		int currentState;
 };
 
 class WorkState : public State {

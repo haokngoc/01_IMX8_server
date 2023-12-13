@@ -28,8 +28,8 @@ void MsgHandler::handleConnections() {
         parseMsgClient(currentSocket);
 
         // Đóng kết nối với client
-        currentSocket.close();
-        std::cout << "Connection closed from " << peer << std::endl;
+//        currentSocket.close();
+//        std::cout << "Connection closed from " << peer << std::endl;
     }
 }
 
@@ -81,6 +81,9 @@ void MsgHandler::sendDataToClient(const std::vector<char>& data) {
         int n = currentSocket.write(data.data(), data.size());
         if(n<0) {
         	std::cout << "Loi!!!" << std::endl;
+        }
+        else {
+        	std::cout << "Sent data to Client" << std::endl;
         }
     } catch (const std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
