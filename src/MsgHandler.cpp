@@ -1,3 +1,4 @@
+// MsgHandler.cpp
 #include "MsgHandler.h"
 #include <iostream>
 #include <stdexcept>
@@ -18,32 +19,25 @@ MsgHandler::~MsgHandler() {
     pthread_mutex_destroy(&connectionMutex);
 }
 
-void* connectionHandler(void* arg) {
+void* threadHandler(void* arg) {
     MsgHandler* msgHandler = static_cast<MsgHandler*>(arg);
     pthread_t id = pthread_self();
     while (true) {
-
         // Gọi đối tượng MsgHandler để xử lý gói tin từ client
         int ret = msgHandler->parseMsgClient(msgHandler->getCurrentSocket());
         if (ret == -1) {
             // chờ 5s và quay lại vòng lặp nhận tiếp
-            sleep(5);
-            std::cout << id << std::endl;
+            sleep(3);
         }
-        std::cout << id << std::endl;
-        // Tăng giá trị numberconnection sử dụng mutex
         pthread_mutex_lock(&msgHandler->getConnectionMutex());
-        msgHandler->incrementNumberConnection();
-		std::cout << "Number of Connections: " << msgHandler->getNumberConnection() << std::endl;
-		pthread_mutex_unlock(&msgHandler->getConnectionMutex());
+		std::cout << "Number of Connections: " << msgHandler->getNumberConnection() << " ID thread: " << id << std::endl;
 
-//		// kiểm tra số lượng kết nối
-		pthread_mutex_lock(&msgHandler->getConnectionMutex());
-		if(msgHandler->getNumberConnection() == 1) {
-			// lấy id của thread đầu tiên
-			msgHandler->setThread(id);
+		// kiểm tra số lượng kết nối
+		if(msgHandler->getNumberConnection() == 2) {
 			//giảm numberConnection
 			msgHandler->decrementNumberConnection();
+			pthread_mutex_unlock(&msgHandler->getConnectionMutex());
+			pthread_exit(nullptr);
 		}
 		pthread_mutex_unlock(&msgHandler->getConnectionMutex());
 
@@ -57,13 +51,17 @@ void MsgHandler::handleConnections() {
         sockpp::inet_address peer;
         currentSocket = acceptor_.accept(&peer);
 
+        pthread_mutex_lock(&this->getConnectionMutex());
+        this->incrementNumberConnection();
+        pthread_mutex_unlock(&this->getConnectionMutex());
+
         if (!currentSocket) {
             std::cerr << "Error accepting incoming connection: " << acceptor_.last_error_str() << std::endl;
             continue;
         }
         std::cout << "Received a connection request from " << peer << std::endl;
 
-		int result = pthread_create(&thread, nullptr, connectionHandler, this);
+		int result = pthread_create(&thread, nullptr, threadHandler, this);
 		if (result != 0) {
 			std::cerr << "Error creating thread: " << strerror(result) << std::endl;
 		}
@@ -84,17 +82,11 @@ void MsgHandler::incrementNumberConnection() {
     numberConnection++;
 }
 void MsgHandler::decrementNumberConnection() {
-    pthread_mutex_lock(&connectionMutex);
     if (numberConnection > 0) {
         numberConnection--;
     }
-    pthread_mutex_unlock(&connectionMutex);
-}
-void MsgHandler::setThread(pthread_t threadId) {
-
 }
 int MsgHandler::parseMsgClient(sockpp::tcp_socket& socket) {
-
     try {
         // Đọc dữ liệu từ socket
         n_read_bytes = socket.read(buf, sizeof(buf));

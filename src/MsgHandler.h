@@ -1,3 +1,4 @@
+// MsgHandler.h
 #pragma once
 
 #include "State.h"
@@ -12,13 +13,11 @@ public:
     void sendDataToClient(const std::vector<char>& data);
     void transitionToState(State* newState);
     sockpp::tcp_socket& getCurrentSocket();
-    void setCurrentSocket(const sockpp::tcp_socket& socket);
     int parseMsgClient(sockpp::tcp_socket& socket);
     pthread_mutex_t& getConnectionMutex();
     int getNumberConnection();
 	void incrementNumberConnection();
 	void decrementNumberConnection();
-	void setThread(pthread_t threadId);
 private:
     sockpp::tcp_acceptor& acceptor_;
     ssize_t n_read_bytes;
