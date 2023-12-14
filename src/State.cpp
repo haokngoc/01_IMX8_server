@@ -1,9 +1,10 @@
 #include "State.h"
 #include "MsgHandler.h"
+#include "Singleton.h"
 #include <sockpp/tcp_acceptor.h>
 #include <iostream>
 #include <chrono>
-#include <thread> // thư viện sử dụng std::this_thread::sleep_for(std::chrono::seconds(5));
+#include <thread>
 
 struct ThreadData {
     MsgHandler* handler;
@@ -23,11 +24,15 @@ void* sendDataThread(void* data) {
 
     return nullptr;
 }
+void threadFuncionn() {
+	Singleton *singleton = Singleton::getInstance();
+	singleton->calledSingleton();
+}
 
 void WorkState::handle(MsgHandler& handler) {
     std::cout << "Handling work state..." << std::endl;
     // chờ 3s
-    std::this_thread::sleep_for(std::chrono::seconds(3));
+    sleep(3);
     const size_t buffer_size = 2 * 1024 * 1024; // 2MB
 	std::vector<char> buffer(buffer_size, 'A');
 	// thêm dữ liệu cho luồng
@@ -35,7 +40,8 @@ void WorkState::handle(MsgHandler& handler) {
 
 	// tạo một luồng mới để gửi data đến client
 	pthread_t sendThread;
-	if (pthread_create(&sendThread, nullptr, sendDataThread, threadData) != 0) {
+	int ret = pthread_create(&sendThread, nullptr, sendDataThread, threadData);
+	if (ret != 0) {
 			std::cerr << "Failed to create thread." << std::endl;
 			return;
 	}
@@ -44,6 +50,11 @@ void WorkState::handle(MsgHandler& handler) {
 		std::cerr << "Failed to detach thread." << std::endl;
 		return;
 	}
+	// tạo 2 luồng để sử dụng Singleton
+	std::thread t1(threadFuncionn);
+	std::thread t2(threadFuncionn);
+	t1.join();
+	t2.join();
 }
 
 void SleepState::handle(MsgHandler& handler) {
