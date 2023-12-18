@@ -44,9 +44,24 @@ void* threadHandler(void* arg) {
     }
 //		pthread_exit(nullptr);
 }
-
+void* threadCheckState(void* arg) {
+	MsgHandler* msgHandler = static_cast<MsgHandler*>(arg);
+	int currentState = msgHandler->getSate();
+	switch (currentState) {
+		case DET_STATE_WORK:
+			msgHandler->transitionToState(new WorkState());
+			break;
+		case DET_STATE_SLEEP:
+			msgHandler->transitionToState(new SleepState());
+			break;
+		default:
+			break;
+	}
+}
 void MsgHandler::handleConnections() {
 	pthread_t thread;
+	pthread_t stateThread;
+//	int res = pthread_create(&stateThread, nullptr, threadCheckState, this);
     while (true) {
         sockpp::inet_address peer;
         currentSocket = acceptor_.accept(&peer);
@@ -62,11 +77,68 @@ void MsgHandler::handleConnections() {
         std::cout << "Received a connection request from " << peer << std::endl;
 
 		int result = pthread_create(&thread, nullptr, threadHandler, this);
+		pthread_create(&stateThread, nullptr, threadCheckState, this);
 		if (result != 0) {
 			std::cerr << "Error creating thread: " << strerror(result) << std::endl;
 		}
-
 		pthread_detach(thread);
+    }
+}
+
+int MsgHandler::parseMsgClient(sockpp::tcp_socket& socket) {
+    try {
+        // Đọc dữ liệu từ socket
+        n_read_bytes = socket.read(buf, sizeof(buf));
+
+        // Kiểm tra xem đã đọc đúng số byte hay không
+        if (n_read_bytes < sizeof(buf)) {
+            throw std::runtime_error("Not enough bytes read");
+            return -1;
+        }
+
+        // Kiểm tra marker không khớp
+        if (buf[0] != MARKER_HEAD || buf[4] != MARKER_TAIL) {
+            throw std::runtime_error("Invalid markers");
+        }
+        // Xử lý dữ liệu
+        switch (buf[1]) {
+            case DET_STATE_SLEEP:
+            	pthread_mutex_lock(&this->getConnectionMutex());
+            	this->setState(DET_STATE_SLEEP);
+            	pthread_mutex_unlock(&this->getConnectionMutex());
+                break;
+            case DET_STATE_WORK:
+            	pthread_mutex_lock(&this->getConnectionMutex());
+            	this->setState(DET_STATE_WORK);
+            	pthread_mutex_unlock(&this->getConnectionMutex());
+                break;
+            default:
+                break;
+        }
+    } catch (const std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+        return -1;
+    }
+    return 0;
+}
+void MsgHandler::transitionToState(State* newState) {
+    if (currentState != nullptr) {
+        delete currentState;
+    }
+    currentState = newState;
+    currentState->handle(*this);
+}
+void MsgHandler::sendDataToClient(const std::vector<char>& data) {
+    try {
+        // Gửi dữ liệu đến client
+        int n = currentSocket.write(data.data(), data.size());
+        if(n<0) {
+        	std::cout << "Loi!!!" << std::endl;
+        } else {
+        	std::cout << "Sent data to Client" << std::endl;
+        }
+    } catch (const std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
     }
 }
 sockpp::tcp_socket& MsgHandler::getCurrentSocket(){
@@ -86,56 +158,9 @@ void MsgHandler::decrementNumberConnection() {
         numberConnection--;
     }
 }
-int MsgHandler::parseMsgClient(sockpp::tcp_socket& socket) {
-    try {
-        // Đọc dữ liệu từ socket
-        n_read_bytes = socket.read(buf, sizeof(buf));
-
-        // Kiểm tra xem đã đọc đúng số byte hay không
-        if (n_read_bytes < sizeof(buf)) {
-            throw std::runtime_error("Not enough bytes read");
-            return -1;
-        }
-
-        // Kiểm tra marker không khớp
-        if (buf[0] != MARKER_HEAD || buf[4] != MARKER_TAIL) {
-            throw std::runtime_error("Invalid markers");
-        }
-        // Xử lý dữ liệu và chuyển trạng thái
-        switch (buf[1]) {
-            case DET_STATE_SLEEP:
-                transitionToState(new SleepState());
-                break;
-            case DET_STATE_WORK:
-                transitionToState(new WorkState());
-                break;
-            default:
-                break;
-        }
-    } catch (const std::exception& e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
-        return -1;
-    }
-    return 0;
+void MsgHandler::setState(int newSate_) {
+	this->sate = newSate_;
 }
-
-void MsgHandler::transitionToState(State* newState) {
-    if (currentState != nullptr) {
-        delete currentState;
-    }
-    currentState = newState;
-    currentState->handle(*this); // Xử lý chuyển trạng thái ngay sau khi chuyển
-}
-void MsgHandler::sendDataToClient(const std::vector<char>& data) {
-    try {
-        // Gửi dữ liệu đến client
-        int n = currentSocket.write(data.data(), data.size());
-        if(n<0) {
-        	std::cout << "Loi!!!" << std::endl;
-        } else {
-        	std::cout << "Sent data to Client" << std::endl;
-        }
-    } catch (const std::exception& e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
-    }
+int MsgHandler::getSate() const {
+	return sate;
 }

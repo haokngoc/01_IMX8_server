@@ -8,7 +8,6 @@ std::mutex Singleton::mutex_;
 Singleton *Singleton::getInstance(){
 	std::lock_guard<std::mutex> lock(mutex_);
 	if(uniqueInstance == nullptr) {
-
 		// random giá trị index;
 		std::random_device rd;
 		std::default_random_engine engine(rd());

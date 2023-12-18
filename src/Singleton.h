@@ -18,4 +18,5 @@ private:
 	Singleton(const int index) {
 		this->index_ = index;
 	}
+
 };

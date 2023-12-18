@@ -36,20 +36,20 @@ void WorkState::handle(MsgHandler& handler) {
     const size_t buffer_size = 2 * 1024 * 1024; // 2MB
 	std::vector<char> buffer(buffer_size, 'A');
 	// thêm dữ liệu cho luồng
-	ThreadData* threadData = new ThreadData{&handler, buffer};
-
-	// tạo một luồng mới để gửi data đến client
-	pthread_t sendThread;
-	int ret = pthread_create(&sendThread, nullptr, sendDataThread, threadData);
-	if (ret != 0) {
-			std::cerr << "Failed to create thread." << std::endl;
-			return;
-	}
-	// Detach luồng
-	if (pthread_detach(sendThread) != 0) {
-		std::cerr << "Failed to detach thread." << std::endl;
-		return;
-	}
+//	ThreadData* threadData = new ThreadData{&handler, buffer};
+//
+//	// tạo một luồng mới để gửi data đến client
+//	pthread_t sendThread;
+//	int ret = pthread_create(&sendThread, nullptr, sendDataThread, threadData);
+//	if (ret != 0) {
+//			std::cerr << "Failed to create thread." << std::endl;
+//			return;
+//	}
+//	// Detach luồng
+//	if (pthread_detach(sendThread) != 0) {
+//		std::cerr << "Failed to detach thread." << std::endl;
+//		return;
+//	}
 	// tạo 2 luồng để sử dụng Singleton
 	std::thread t1(threadFuncionn);
 	std::thread t2(threadFuncionn);

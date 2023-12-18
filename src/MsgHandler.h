@@ -18,11 +18,15 @@ public:
     int getNumberConnection();
 	void incrementNumberConnection();
 	void decrementNumberConnection();
+	void setState(int newState_);
+	int getSate() const;
+
 private:
     sockpp::tcp_acceptor& acceptor_;
     ssize_t n_read_bytes;
     unsigned char buf[5];
     State* currentState;
+    int sate;
     sockpp::tcp_socket currentSocket;
     int numberConnection;
     pthread_mutex_t connectionMutex;

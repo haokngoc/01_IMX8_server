@@ -6,6 +6,7 @@ class State {
 	public:
 		virtual ~State() {}
 		virtual void handle(MsgHandler& handler) = 0;
+		void setCurrentState(int currentSate_);
 	private:
 		int currentState;
 };

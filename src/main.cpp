@@ -1,4 +1,4 @@
-//
+
 //#include <iostream>
 //#include "sockpp/tcp_acceptor.h"
 //#include "MsgHandler.h"
@@ -114,7 +114,7 @@ uint8_t update_crc_8( unsigned char crc, unsigned char val ) {
 
 }
 
-void parseMsg(const unsigned char *data, ssize_t *number_of_bytes, unsigned short *value, char *id) {
+void parseMsg(const unsigned char *data, size_t *number_of_bytes, unsigned short *value, char *id) {
     // Assuming data contains a format like "%d,%hu,%d,%s"
     sscanf((const char *)data, "%zd,%hu,%s", number_of_bytes, value, id);
 
@@ -170,14 +170,19 @@ void parseMsg(const unsigned char *data, ssize_t *number_of_bytes, unsigned shor
 
 int main() {
     unsigned char data[] = {0x23, 0x02, 0x02, 0x02, 0x02, 0x09, 0xAA};
-    ssize_t numBytes = sizeof(data) / sizeof(data[0]);
-    unsigned short val;
-    char identifier[] = {0x05};
+    size_t numBytes = sizeof(data) / sizeof(data[0]) - 2;
 
+    unsigned short val;
+    char identifier[] = {0x02};
+    unsigned char crcData[numBytes];
+    std::copy(data, data + numBytes, crcData);
     parseMsg(data, &numBytes, &val, identifier);
     uint8_t crc;
-    crc = crc_8(data,numBytes);
-    std::cout << crc << std::endl;
+    crc = crc_8(crcData,numBytes);
+    if(crc == data[5]) {
+    	std::cout << "CRC Match!" << std::endl;
+	} else {
+		std::cout << "CRC Mismatch!" << std::endl;
+	}
     return 0;
 }
-
