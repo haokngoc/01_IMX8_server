@@ -10,7 +10,7 @@ public:
     MsgHandler(sockpp::tcp_acceptor& acceptor);
     ~MsgHandler(); // Hàm hủy để giải phóng bộ nhớ
     void handleConnections();
-    void sendDataToClient(const std::vector<char>& data);
+    void sendDataToClient(const char* data, size_t dataSize);
     void transitionToState(State* newState);
     sockpp::tcp_socket& getCurrentSocket();
     int parseMsgClient(sockpp::tcp_socket& socket);
