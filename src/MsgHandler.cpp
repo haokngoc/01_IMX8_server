@@ -1,166 +1,32 @@
-// MsgHandler.cpp
-#include "MsgHandler.h"
-#include <iostream>
-#include <stdexcept>
-#include <thread>
+#pragma once
 
-#define MARKER_HEAD 0xAA
-#define MARKER_TAIL 0x55
-#define DET_STATE_WORK 0x58
-#define DET_STATE_SLEEP 0x1b
+#include "State.h"
+#include <sockpp/tcp_acceptor.h>
+#include <vector>
 
-MsgHandler::MsgHandler(sockpp::tcp_acceptor& acceptor) : acceptor_(acceptor), currentState(nullptr) {
-	this->numberConnection = 0;
-	pthread_mutex_init(&connectionMutex, nullptr);
-}
+class MsgHandler {
+public:
+    MsgHandler(sockpp::tcp_acceptor& acceptor);
+    ~MsgHandler(); // Hàm hủy để giải phóng bộ nhớ
+    void handleConnections();
+    void sendDataToClient(const char* data, size_t dataSize);
+    void transitionToState(State* newState);
+    sockpp::tcp_socket& getCurrentSocket();
+    int parseMsgClient(sockpp::tcp_socket& socket);
+    pthread_mutex_t& getConnectionMutex();
+    int getNumberConnection();
+	void incrementNumberConnection();
+	void decrementNumberConnection();
+	void setState(int newState_);
+	int getSate() const;
 
-MsgHandler::~MsgHandler() {
-    delete currentState;
-    pthread_mutex_destroy(&connectionMutex);
-}
-
-void* threadHandler(void* arg) {
-    MsgHandler* msgHandler = static_cast<MsgHandler*>(arg);
-    pthread_t id = pthread_self();
-    while (true) {
-        // Gọi đối tượng MsgHandler để xử lý gói tin từ client
-        int ret = msgHandler->parseMsgClient(msgHandler->getCurrentSocket());
-        if (ret == -1) {
-            // chờ 5s và quay lại vòng lặp nhận tiếp
-            sleep(3);
-        }
-        pthread_mutex_lock(&msgHandler->getConnectionMutex());
-		std::cout << "Number of Connections: " << msgHandler->getNumberConnection() << " ID thread: " << id << std::endl;
-
-		// kiểm tra số lượng kết nối
-		if(msgHandler->getNumberConnection() == 2) {
-			//giảm numberConnection
-			msgHandler->decrementNumberConnection();
-			pthread_mutex_unlock(&msgHandler->getConnectionMutex());
-			pthread_exit(nullptr);
-		}
-		pthread_mutex_unlock(&msgHandler->getConnectionMutex());
-
-    }
-//		pthread_exit(nullptr);
-}
-void* threadCheckState(void* arg) {
-	MsgHandler* msgHandler = static_cast<MsgHandler*>(arg);
-	int currentState = msgHandler->getSate();
-	switch (currentState) {
-		case DET_STATE_WORK:
-			msgHandler->transitionToState(new WorkState());
-			break;
-		case DET_STATE_SLEEP:
-			msgHandler->transitionToState(new SleepState());
-			break;
-		default:
-			break;
-	}
-}
-void MsgHandler::handleConnections() {
-	pthread_t thread;
-	pthread_t stateThread;
-//	int res = pthread_create(&stateThread, nullptr, threadCheckState, this);
-    while (true) {
-        sockpp::inet_address peer;
-        currentSocket = acceptor_.accept(&peer);
-
-        pthread_mutex_lock(&this->getConnectionMutex());
-        this->incrementNumberConnection();
-        pthread_mutex_unlock(&this->getConnectionMutex());
-
-        if (!currentSocket) {
-            std::cerr << "Error accepting incoming connection: " << acceptor_.last_error_str() << std::endl;
-            continue;
-        }
-        std::cout << "Received a connection request from " << peer << std::endl;
-
-		int result = pthread_create(&thread, nullptr, threadHandler, this);
-		pthread_create(&stateThread, nullptr, threadCheckState, this);
-		if (result != 0) {
-			std::cerr << "Error creating thread: " << strerror(result) << std::endl;
-		}
-		pthread_detach(thread);
-    }
-}
-
-int MsgHandler::parseMsgClient(sockpp::tcp_socket& socket) {
-    try {
-        // Đọc dữ liệu từ socket
-        n_read_bytes = socket.read(buf, sizeof(buf));
-
-        // Kiểm tra xem đã đọc đúng số byte hay không
-        if (n_read_bytes < sizeof(buf)) {
-            throw std::runtime_error("Not enough bytes read");
-            return -1;
-        }
-
-        // Kiểm tra marker không khớp
-        if (buf[0] != MARKER_HEAD || buf[4] != MARKER_TAIL) {
-            throw std::runtime_error("Invalid markers");
-        }
-        // Xử lý dữ liệu
-        switch (buf[1]) {
-            case DET_STATE_SLEEP:
-            	pthread_mutex_lock(&this->getConnectionMutex());
-            	this->setState(DET_STATE_SLEEP);
-            	pthread_mutex_unlock(&this->getConnectionMutex());
-                break;
-            case DET_STATE_WORK:
-            	pthread_mutex_lock(&this->getConnectionMutex());
-            	this->setState(DET_STATE_WORK);
-            	pthread_mutex_unlock(&this->getConnectionMutex());
-                break;
-            default:
-                break;
-        }
-    } catch (const std::exception& e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
-        return -1;
-    }
-    return 0;
-}
-void MsgHandler::transitionToState(State* newState) {
-    if (currentState != nullptr) {
-        delete currentState;
-    }
-    currentState = newState;
-    currentState->handle(*this);
-}
-void MsgHandler::sendDataToClient(const std::vector<char>& data) {
-    try {
-        // Gửi dữ liệu đến client
-        int n = currentSocket.write(data.data(), data.size());
-        if(n<0) {
-        	std::cout << "Loi!!!" << std::endl;
-        } else {
-        	std::cout << "Sent data to Client" << std::endl;
-        }
-    } catch (const std::exception& e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
-    }
-}
-sockpp::tcp_socket& MsgHandler::getCurrentSocket(){
-	return currentSocket;
-}
-pthread_mutex_t& MsgHandler::getConnectionMutex() {
-    return connectionMutex;
-}
-int MsgHandler::getNumberConnection() {
-    return numberConnection;
-}
-void MsgHandler::incrementNumberConnection() {
-    numberConnection++;
-}
-void MsgHandler::decrementNumberConnection() {
-    if (numberConnection > 0) {
-        numberConnection--;
-    }
-}
-void MsgHandler::setState(int newSate_) {
-	this->sate = newSate_;
-}
-int MsgHandler::getSate() const {
-	return sate;
-}
+private:
+    sockpp::tcp_acceptor& acceptor_;
+    ssize_t n_read_bytes;
+    unsigned char buf[5];
+    State* currentState;
+    int sate;
+    sockpp::tcp_socket currentSocket;
+    int numberConnection;
+    pthread_mutex_t connectionMutex;
+};
