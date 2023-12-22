@@ -9,6 +9,9 @@
 #include <openssl/evp.h>
 #include <openssl/rand.h>
 #include <iomanip>
+
+#define SIZE_RECV 1024
+#define BUFFER_SIZE (2 * 1024 *1024)
 using namespace std;
 typedef struct _CMD_PACKET {
    char HeadMarker;
@@ -17,6 +20,8 @@ typedef struct _CMD_PACKET {
    char Param2;
    char TailMarker;
 } CMD_PACKET, *PCMD_PACKET;
+
+
 void computeMD5File(const char* filename, unsigned char* md5sum) {
    std::ifstream file(filename, std::ios::binary);
    if (!file.is_open()) {
@@ -29,7 +34,7 @@ void computeMD5File(const char* filename, unsigned char* md5sum) {
    MD5_Init(&md5Context);
 
 
-   char buffer[2 * 1024 *1024];
+   char buffer[BUFFER_SIZE];
    while (file.read(buffer, sizeof(buffer))) {
        MD5_Update(&md5Context, buffer, file.gcount());
    }
@@ -94,9 +99,9 @@ int main() {
 
 
    // Nhận buffer 2MB từ server
-   const size_t buffer_size = 2 * 1024 *1024 ;  // 2MB
+   const size_t buffer_size = BUFFER_SIZE ;  // 2MB
    //const size_t buffer_size = 5;
-   char receive_buffer[1024];
+   char receive_buffer[SIZE_RECV];
    ssize_t totalReceived = 0;
 
 
@@ -117,10 +122,6 @@ int main() {
        output_stream.write(receive_buffer, bytes_received);
        totalReceived += bytes_received;
        std::cout << "Received " << bytes_received << " bytes. Total received: " << totalReceived << std::endl;
-       if (totalReceived == 2097152)
-       {
-           break;
-       }
       
    }
   
