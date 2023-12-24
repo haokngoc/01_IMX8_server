@@ -13,8 +13,8 @@
 #define DET_STATE_WORK 0x58
 #define DET_STATE_SLEEP 0x1b
 #define DET_STATE_CLOSE 0x2b
-#define CHUNK_SIZE 1024
-#define BUFFER_SIZE (2 * 1024 * 1024)
+#define CHUNK_SIZE 1024*30
+#define BUFFER_SIZE (21 * 1024 * 1024)
 #define TIMEOUT_MICRO_SECONDS 100000000000
 
 Mgard300_Handler::Mgard300_Handler(sockpp::tcp_acceptor& acceptor) : acceptor_(acceptor), current_state(nullptr) {
@@ -150,7 +150,7 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
         const size_t chunk_size = CHUNK_SIZE;
         size_t remaining_size = data_size;
         size_t offset = 0;
-
+        size_t total_sent = 0;
         while (remaining_size > 0) {
             // Xác định kích thước của chunk cho lần gửi
             size_t current_chunk_size = std::min(chunk_size, remaining_size);
@@ -158,16 +158,23 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
             // Gửi chunk đến client
             int n = this->current_socket.write_n(data + offset, current_chunk_size);
 
-            std::cout << n << " bytes sent in this chunk." << std::endl;
-
             if (n < 0) {
                 std::cerr << "Error sending data to client!" << std::endl;
-                break; // Thoát khỏi vòng lặp nếu có lỗi
+                throw std::runtime_error("Error sending data to client");
             }
 
             // Cập nhật offset và remaining_size cho chunk tiếp theo
             offset += n;
             remaining_size -= n;
+            total_sent += n;
+            // Kiểm tra kích thước chunk cuối cùng
+            if (remaining_size <= 0 && offset != data_size) {
+                std::cerr << "Error: Incomplete last chunk sent to client!" << std::endl;
+                throw std::runtime_error("Incomplete last chunk sent to client");
+            }
+
+            // Hiển thị số byte còn lại
+            std::cout << "Remaining bytes: " << remaining_size << " | Total sent: " << total_sent << std::endl;
         }
 
         std::cout << "Sent all data to Client" << std::endl;
@@ -175,6 +182,7 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
 }
+
 
 // --------------------------------------------------------------------------
 
@@ -219,5 +227,3 @@ int Mgard300_Handler::get_state() {
     pthread_mutex_unlock(&this->get_connection_mutex());
     return result;
 }
-
-

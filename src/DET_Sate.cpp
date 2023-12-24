@@ -10,9 +10,8 @@
 #include "DET_State.h"
 #include "Mgard300_Handler.h"
 
-#define CHUNK_SIZE 1024
-#define BUFFER_SIZE (2 * 1024 * 1024)
-
+#define BUFFER_SIZE (21 * 1024 * 1024)
+#define BUFFER_CAL_MD5 50*1024
 struct ThreadData {
 	Mgard300_Handler *handler;
 	const char *buffer;
@@ -49,7 +48,7 @@ void compute_md5_file(const char *filename, unsigned char *md5sum) {
 	MD5_CTX md5_context;
 	MD5_Init(&md5_context);
 
-	char buffer[BUFFER_SIZE];
+	char buffer[BUFFER_CAL_MD5];
 	while (file.read(buffer, sizeof(buffer))) {
 		MD5_Update(&md5_context, buffer, file.gcount());
 	}
@@ -64,7 +63,7 @@ void WorkState::handle(Mgard300_Handler &handler) {
 	// chờ 3s
 	sleep(3);
 	char *buffer = new char[BUFFER_SIZE];
-	std::fill_n(buffer, BUFFER_SIZE, 'C');
+	std::fill_n(buffer, BUFFER_SIZE, 'a');
 	// thêm dữ liệu cho luồng
 	ThreadData *thread_data = new ThreadData { &handler, buffer, BUFFER_SIZE };
 
@@ -82,7 +81,7 @@ void WorkState::handle(Mgard300_Handler &handler) {
 		return;
 	}
 	// ghi dữ liệu vào file
-	std::ofstream output_file("output.bin", std::ios::binary);
+	std::ofstream output_file("data.bin", std::ios::binary);
 	if (!output_file.is_open()) {
 		std::cerr << "Failed to open output file." << std::endl;
 	}
@@ -94,7 +93,7 @@ void WorkState::handle(Mgard300_Handler &handler) {
 	std::cout << "Computing MD5 checksum..." << std::endl;
 #endif
 	unsigned char md5sum[MD5_DIGEST_LENGTH];
-	compute_md5_file("output.bin", md5sum);
+	compute_md5_file("data.bin", md5sum);
 
 #ifdef DEBUG
 	// In ra giá trị MD5 checksum trong chế độ debug
