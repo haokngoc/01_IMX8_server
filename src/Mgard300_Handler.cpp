@@ -37,7 +37,6 @@ void* handler_parse_msg_thread(void* arg) {
         // Gọi đối tượng MsgHandler để phân tích gói tin từ client
 
         int ret = mgard300_Handler->parse_msg_client(mgard300_Handler->get_current_socket());
-        pthread_mutex_lock(&mgard300_Handler->get_connection_mutex());
         std::cout << "Number of Connections: " << mgard300_Handler->get_number_connection() << " ID thread: " << id << std::endl;
         if(ret == -1) {
         	sleep(3);
@@ -46,19 +45,15 @@ void* handler_parse_msg_thread(void* arg) {
         if (mgard300_Handler->get_number_connection() == 2) {
             // giảm number_connection
         	mgard300_Handler->decrement_number_connection();
-        	pthread_mutex_unlock(&mgard300_Handler->get_connection_mutex());
             pthread_exit(nullptr);
         }
-        pthread_mutex_unlock(&mgard300_Handler->get_connection_mutex());
     }
 }
 
 // tạo hàm để luồng check state thực hiện
 void* check_state_thread(void* arg) {
 	Mgard300_Handler* mgard300_Handler = static_cast<Mgard300_Handler*>(arg);
-	pthread_mutex_lock(&mgard300_Handler->get_connection_mutex());
     int current_state = mgard300_Handler->get_state();
-    pthread_mutex_unlock(&mgard300_Handler->get_connection_mutex());
     switch (current_state) {
         case DET_STATE_WORK:
         	mgard300_Handler->transition_to_state(new WorkState());
@@ -85,10 +80,7 @@ void Mgard300_Handler::handle_connections() {
         this->current_socket = this->acceptor_.accept(&peer);
         //this->current_socket.read_timeout(timeoutMicroseconds);
 
-        pthread_mutex_lock(&this->get_connection_mutex());
         this->increment_number_connection();
-        pthread_mutex_unlock(&this->get_connection_mutex());
-
         if (!this->current_socket) {
             std::cerr << "Error accepting incoming connection: " << acceptor_.last_error_str() << std::endl;
             continue;
@@ -187,9 +179,7 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
 // --------------------------------------------------------------------------
 
 sockpp::tcp_socket& Mgard300_Handler::get_current_socket() {
-//	pthread_mutex_lock(&this->get_connection_mutex());
     return this->current_socket;
-//    pthread_mutex_unlock(&this->get_connection_mutex());
 }
 
 pthread_mutex_t& Mgard300_Handler::get_connection_mutex() {
@@ -197,34 +187,37 @@ pthread_mutex_t& Mgard300_Handler::get_connection_mutex() {
 }
 
 int Mgard300_Handler::get_number_connection() {
-//	pthread_mutex_lock(&this->get_connection_mutex());
-    return this->number_connection;
-//    pthread_mutex_unlock(&this->get_connection_mutex());
+	pthread_mutex_lock(&this->get_connection_mutex());
+    int result = this->number_connection;
+    pthread_mutex_unlock(&this->get_connection_mutex());
+    return result;
 }
 
 void Mgard300_Handler::increment_number_connection() {
-//	pthread_mutex_lock(&this->get_connection_mutex());
+	pthread_mutex_lock(&this->get_connection_mutex());
     this->number_connection++;
-//    pthread_mutex_unlock(&this->get_connection_mutex());
+    pthread_mutex_unlock(&this->get_connection_mutex());
 }
 
 void Mgard300_Handler::decrement_number_connection() {
-
+	pthread_mutex_lock(&this->get_connection_mutex());
     if (this->number_connection > 0) {
-//    	pthread_mutex_lock(&this->get_connection_mutex());
         this->number_connection--;
-//        pthread_mutex_unlock(&this->get_connection_mutex());
     }
+    pthread_mutex_unlock(&this->get_connection_mutex());
 }
 
 void Mgard300_Handler::set_state(int new_state_) {
-//	pthread_mutex_lock(&this->get_connection_mutex());
+	pthread_mutex_lock(&this->get_connection_mutex());
     this->state = new_state_;
-//    pthread_mutex_unlock(&this->get_connection_mutex());
+    pthread_mutex_unlock(&this->get_connection_mutex());
 }
 
 int Mgard300_Handler::get_state() {
-//	pthread_mutex_lock(&this->get_connection_mutex());
-    return this->state;
-//    pthread_mutex_unlock(&this->get_connection_mutex());
+	pthread_mutex_lock(&this->get_connection_mutex());
+    int result = this->state;
+    pthread_mutex_unlock(&this->get_connection_mutex());
+    return result;
 }
+
+
