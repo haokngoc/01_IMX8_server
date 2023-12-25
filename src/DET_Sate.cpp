@@ -11,7 +11,7 @@
 #include "Mgard300_Handler.h"
 
 #define BUFFER_SIZE (21 * 1024 * 1024)
-#define BUFFER_CAL_MD5 50*1024
+#define BUFFER_CAL_MD5 100*1024
 struct ThreadData {
 	Mgard300_Handler *handler;
 	const char *buffer;
