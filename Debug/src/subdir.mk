@@ -3,9 +3,14 @@
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
+CC_SRCS += \
+../src/test.cc 
+
 CPP_SRCS += \
-../src/MsgHandler.cpp \
-../src/State.cpp \
+../src/DET_Sate.cpp \
+../src/Mgard300_Handler.cpp \
+../src/PowerMonitor.cpp \
+../src/Singleton.cpp \
 ../src/acceptor.cpp \
 ../src/connector.cpp \
 ../src/exception.cpp \
@@ -15,9 +20,14 @@ CPP_SRCS += \
 ../src/socket.cpp \
 ../src/stream_socket.cpp 
 
+CC_DEPS += \
+./src/test.d 
+
 OBJS += \
-./src/MsgHandler.o \
-./src/State.o \
+./src/DET_Sate.o \
+./src/Mgard300_Handler.o \
+./src/PowerMonitor.o \
+./src/Singleton.o \
 ./src/acceptor.o \
 ./src/connector.o \
 ./src/exception.o \
@@ -25,11 +35,14 @@ OBJS += \
 ./src/main.o \
 ./src/result.o \
 ./src/socket.o \
-./src/stream_socket.o 
+./src/stream_socket.o \
+./src/test.o 
 
 CPP_DEPS += \
-./src/MsgHandler.d \
-./src/State.d \
+./src/DET_Sate.d \
+./src/Mgard300_Handler.d \
+./src/PowerMonitor.d \
+./src/Singleton.d \
 ./src/acceptor.d \
 ./src/connector.d \
 ./src/exception.d \
@@ -44,7 +57,14 @@ CPP_DEPS += \
 src/%.o: ../src/%.cpp src/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -I"/home/hk/eclipse-workspace/01_IMX8_Server_x86/include" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	g++ -DDEBUG -I"/home/hk/eclipse-workspace/01_IMX8_Server_x86/include" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+src/%.o: ../src/%.cc src/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GCC C++ Compiler'
+	g++ -DDEBUG -I"/home/hk/eclipse-workspace/01_IMX8_Server_x86/include" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
