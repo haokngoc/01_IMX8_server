@@ -1,7 +1,8 @@
 
 #include <iostream>
 #include "sockpp/tcp_acceptor.h"
-#include "MsgHandler.h"
+
+#include "Mgard300_Handler.h"
 
 #define Battery_Voltage 0x01
 #define Battery_Current 0x02
@@ -19,7 +20,7 @@ int main(int argc, char* argv[]) {
     in_port_t port = 1024;
     sockpp::initialize();
     sockpp::tcp_acceptor acc(port);
-
+    // set timeout
     if (!acc) {
         std::cerr << "Error creating the acceptor: " << acc.last_error_str() << std::endl;
         return 1;
@@ -28,8 +29,8 @@ int main(int argc, char* argv[]) {
     std::cout << "Awaiting connections on port " << port << "..." << std::endl;
 
     // Create MsgHandler object and handle connections
-    MsgHandler msgHandler(acc);
-    msgHandler.handle_connections();
+    Mgard300_Handler mgard300_Handler(acc);
+    mgard300_Handler.handle_connections();
 
     return 0;
 

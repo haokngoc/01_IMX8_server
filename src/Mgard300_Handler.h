@@ -3,7 +3,7 @@
 #include <sockpp/tcp_acceptor.h>
 #include <vector>
 #include "DET_State.h"
-
+#include <queue>
 class Mgard300_Handler {
 public:
 	// Constructor: Khởi tạo đối tượng MsgHandler với một TCP acceptor
@@ -18,15 +18,14 @@ public:
     int get_number_connection();
     void increment_number_connection();
     void decrement_number_connection();
-    void set_state(int new_state);
     int get_state();
-
+    void set_state(int new_state_);
 private:
     sockpp::tcp_acceptor& acceptor_;
     ssize_t n_read_bytes;
     unsigned char buf[5];
     DET_State* current_state;
-    int state;
+    std::queue<int> state;
     sockpp::tcp_socket current_socket;
     int number_connection;
     pthread_mutex_t connection_mutex;

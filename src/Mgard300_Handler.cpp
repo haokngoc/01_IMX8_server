@@ -7,7 +7,7 @@
 #include <openssl/evp.h>
 #include <openssl/rand.h>
 #include <iomanip>
-
+#include <queue>
 #define MARKER_HEAD 0xAA
 #define MARKER_TAIL 0x55
 #define DET_STATE_WORK 0x58
@@ -53,19 +53,21 @@ void* handler_parse_msg_thread(void* arg) {
 // tạo hàm để luồng check state thực hiện
 void* check_state_thread(void* arg) {
 	Mgard300_Handler* mgard300_Handler = static_cast<Mgard300_Handler*>(arg);
-    int current_state = mgard300_Handler->get_state();
-    switch (current_state) {
-        case DET_STATE_WORK:
-        	mgard300_Handler->transition_to_state(new WorkState());
-            break;
-        case DET_STATE_SLEEP:
-        	mgard300_Handler->transition_to_state(new SleepState());
-            break;
-        case DET_STATE_CLOSE:
-        	mgard300_Handler->transition_to_state(new CloseState());
-        default:
-            break;
-    }
+	while(true) {
+	    int current_state = mgard300_Handler->get_state();
+	    switch (current_state) {
+	        case DET_STATE_WORK:
+	        	mgard300_Handler->transition_to_state(new WorkState());
+	            break;
+	        case DET_STATE_SLEEP:
+	        	mgard300_Handler->transition_to_state(new SleepState());
+	            break;
+	        case DET_STATE_CLOSE:
+	        	mgard300_Handler->transition_to_state(new CloseState());
+	        default:
+	            break;
+	    }
+	}
 }
 
 // --------------------------------------------------------------------------
@@ -214,16 +216,19 @@ void Mgard300_Handler::decrement_number_connection() {
     }
     pthread_mutex_unlock(&this->get_connection_mutex());
 }
-
-void Mgard300_Handler::set_state(int new_state_) {
-	pthread_mutex_lock(&this->get_connection_mutex());
-    this->state = new_state_;
-    pthread_mutex_unlock(&this->get_connection_mutex());
-}
-
 int Mgard300_Handler::get_state() {
+	int state;
 	pthread_mutex_lock(&this->get_connection_mutex());
-    int result = this->state;
-    pthread_mutex_unlock(&this->get_connection_mutex());
-    return result;
+	if (!this->state.empty()) {
+		state = this->state.front();
+		this->state.pop();
+	} else {
+		state = -1;
+	}
+	pthread_mutex_unlock(&this->get_connection_mutex());
+	return state;
 }
+void Mgard300_Handler::set_state(int new_state_) {
+	this->state.push(new_state_);
+}
+
