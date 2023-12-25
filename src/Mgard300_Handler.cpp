@@ -8,13 +8,13 @@
 #include <openssl/rand.h>
 #include <iomanip>
 #include <queue>
+#include "Common.h"
 #define MARKER_HEAD 0xAA
 #define MARKER_TAIL 0x55
 #define DET_STATE_WORK 0x58
 #define DET_STATE_SLEEP 0x1b
 #define DET_STATE_CLOSE 0x2b
 #define CHUNK_SIZE 1024*30
-#define BUFFER_SIZE (21 * 1024 * 1024)
 #define TIMEOUT_MICRO_SECONDS 100000000000
 
 Mgard300_Handler::Mgard300_Handler(sockpp::tcp_acceptor& acceptor) : acceptor_(acceptor), current_state(nullptr) {
@@ -51,11 +51,11 @@ void* handler_parse_msg_thread(void* arg) {
 }
 
 // tạo hàm để luồng check state thực hiện
-void* check_state_thread(void* arg) {
+void* execute_cmd_thread(void* arg) {
 	Mgard300_Handler* mgard300_Handler = static_cast<Mgard300_Handler*>(arg);
 	while(true) {
-	    int current_state = mgard300_Handler->get_state();
-	    switch (current_state) {
+	    int q_execute_cmd = mgard300_Handler->get_state();
+	    switch (q_execute_cmd) {
 	        case DET_STATE_WORK:
 	        	mgard300_Handler->transition_to_state(new WorkState());
 	            break;
@@ -90,7 +90,7 @@ void Mgard300_Handler::handle_connections() {
         std::cout << "Received a connection request from " << peer << std::endl;
 
         int result = pthread_create(&parse_thread, nullptr, handler_parse_msg_thread, this);
-        pthread_create(&checkstate_thread, nullptr, check_state_thread, this);
+        pthread_create(&checkstate_thread, nullptr, execute_cmd_thread, this);
         if (result != 0) {
             std::cerr << "Error creating thread: " << strerror(result) << std::endl;
         }
@@ -217,20 +217,20 @@ void Mgard300_Handler::decrement_number_connection() {
     pthread_mutex_unlock(&this->get_connection_mutex());
 }
 int Mgard300_Handler::get_state() {
-	int state;
+	int q_execute_cmd;
 	pthread_mutex_lock(&this->get_connection_mutex());
-	if (!this->state.empty()) {
-		state = this->state.front();
-		this->state.pop();
+	if (!this->q_execute_cmd.empty()) {
+		q_execute_cmd = this->q_execute_cmd.front();
+		this->q_execute_cmd.pop();
 	} else {
-		state = -1;
+		q_execute_cmd = -1;
 	}
 	pthread_mutex_unlock(&this->get_connection_mutex());
-	return state;
+	return q_execute_cmd;
 }
 void Mgard300_Handler::set_state(int new_state_) {
 	pthread_mutex_lock(&this->get_connection_mutex());
-	this->state.push(new_state_);
+	this->q_execute_cmd.push(new_state_);
 	pthread_mutex_unlock(&this->get_connection_mutex());
 }
 

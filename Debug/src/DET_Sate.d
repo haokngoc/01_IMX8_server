@@ -1,4 +1,5 @@
-src/DET_Sate.o: ../src/DET_Sate.cpp ../src/Singleton.h \
+src/DET_Sate.o: ../src/DET_Sate.cpp ../src/DET_State.h \
+ ../src/Mgard300_Handler.h \
  /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/tcp_acceptor.h \
  /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/acceptor.h \
  /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/inet_address.h \
@@ -8,8 +9,9 @@ src/DET_Sate.o: ../src/DET_Sate.cpp ../src/Singleton.h \
  /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/socket.h \
  /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/result.h \
  /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/tcp_socket.h \
- ../src/DET_State.h ../src/Mgard300_Handler.h
-../src/Singleton.h:
+ ../src/PRB_IMG.h ../src/Common.h
+../src/DET_State.h:
+../src/Mgard300_Handler.h:
 /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/tcp_acceptor.h:
 /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/acceptor.h:
 /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/inet_address.h:
@@ -19,5 +21,5 @@ src/DET_Sate.o: ../src/DET_Sate.cpp ../src/Singleton.h \
 /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/socket.h:
 /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/result.h:
 /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/tcp_socket.h:
-../src/DET_State.h:
-../src/Mgard300_Handler.h:
+../src/PRB_IMG.h:
+../src/Common.h:

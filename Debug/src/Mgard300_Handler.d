@@ -9,7 +9,7 @@ src/Mgard300_Handler.o: ../src/Mgard300_Handler.cpp \
  /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/socket.h \
  /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/result.h \
  /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/tcp_socket.h \
- ../src/DET_State.h
+ ../src/DET_State.h ../src/Common.h
 ../src/Mgard300_Handler.h:
 /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/tcp_acceptor.h:
 /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/acceptor.h:
@@ -21,3 +21,4 @@ src/Mgard300_Handler.o: ../src/Mgard300_Handler.cpp \
 /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/result.h:
 /home/hk/eclipse-workspace/01_IMX8_Server_x86/include/sockpp/tcp_socket.h:
 ../src/DET_State.h:
+../src/Common.h:

@@ -25,7 +25,7 @@ private:
     ssize_t n_read_bytes;
     unsigned char buf[5];
     DET_State* current_state;
-    std::queue<int> state;
+    std::queue<int> q_execute_cmd;
     sockpp::tcp_socket current_socket;
     int number_connection;
     pthread_mutex_t connection_mutex;

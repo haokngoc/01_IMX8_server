@@ -1,4 +1,5 @@
-#include "Singleton.h"
+#include "DET_State.h"
+#include "Mgard300_Handler.h"
 #include <sockpp/tcp_acceptor.h>
 #include <iostream>
 #include <chrono>
@@ -6,11 +7,9 @@
 #include <fstream>
 #include <openssl/md5.h>
 #include <iomanip>
+#include "PRB_IMG.h"
+#include "Common.h"
 
-#include "DET_State.h"
-#include "Mgard300_Handler.h"
-
-#define BUFFER_SIZE (21 * 1024 * 1024)
 #define BUFFER_CAL_MD5 50*1024
 struct ThreadData {
 	Mgard300_Handler *handler;
@@ -20,7 +19,6 @@ struct ThreadData {
 
 void* send_data_thread(void *data) {
 	ThreadData *thread_data = static_cast<ThreadData*>(data);
-
 	try {
 		thread_data->handler->send_data_to_client(thread_data->buffer,
 				thread_data->buffer_size);
@@ -34,8 +32,8 @@ void* send_data_thread(void *data) {
 }
 
 void thread_function() {
-	Singleton *singleton = Singleton::getInstance();
-	singleton->calledSingleton();
+	PRB_IMG *pPRB_IMG = PRB_IMG::getInstance();
+	pPRB_IMG->calledPRB_IMG();
 }
 
 void compute_md5_file(const char *filename, unsigned char *md5sum) {
@@ -62,8 +60,17 @@ void WorkState::handle(Mgard300_Handler &handler) {
 	std::cout << "Handling work state..." << std::endl;
 	// chờ 3s
 	sleep(3);
+	PRB_IMG * pPRB_IMG = PRB_IMG::getInstance();
+	// generate data
+	pPRB_IMG->IMG_acquire();
 	char *buffer = new char[BUFFER_SIZE];
-	std::fill_n(buffer, BUFFER_SIZE, 'a');
+	int result = pPRB_IMG->get_IMG(buffer);
+
+    if (result != 1) {
+        std::cerr << "Failed to get data from PRB." << std::endl;
+        delete[] buffer;
+        return;
+    }
 	// thêm dữ liệu cho luồng
 	ThreadData *thread_data = new ThreadData { &handler, buffer, BUFFER_SIZE };
 
