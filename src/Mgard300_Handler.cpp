@@ -229,6 +229,8 @@ int Mgard300_Handler::get_state() {
 	return state;
 }
 void Mgard300_Handler::set_state(int new_state_) {
+	pthread_mutex_lock(&this->get_connection_mutex());
 	this->state.push(new_state_);
+	pthread_mutex_unlock(&this->get_connection_mutex());
 }
 
