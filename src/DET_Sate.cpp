@@ -23,7 +23,9 @@ void* send_data_thread(void *data) {
 		thread_data->handler->send_data_to_client(thread_data->buffer,
 				thread_data->buffer_size);
 	} catch (const std::exception &e) {
+#ifdef DEBUG
 		std::cerr << "Exception in send_data_thread: " << e.what() << std::endl;
+#endif
 	}
 
 	delete thread_data;
@@ -35,7 +37,7 @@ void thread_function() {
 	PRB_IMG *pPRB_IMG = PRB_IMG::getInstance();
 	pPRB_IMG->calledPRB_IMG();
 }
-
+#ifdef DEBUG
 void compute_md5_file(const char *filename, unsigned char *md5sum) {
 	std::ifstream file(filename, std::ios::binary);
 	if (!file.is_open()) {
@@ -55,7 +57,7 @@ void compute_md5_file(const char *filename, unsigned char *md5sum) {
 
 	file.close();
 }
-
+#endif
 void WorkState::handle(Mgard300_Handler &handler) {
 	std::cout << "Handling work state..." << std::endl;
 	// chờ 3s
@@ -98,11 +100,10 @@ void WorkState::handle(Mgard300_Handler &handler) {
 #ifdef DEBUG
 	// Thêm thông báo debug cho tính toán MD5 checksum
 	std::cout << "Computing MD5 checksum..." << std::endl;
-#endif
 	unsigned char md5sum[MD5_DIGEST_LENGTH];
 	compute_md5_file("data.bin", md5sum);
 
-#ifdef DEBUG
+
 	// In ra giá trị MD5 checksum trong chế độ debug
 	std::cout << "MD5 checksum: ";
 	for (int i = 0; i < MD5_DIGEST_LENGTH; ++i) {
