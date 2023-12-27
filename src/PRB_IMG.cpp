@@ -36,7 +36,6 @@ int PRB_IMG::IMG_acquire() {
 }
 int PRB_IMG::get_IMG(char* buf) {
 	pthread_mutex_lock(&this->get_connection_mutex());
-	// Sao chép dữ liệu từ img_buf vào buf
 	std::memcpy(buf, img_buf, BUFFER_SIZE);
 	pthread_mutex_unlock(&this->get_connection_mutex());
 	return 1;
