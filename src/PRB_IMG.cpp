@@ -13,6 +13,7 @@ PRB_IMG* PRB_IMG::uniqueInstance{nullptr};
 
 PRB_IMG *PRB_IMG::getInstance(){
 	if(uniqueInstance == nullptr) {
+		
 		// random giá trị index;
 		std::random_device rd;
 		std::default_random_engine engine(rd());

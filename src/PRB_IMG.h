@@ -4,7 +4,6 @@
 #define BUFFER_SIZE (21 * 1024 * 1024)
 class PRB_IMG {
 public:
-
 	PRB_IMG(PRB_IMG &other) = delete;
 	void operator=(const PRB_IMG &) = delete;
 	static PRB_IMG * getInstance();
