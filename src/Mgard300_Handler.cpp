@@ -70,6 +70,23 @@ void* execute_cmd_thread(void* arg) {
 	}
 }
 
+int Mgard300_Handler::send_msg(int cmd, unsigned char param0, unsigned char param1) {
+	unsigned char buf[5];
+	buf[0] = MARKER_HEAD;
+	buf[1] = static_cast<unsigned char>(cmd);
+	buf[2] = param0;
+	buf[3] = param1;
+	buf[4] = MARKER_TAIL;
+	int n = this->get_current_socket().write_n(buf, 5);
+	if(n<0) {
+		std::cerr << "Error sending data to client!" << std::endl;
+		return -1;
+	} else {
+		std::cout << "Sent 5 bytes to client" << std::endl;
+	}
+	return n;
+}
+
 // --------------------------------------------------------------------------
 
 void Mgard300_Handler::handle_connections() {
@@ -103,20 +120,23 @@ void Mgard300_Handler::handle_connections() {
 int Mgard300_Handler::parse_msg_client(sockpp::tcp_socket& socket) {
     try {
         // Đọc dữ liệu từ socket
-        this->n_read_bytes = socket.read(buf, sizeof(buf));
+        this->n_read_bytes = socket.read(this->buf, sizeof(this->buf));
 
         // Kiểm tra xem đã đọc đúng số byte hay không
-        if (this->n_read_bytes < sizeof(buf)) {
+
+        if (this->n_read_bytes < sizeof(this->buf)) {
             throw std::runtime_error("Not enough bytes read");
             return -1;
         }
 
+#ifdef DEBUG
         // Kiểm tra marker không khớp
         if (buf[0] != MARKER_HEAD || buf[4] != MARKER_TAIL) {
             throw std::runtime_error("Invalid markers");
         }
+#endif
         // Xử lý dữ liệu
-        switch (buf[1]) {
+        switch (this->buf[1]) {
             case DET_STATE_SLEEP:
                 this->set_state(DET_STATE_SLEEP);
                 break;
@@ -128,10 +148,16 @@ int Mgard300_Handler::parse_msg_client(sockpp::tcp_socket& socket) {
             default:
                 break;
         }
+        // gui lai 5 byte den client
+        this->send_msg(this->buf[1], this->buf[2], this->buf[3]);
+
     } catch (const std::exception& e) {
+#ifdef DEBUG
         std::cerr << "Exception: " << e.what() << std::endl;
+#endif
         return -1;
     }
+
     return 0;
 }
 
@@ -159,29 +185,33 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
 
             // Gửi chunk đến client
             int n = this->current_socket.write_n(data + offset, current_chunk_size);
-
+#ifdef DEBUG
             if (n < 0) {
                 std::cerr << "Error sending data to client!" << std::endl;
                 throw std::runtime_error("Error sending data to client");
             }
-
+#endif
             // Cập nhật offset và remaining_size cho chunk tiếp theo
             offset += n;
             remaining_size -= n;
             total_sent += n;
             // Kiểm tra kích thước chunk cuối cùng
+#ifdef DEBUG
             if (remaining_size <= 0 && offset != data_size) {
                 std::cerr << "Error: Incomplete last chunk sent to client!" << std::endl;
                 throw std::runtime_error("Incomplete last chunk sent to client");
             }
-
             // Hiển thị số byte còn lại
+
             std::cout << "Remaining bytes: " << remaining_size << " | Total sent: " << total_sent << std::endl;
+#endif
         }
 
         std::cout << "Sent all data to Client" << std::endl;
     } catch (const std::exception& e) {
+#ifdef DEBUG
         std::cerr << "Exception: " << e.what() << std::endl;
+#endif
     }
 }
 

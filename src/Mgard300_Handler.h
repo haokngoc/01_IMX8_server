@@ -20,6 +20,7 @@ public:
     void decrement_number_connection();
     int get_state();
     void set_state(int new_state_);
+    int send_msg(int cmd, unsigned char param0, unsigned char param1);
 private:
     sockpp::tcp_acceptor& acceptor_;
     ssize_t n_read_bytes;
