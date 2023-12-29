@@ -1,6 +1,6 @@
 #pragma once
 
-class Mgard300_Handler; // Forward declaration
+class Mgard300_Handler;
 
 class DET_State {
 public:
@@ -22,6 +22,10 @@ public:
 };
 
 class CloseState : public DET_State {
+public:
+	void handle(Mgard300_Handler& handler) override;
+};
+class TriggerState : public DET_State {
 public:
 	void handle(Mgard300_Handler& handler) override;
 };
