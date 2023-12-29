@@ -21,6 +21,9 @@ public:
     int get_state();
     void set_state(int new_state_);
     int send_msg(int cmd, unsigned char param0, unsigned char param1);
+	bool get_is_client_closed();
+	void set_is_client_closed(bool isClientClosed);
+
 private:
     sockpp::tcp_acceptor& acceptor_;
     ssize_t n_read_bytes;
@@ -30,4 +33,5 @@ private:
     sockpp::tcp_socket current_socket;
     int number_connection;
     pthread_mutex_t connection_mutex;
+    bool is_client_closed;
 };

@@ -9,13 +9,7 @@
 #include <iomanip>
 #include <queue>
 #include "Common.h"
-#define MARKER_HEAD 0xAA
-#define MARKER_TAIL 0x55
-#define DET_STATE_WORK 0x58
-#define DET_STATE_SLEEP 0x1b
-#define DET_STATE_CLOSE 0x2b
-#define CHUNK_SIZE 1024*30
-#define TIMEOUT_MICRO_SECONDS 100000000000
+
 
 Mgard300_Handler::Mgard300_Handler(sockpp::tcp_acceptor& acceptor) : acceptor_(acceptor), current_state(nullptr) {
     this->number_connection = 0;
@@ -64,6 +58,10 @@ void* execute_cmd_thread(void* arg) {
 	            break;
 	        case DET_STATE_CLOSE:
 	        	mgard300_Handler->transition_to_state(new CloseState());
+	        	break;
+	        case DET_STATE_TRIGGER:
+				mgard300_Handler->transition_to_state(new TriggerState());
+				break;
 	        default:
 	            break;
 	    }
@@ -145,6 +143,10 @@ int Mgard300_Handler::parse_msg_client(sockpp::tcp_socket& socket) {
                 break;
             case DET_STATE_CLOSE:
             	this->set_state(DET_STATE_CLOSE);
+            	break;
+            case DET_STATE_TRIGGER:
+				this->set_state(DET_STATE_TRIGGER);
+				break;
             default:
                 break;
         }
@@ -179,7 +181,7 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
         size_t remaining_size = data_size;
         size_t offset = 0;
         size_t total_sent = 0;
-        while (remaining_size > 0) {
+        while (remaining_size > 0 && this->get_is_client_closed()) {
             // Xác định kích thước của chunk cho lần gửi
             size_t current_chunk_size = std::min(chunk_size, remaining_size);
 
@@ -189,7 +191,11 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
             if (n < 0) {
                 std::cerr << "Error sending data to client!" << std::endl;
                 throw std::runtime_error("Error sending data to client");
+
+            } else if(n == 0) {
+            	this->set_is_client_closed(false);
             }
+
 #endif
             // Cập nhật offset và remaining_size cho chunk tiếp theo
             offset += n;
@@ -202,11 +208,13 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
                 throw std::runtime_error("Incomplete last chunk sent to client");
             }
             // Hiển thị số byte còn lại
-
             std::cout << "Remaining bytes: " << remaining_size << " | Total sent: " << total_sent << std::endl;
 #endif
         }
-
+        if(!this->get_is_client_closed()) {
+        	std::cerr << "Client disconnected. Handling reconnect..." << std::endl;
+        	this->handle_connections();
+        }
         std::cout << "Sent all data to Client" << std::endl;
     } catch (const std::exception& e) {
 #ifdef DEBUG
@@ -219,7 +227,10 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
 // --------------------------------------------------------------------------
 
 sockpp::tcp_socket& Mgard300_Handler::get_current_socket() {
-    return this->current_socket;
+    pthread_mutex_lock(&this->get_connection_mutex());
+    sockpp::tcp_socket& socket = this->current_socket;
+    pthread_mutex_unlock(&this->get_connection_mutex());
+    return socket;
 }
 
 pthread_mutex_t& Mgard300_Handler::get_connection_mutex() {
@@ -263,4 +274,19 @@ void Mgard300_Handler::set_state(int new_state_) {
 	this->q_execute_cmd.push(new_state_);
 	pthread_mutex_unlock(&this->get_connection_mutex());
 }
+bool Mgard300_Handler::get_is_client_closed(){
+	pthread_mutex_lock(&this->get_connection_mutex());
+	bool res = this->is_client_closed;
+	pthread_mutex_unlock(&this->get_connection_mutex());
+	return res;
+}
+void Mgard300_Handler::set_is_client_closed(bool isClientClosed) {
+	pthread_mutex_lock(&this->get_connection_mutex());
+	this->is_client_closed = isClientClosed;
+	pthread_mutex_unlock(&this->get_connection_mutex());
+}
+
+
+
+
 
