@@ -33,10 +33,7 @@ void* send_data_thread(void *data) {
 	return nullptr;
 }
 
-void thread_function() {
-	PRB_IMG *pPRB_IMG = PRB_IMG::getInstance();
-	pPRB_IMG->calledPRB_IMG();
-}
+
 #ifdef DEBUG
 void compute_md5_file(const char *filename, unsigned char *md5sum) {
 	std::ifstream file(filename, std::ios::binary);
