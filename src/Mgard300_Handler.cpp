@@ -27,27 +27,24 @@ Mgard300_Handler::~Mgard300_Handler() {
 void* handler_parse_msg_thread(void* arg) {
 	Mgard300_Handler* mgard300_Handler = static_cast<Mgard300_Handler*>(arg);
     pthread_t id = pthread_self();
-    while (true) {
-        // Gọi đối tượng MsgHandler để phân tích gói tin từ client
-
-        int ret = mgard300_Handler->parse_msg_client(mgard300_Handler->get_current_socket());
-        std::cout << "Number of Connections: " << mgard300_Handler->get_number_connection() << " ID thread: " << id << std::endl;
-        if(ret == -1) {
-        	sleep(3);
-        }
-        // kiểm tra số lượng kết nối
-        if (mgard300_Handler->get_number_connection() == 2) {
-            // giảm number_connection
-        	mgard300_Handler->decrement_number_connection();
-            pthread_exit(nullptr);
-        }
-    }
+	// Gọi đối tượng MsgHandler để phân tích gói tin từ client
+	int ret = mgard300_Handler->parse_msg_client(mgard300_Handler->get_current_socket());
+	std::cout << "Number of Connections: " << mgard300_Handler->get_number_connection() << " ID thread: " << id << std::endl;
+	if(ret == -1) {
+		sleep(3);
+	}
+	// kiểm tra số lượng kết nối
+	if (mgard300_Handler->get_number_connection() == 2) {
+		// giảm number_connection
+		mgard300_Handler->decrement_number_connection();
+		pthread_exit(nullptr);
+	}
 }
 
 // tạo hàm để luồng check state thực hiện
 void* execute_cmd_thread(void* arg) {
 	Mgard300_Handler* mgard300_Handler = static_cast<Mgard300_Handler*>(arg);
-	while(true) {
+//	while(true) {
 	    int q_execute_cmd = mgard300_Handler->get_state();
 	    switch (q_execute_cmd) {
 	        case DET_STATE_WORK:
@@ -65,7 +62,7 @@ void* execute_cmd_thread(void* arg) {
 	        default:
 	            break;
 	    }
-	}
+//	}
 }
 
 int Mgard300_Handler::send_msg(int cmd, unsigned char param0, unsigned char param1) {
@@ -90,27 +87,30 @@ int Mgard300_Handler::send_msg(int cmd, unsigned char param0, unsigned char para
 void Mgard300_Handler::handle_connections() {
     pthread_t parse_thread;
     pthread_t checkstate_thread;
-    std::chrono::microseconds timeoutMicroseconds(TIMEOUT_MICRO_SECONDS); // 5 giây
 
     while (true) {
-        sockpp::inet_address peer;
-        this->current_socket = this->acceptor_.accept(&peer);
-        //this->current_socket.read_timeout(timeoutMicroseconds);
+		sockpp::inet_address peer;
 
-        this->increment_number_connection();
-        if (!this->current_socket) {
-            std::cerr << "Error accepting incoming connection: " << acceptor_.last_error_str() << std::endl;
-            continue;
-        }
-        std::cout << "Received a connection request from " << peer << std::endl;
+		this->current_socket = this->acceptor_.accept(&peer);
 
-        int result = pthread_create(&parse_thread, nullptr, handler_parse_msg_thread, this);
-        pthread_create(&checkstate_thread, nullptr, execute_cmd_thread, this);
-        if (result != 0) {
-            std::cerr << "Error creating thread: " << strerror(result) << std::endl;
-        }
-        pthread_detach(parse_thread);
-    }
+		this->increment_number_connection();
+
+		if (!this->current_socket) {
+			std::cerr << "Error accepting incoming connection: " << acceptor_.last_error_str() << std::endl;
+			continue;
+		}
+		std::cout << "Received a connection request from " << peer << std::endl;
+
+		int result = pthread_create(&parse_thread, nullptr, handler_parse_msg_thread, this);
+		pthread_create(&checkstate_thread, nullptr, execute_cmd_thread, this);
+		if (result != 0) {
+			std::cerr << "Error creating thread: " << strerror(result) << std::endl;
+		}
+		pthread_detach(parse_thread);
+		if(!this->get_current_socket()) {
+			break;
+		}
+	}
 }
 
 // --------------------------------------------------------------------------
@@ -119,7 +119,7 @@ int Mgard300_Handler::parse_msg_client(sockpp::tcp_socket& socket) {
     try {
         // Đọc dữ liệu từ socket
         this->n_read_bytes = socket.read(this->buf, sizeof(this->buf));
-
+        std::cout << "Received: " << n_read_bytes << " bytes from client" << std::endl;
         // Kiểm tra xem đã đọc đúng số byte hay không
 
         if (this->n_read_bytes < sizeof(this->buf)) {
@@ -187,16 +187,13 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
 
             // Gửi chunk đến client
             int n = this->current_socket.write_n(data + offset, current_chunk_size);
-#ifdef DEBUG
-            if (n < 0) {
-                std::cerr << "Error sending data to client!" << std::endl;
-                throw std::runtime_error("Error sending data to client");
 
-            } else if(n == 0) {
-            	this->set_is_client_closed(false);
+            if (n < 0) {
+                std::cout << "Error sending data to client!" << std::endl;
+                this->set_is_client_closed(false);
+                break;
             }
 
-#endif
             // Cập nhật offset và remaining_size cho chunk tiếp theo
             offset += n;
             remaining_size -= n;
@@ -285,7 +282,14 @@ void Mgard300_Handler::set_is_client_closed(bool isClientClosed) {
 	this->is_client_closed = isClientClosed;
 	pthread_mutex_unlock(&this->get_connection_mutex());
 }
-
+void Mgard300_Handler::close_socket() {
+	pthread_mutex_lock(&this->connection_mutex);
+	if (this->current_socket.is_open()) {
+		this->current_socket.close();
+		std::cout << "Socket closed." << std::endl;
+	}
+	pthread_mutex_unlock(&this->connection_mutex);
+}
 
 
 

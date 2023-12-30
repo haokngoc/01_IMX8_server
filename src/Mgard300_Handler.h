@@ -23,7 +23,7 @@ public:
     int send_msg(int cmd, unsigned char param0, unsigned char param1);
 	bool get_is_client_closed();
 	void set_is_client_closed(bool isClientClosed);
-
+	void close_socket();
 private:
     sockpp::tcp_acceptor& acceptor_;
     ssize_t n_read_bytes;
