@@ -120,11 +120,7 @@ void SleepState::handle(Mgard300_Handler &handler) {
 }
 void CloseState::handle(Mgard300_Handler &handler) {
 	std::cout << "Handling close state..." << std::endl;
-	sockpp::tcp_socket &current_socket = handler.get_current_socket();
-
-	// đóng kết nối socket
-	current_socket.close();
-	std::cout << "socket closed connection" << std::endl;
+	handler.close_socket();
 }
 void TriggerState::handle(Mgard300_Handler &handler) {
 	std::cout << "Handling Trigger state..." << std::endl;
