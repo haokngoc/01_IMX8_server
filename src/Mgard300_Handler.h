@@ -4,6 +4,9 @@
 #include <vector>
 #include "DET_State.h"
 #include <queue>
+#include "spdlog/spdlog.h"
+#include "spdlog/async.h" //support for async logging.
+#include "spdlog/sinks/basic_file_sink.h"
 class Mgard300_Handler {
 public:
 	// Constructor: Khởi tạo đối tượng MsgHandler với một TCP acceptor
@@ -24,6 +27,7 @@ public:
 	bool get_is_client_closed();
 	void set_is_client_closed(bool isClientClosed);
 	void close_socket();
+	void initializeLogger();
 private:
     sockpp::tcp_acceptor& acceptor_;
     ssize_t n_read_bytes;
