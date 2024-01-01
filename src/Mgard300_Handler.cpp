@@ -161,7 +161,7 @@ int Mgard300_Handler::parse_msg_client(sockpp::tcp_socket& socket) {
                 break;
         }
         // gui lai 5 byte den client
-        this->send_msg(this->buf[1], this->buf[2], this->buf[3]);
+        //this->send_msg(this->buf[1], this->buf[2], this->buf[3]);
 
     } catch (const std::exception& e) {
 #ifdef DEBUG
