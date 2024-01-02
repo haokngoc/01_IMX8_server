@@ -28,6 +28,8 @@ public:
 	void set_is_client_closed(bool isClientClosed);
 	void close_socket();
 	void initializeLogger();
+	const std::shared_ptr<spdlog::logger>& getLogger();
+
 private:
     sockpp::tcp_acceptor& acceptor_;
     ssize_t n_read_bytes;
@@ -38,4 +40,5 @@ private:
     int number_connection;
     pthread_mutex_t connection_mutex;
     bool is_client_closed;
+	std::shared_ptr<spdlog::logger> _logger;
 };

@@ -14,7 +14,7 @@
 #define Cycle_Count 0x08
 #define Serial_Number 0x09
 
-
+auto console = spdlog::stdout_color_mt("DET_logger");
 int main(int argc, char* argv[]) {
 
     in_port_t port = 1024;

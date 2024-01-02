@@ -1,7 +1,4 @@
 #include "Mgard300_Handler.h"
-#include "spdlog/spdlog.h"
-#include "spdlog/async.h" //support for async logging.
-#include "spdlog/sinks/basic_file_sink.h"
 #include <iostream>
 #include <stdexcept>
 #include <thread>
@@ -11,16 +8,12 @@
 #include <iomanip>
 #include <queue>
 #include "Common.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
 
-extern std::shared_ptr<spdlog::logger> initialize_logger();
-
-auto logger = initialize_logger();
 
 Mgard300_Handler::Mgard300_Handler(sockpp::tcp_acceptor& acceptor) : acceptor_(acceptor), current_state(nullptr) {
     this->number_connection = 0;
     pthread_mutex_init(&this->connection_mutex, nullptr);
-
+    this->_logger = spdlog::get("DET_logger");
 }
 
 Mgard300_Handler::~Mgard300_Handler() {
@@ -38,7 +31,8 @@ void* handler_parse_msg_thread(void* arg) {
 		// Gọi đối tượng MsgHandler để phân tích gói tin từ client
 		int ret = mgard300_Handler->parse_msg_client(mgard300_Handler->get_current_socket());
 		//std::cout << "Number of Connections: " << mgard300_Handler->get_number_connection() << " ID thread: " << id << std::endl;
-		logger->info("Number of Connections: {} ID thread: {}", mgard300_Handler->get_number_connection(), id);
+		mgard300_Handler->getLogger()->info("Number of Connections: {} ID thread: {}", mgard300_Handler->get_number_connection(), id);
+
 		if(ret == -1) {
 			sleep(3);
 		}
@@ -84,11 +78,11 @@ int Mgard300_Handler::send_msg(int cmd, unsigned char param0, unsigned char para
 	int n = this->get_current_socket().write_n(buf, 5);
 	if(n<0) {
 		//std::cerr << "Error sending data to client!" << std::endl;
-		logger->error("Error sending data to client!");
+		this->_logger->warn("Error sending data to client!");
 		return -1;
 	} else {
 //		std::cout << "Sent 5 bytes to client" << std::endl;
-		logger->info("Sent 5 bytes to client");
+		this->_logger->info("Sent 5 bytes to client");
 	}
 	return n;
 }
@@ -107,17 +101,17 @@ void Mgard300_Handler::handle_connections() {
 
 		if (!this->current_socket) {
 			//std::cerr << "Error accepting incoming connection: " << acceptor_.last_error_str() << std::endl;
-			logger->error("Error accepting incoming connection: {}",acceptor_.last_error_str());
+			this->_logger->warn("Error accepting incoming connection: {}",acceptor_.last_error_str());
 			continue;
 
 		}
 //		std::cout << "Received a connection request from " << peer << std::endl;
-		logger->info("Received a connection request from ",peer.to_string());
+		this->_logger->info("Received a connection request from ",peer.to_string());
 		int result = pthread_create(&parse_thread, nullptr, handler_parse_msg_thread, this);
 		pthread_create(&checkstate_thread, nullptr, execute_cmd_thread, this);
 		if (result != 0) {
 			std::cerr << "Error creating thread: " << strerror(result) << std::endl;
-			logger->error("Error creating thread: {}",strerror(result));
+			this->_logger->warn("Error creating thread: {}",strerror(result));
 		}
 		pthread_detach(parse_thread);
 		pthread_detach(checkstate_thread);
@@ -134,7 +128,7 @@ int Mgard300_Handler::parse_msg_client(sockpp::tcp_socket& socket) {
         // Đọc dữ liệu từ socket
         this->n_read_bytes = socket.read(this->buf, sizeof(this->buf));
 //        std::cout << "Received: " << n_read_bytes << " bytes from client" << std::endl;
-        logger->info("Received: {} bytes from client",n_read_bytes);
+        this->_logger->info("Received: {} bytes from client",n_read_bytes);
         // Kiểm tra xem đã đọc đúng số byte hay không
 
         if (this->n_read_bytes < sizeof(this->buf)) {
@@ -170,8 +164,7 @@ int Mgard300_Handler::parse_msg_client(sockpp::tcp_socket& socket) {
 
     } catch (const std::exception& e) {
 #ifdef DEBUG
-//        std::cerr << "Exception: " << e.what() << std::endl;
-        logger->error("Exception: {}",e.what());
+        this->_logger->error("Exception: {}",e.what());
 #endif
         return -1;
     }
@@ -209,8 +202,8 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
             total_sent += n;
 
             if (n < 0) {
-//				std::cout << "Error sending data to client!" << std::endl;
-				logger->error("Error sending data to client!");
+
+				this->_logger->error("Error sending data to client!");
 				this->set_is_client_closed(false);
 				break;
             }
@@ -218,25 +211,24 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
 #ifdef DEBUG
             if (remaining_size <= 0 && offset != data_size) {
                 std::cerr << "Error: Incomplete last chunk sent to client!" << std::endl;
-                logger->error("Error: Incomplete last chunk sent to client!");
+                this->_logger->warn("Error: Incomplete last chunk sent to client!");
                 throw std::runtime_error("Incomplete last chunk sent to client");
             }
             // Hiển thị số byte còn lại
-//            std::cout << "Remaining bytes: " << remaining_size << " | Total sent: " << total_sent << std::endl;
-            logger->info("Remaining bytes: {} | Total sent: {}",remaining_size, total_sent);
+            this->_logger->info("Remaining bytes: {} | Total sent: {}",remaining_size, total_sent);
 #endif
         }
         if(!this->get_is_client_closed()) {
 //        	std::cout << "Client disconnected. Handling reconnect..." << std::endl;
-        	logger->info("Client disconnected. Handling reconnect...");
+        	this->_logger->info("Client disconnected. Handling reconnect...");
         	this->set_is_client_closed(true);
         	this->handle_connections();
         }
 //        std::cout << "Sent all data to Client" << std::endl;
-        logger->info("Sent all data to Client");
+        this->_logger->info("Sent all data to Client");
     } catch (const std::exception& e) {
 #ifdef DEBUG
-        std::cerr << "Exception: " << e.what() << std::endl;
+        this->_logger->warn("Exception: {}",e.what());
 #endif
     }
 }
@@ -311,7 +303,9 @@ void Mgard300_Handler::close_socket() {
 	}
 	pthread_mutex_unlock(&this->connection_mutex);
 }
-
+const std::shared_ptr<spdlog::logger>& Mgard300_Handler::getLogger() {
+    return _logger;
+}
 
 
 

@@ -1,8 +1,5 @@
 #include "DET_State.h"
 #include "Mgard300_Handler.h"
-#include "spdlog/spdlog.h"
-#include "spdlog/async.h"
-#include "spdlog/sinks/basic_file_sink.h"
 #include <sockpp/tcp_acceptor.h>
 #include <iostream>
 #include <fstream>
@@ -14,9 +11,9 @@
 #include <cstdio>
 #include "spdlog/sinks/stdout_color_sinks.h"
 
-extern std::shared_ptr<spdlog::logger> initialize_logger();
-auto logger1 = initialize_logger();
-
+DET_State::DET_State() {
+	this->_logger = spdlog::get("DET_logger");
+}
 struct ThreadData {
     Mgard300_Handler* handler;
     const char* buffer;
@@ -30,7 +27,7 @@ void* send_data_thread(void* data) {
     } catch (const std::exception& e) {
 #ifdef DEBUG
 //        std::cerr << "Exception in send_data_thread: " << e.what() << std::endl;
-        logger1->error("Exception in send_data_thread: {}",e.what());
+//        logger1->error("Exception in send_data_thread: {}",e.what());
 #endif
     }
     delete[] thread_data->buffer; // Release memory
@@ -43,7 +40,7 @@ void compute_md5_file(const char* filename, unsigned char* md5sum) {
     std::ifstream file(filename, std::ios::binary);
     if (!file.is_open()) {
 //        std::cerr << "Failed to open file for MD5 calculation." << std::endl;
-    	logger1->error("Failed to open file for MD5 calculation.");
+//    	logger1->error("Failed to open file for MD5 calculation.");
         return;
     }
 
@@ -62,8 +59,7 @@ void compute_md5_file(const char* filename, unsigned char* md5sum) {
 #endif
 
 void WorkState::handle(Mgard300_Handler& handler) {
-//    std::cout << "Handling work state..." << std::endl;
-	logger1->info("Handling work state...");
+	handler.getLogger()->info("Handling work state...");
     // Wait for 3 seconds
     sleep(3);
 
@@ -76,7 +72,7 @@ void WorkState::handle(Mgard300_Handler& handler) {
 
     if (result != 1) {
 //        std::cerr << "Failed to get data from PRB." << std::endl;
-        logger1->error("Failed to get data from PRB.");
+    	handler.getLogger()->warn("Failed to get data from PRB.");
         delete[] buffer; // Release memory
         return;
     }
@@ -88,8 +84,7 @@ void WorkState::handle(Mgard300_Handler& handler) {
     pthread_t send_thread;
     int ret = pthread_create(&send_thread, nullptr, send_data_thread, static_cast<void*>(thread_data));
     if (ret != 0) {
-//        std::cerr << "Failed to create thread." << std::endl;
-        logger1->error("Failed to create thread.");
+    	handler.getLogger()->warn("Failed to create thread.");
         delete[] thread_data->buffer; // Release memory
         delete thread_data;
         return;
@@ -97,8 +92,7 @@ void WorkState::handle(Mgard300_Handler& handler) {
 
     // Detach the thread
     if (pthread_detach(send_thread) != 0) {
-//        std::cerr << "Failed to detach thread." << std::endl;
-        logger1->error("Failed to create thread.");
+    	handler.getLogger()->warn("Failed to create thread.");
         delete[] thread_data->buffer; // Release memory
         delete thread_data;
         return;
@@ -109,43 +103,35 @@ void WorkState::handle(Mgard300_Handler& handler) {
     if (output_file.is_open()) {
         output_file.write(buffer, BUFFER_SIZE);
         output_file.close();
-//        std::cout << "Data written to file: data.bin" << std::endl;
-        logger1->info("Data written to file: data.bin");
+        handler.getLogger()->info("Data written to file: data.bin");
 
 #ifdef DEBUG
         // Compute MD5 checksum
-//        std::cout << "Computing MD5 checksum..." << std::endl;
-        logger1->info("Computing MD5 checksum...");
+        handler.getLogger()->info("Computing MD5 checksum...");
         unsigned char md5sum[MD5_DIGEST_LENGTH];
         compute_md5_file("data.bin", md5sum);
 
-//        std::cout << "MD5 checksum: ";
-        logger1->info("MD5 checksum: ");
+        handler.getLogger()->info("MD5 checksum: ");
         for (int i = 0; i < MD5_DIGEST_LENGTH; ++i) {
-//            std::cout << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(md5sum[i]);
-            logger1->info("{:02x}", static_cast<int>(md5sum[i]));
+        	handler.getLogger()->info("{:02x}", static_cast<int>(md5sum[i]));
         }
         std::cout << std::endl;
 #endif
     } else {
-//        std::cerr << "Failed to open output file." << std::endl;
-        logger1->error("Failed to open output file.");
+    	handler.getLogger()->warn("Failed to open output file.");
     }
 }
 
 
 void SleepState::handle(Mgard300_Handler &handler) {
-//	std::cout << "Handling sleep state..." << std::endl;
-	logger1->info("Handling sleep state...");
+	this->_logger->info("Handling sleep state...");
 
 }
 void CloseState::handle(Mgard300_Handler &handler) {
-//	std::cout << "Handling close state..." << std::endl;
-	logger1->info("Handling close state...");
+	this->_logger->info("Handling close state...");
 
 	handler.close_socket();
 }
 void TriggerState::handle(Mgard300_Handler &handler) {
-//	std::cout << "Handling Trigger state..." << std::endl;
-	logger1->info("Handling Trigger state...");
+	this->_logger->info("Handling Trigger state...");
 }
