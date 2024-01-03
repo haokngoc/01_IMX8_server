@@ -1,7 +1,11 @@
 
 #include <iostream>
 #include "sockpp/tcp_acceptor.h"
-
+#include "spdlog/sinks/basic_file_sink.h"
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
+#include "spdlog/async.h"
+#include "spdlog/cfg/env.h"
 #include "Mgard300_Handler.h"
 
 #define Battery_Voltage 0x01
@@ -14,8 +18,18 @@
 #define Cycle_Count 0x08
 #define Serial_Number 0x09
 
-auto console = spdlog::stdout_color_mt("DET_logger");
+
+
 int main(int argc, char* argv[]) {
+	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logfile.txt");
+	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+
+	// Tạo logger với cả hai sinks
+	auto logger = std::make_shared<spdlog::logger>("DET_logger", spdlog::sinks_init_list{console_sink, file_sink});
+
+	// Đặt mức độ log
+	logger->set_level(spdlog::level::debug);
+	spdlog::register_logger(logger);
 
     in_port_t port = 1024;
     sockpp::initialize();
