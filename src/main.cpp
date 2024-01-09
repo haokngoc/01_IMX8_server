@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include "sockpp/tcp_acceptor.h"
 #include "spdlog/sinks/basic_file_sink.h"
@@ -7,6 +6,11 @@
 #include "spdlog/async.h"
 #include "spdlog/cfg/env.h"
 #include "Mgard300_Handler.h"
+#include <fstream>
+#include <json-c/json.h>
+#include <thread>
+#include "spdlog/sinks/rotating_file_sink.h"
+#include "Settings.h"
 
 #define Battery_Voltage 0x01
 #define Battery_Current 0x02
@@ -18,11 +22,54 @@
 #define Cycle_Count 0x08
 #define Serial_Number 0x09
 
+void receiveAndProcessJson(sockpp::tcp_socket& clientSocket) {
+    std::string cmdID;
+    const int bufferSize = 1024;
+    char buffer[bufferSize];
+
+    // Nhận dữ liệu JSON từ client
+    ssize_t bytesRead = clientSocket.read(buffer, bufferSize);
+    if (bytesRead < 0) {
+        std::cerr << "Error receiving data from client." << std::endl;
+        return;
+    }
+
+    Settings config;
+
+    // Phân tích dữ liệu JSON
+    struct json_object* root = json_tokener_parse(buffer);
+    if (root == nullptr) {
+        std::cerr << "Error parsing JSON data received from client." << std::endl;
+        return;
+    }
+
+    // Hiển thị giá trị JSON nhận được
+    std::cout << "Received JSON data:" << std::endl;
+    std::cout << json_object_to_json_string_ext(root, JSON_C_TO_STRING_PRETTY) << std::endl;
+    config.fromJson(root);
+    config.printSetting();
+
+    // Lưu dữ liệu JSON vào tệp tin
+    std::ofstream outputFile("received_data.json");
+    if (outputFile.is_open()) {
+        outputFile << json_object_to_json_string_ext(root, JSON_C_TO_STRING_PRETTY) << std::endl;
+        outputFile.close();
+        std::cout << "Saved JSON data to 'received_data.json'" << std::endl;
+    } else {
+        std::cerr << "Error saving JSON data to file." << std::endl;
+    }
+    // Gửi thông báo xác nhận về cho client
+	const char* confirmationMsg = "Server recevied data sucessfuly";
+	clientSocket.write(confirmationMsg, strlen(confirmationMsg));
+    // Giải phóng bộ nhớ
+    json_object_put(root);
+}
 
 
 int main(int argc, char* argv[]) {
-	auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logfile.txt");
+	auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("logfile.txt", 1024*1024 * 100, 3);  // 100 MB size limit, 3 rotated files
 	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+
 
 	// Tạo logger với cả hai sinks
 	auto logger = std::make_shared<spdlog::logger>("DET_logger", spdlog::sinks_init_list{console_sink, file_sink});
@@ -32,9 +79,10 @@ int main(int argc, char* argv[]) {
 	spdlog::register_logger(logger);
 
     in_port_t port = 1024;
+    in_port_t port_php = 12345;
     sockpp::initialize();
     sockpp::tcp_acceptor acc(port);
-    // set timeout
+    sockpp::tcp_acceptor acc_php(port_php);
     if (!acc) {
         std::cerr << "Error creating the acceptor: " << acc.last_error_str() << std::endl;
         return 1;
@@ -42,14 +90,56 @@ int main(int argc, char* argv[]) {
 
     std::cout << "Awaiting connections on port " << port << "..." << std::endl;
 
-    // Create MsgHandler object and handle connections
-    Mgard300_Handler mgard300_Handler(acc);
-    mgard300_Handler.handle_connections();
+    // Tạo và chạy luồng cho cổng 1024
+    std::thread thread_1024([&]() {
+        Mgard300_Handler mgard300_Handler(acc);
+        mgard300_Handler.handle_connections();
+    });
+    // Tạo và chạy luồng cho cổng 12345
+    std::thread thread_12345([&]() {
+    	while(true) {
+    		sockpp::tcp_socket socket_php = acc_php.accept();
+    		std::cout << "Awaiting connections on port " << port_php << "..." << std::endl;
+    		if (!socket_php) {
+				std::cerr << "Error accepting connection from client on port " << port_php << "." << std::endl;
+				return;
+			}
+			// Nhận và xử lý dữ liệu JSON từ client
+			receiveAndProcessJson(socket_php);
+		}
+    });
+    thread_1024.join();
+    thread_12345.join();
 
     return 0;
 
 
 }
+
+
+//int main() {
+//    sockpp::tcp_acceptor acceptor(12345);  // Cổng của server
+//    if (!acceptor) {
+//        std::cerr << "Error creating serve pr acceptor." << std::endl;
+//        return 1;
+//    }
+//
+//    std::cout << "Server is listening on port 12345" << std::endl;
+//
+//    // Chấp nhận kết nối từ client
+//    sockpp::tcp_socket clientSocket = acceptor.accept();
+//    if (!clientSocket) {
+//        std::cerr << "Error accepting connection from client." << std::endl;
+//        return 1;
+//    }
+//
+//    // Nhận và xử lý dữ liệu JSON từ client
+//    receiveAndProcessJson(clientSocket);
+
+//    return 0;
+//}
+
+
 //
 //#include <iostream>
 //#include <stdio.h>
