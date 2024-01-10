@@ -190,6 +190,7 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
         size_t remaining_size = data_size;
         size_t offset = 0;
         size_t total_sent = 0;
+        this->set_is_client_closed(true);
         while (remaining_size > 0 && this->get_is_client_closed()) {
             // Xác định kích thước của chunk cho lần gửi
             size_t current_chunk_size = std::min(chunk_size, remaining_size);
@@ -219,12 +220,10 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
 #endif
         }
         if(!this->get_is_client_closed()) {
-//        	std::cout << "Client disconnected. Handling reconnect..." << std::endl;
         	this->_logger->info("Client disconnected. Handling reconnect...");
         	this->set_is_client_closed(true);
         	this->handle_connections();
         }
-//        std::cout << "Sent all data to Client" << std::endl;
         this->_logger->info("Sent all data to Client");
     } catch (const std::exception& e) {
 #ifdef DEBUG
