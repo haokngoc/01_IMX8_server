@@ -27,9 +27,10 @@ public:
 	bool get_is_client_closed();
 	void set_is_client_closed(bool isClientClosed);
 	void close_socket();
-	void initializeLogger();
 	const std::shared_ptr<spdlog::logger>& getLogger();
-
+	void close_all_threads();
+	void start_thread_parse_thread();
+	void start_thread_checkstate_thread();
 private:
     sockpp::tcp_acceptor& acceptor_;
     ssize_t n_read_bytes;
@@ -38,7 +39,10 @@ private:
     std::queue<int> q_execute_cmd;
     sockpp::tcp_socket current_socket;
     int number_connection;
-    pthread_mutex_t connection_mutex;
+    std::mutex connection_mutex;
     bool is_client_closed;
 	std::shared_ptr<spdlog::logger> _logger;
+	typedef std::unordered_map<std::string, std::thread> ThreadMap;
+	ThreadMap tm_;
+	bool close_threads;
 };

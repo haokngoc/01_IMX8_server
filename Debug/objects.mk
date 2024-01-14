@@ -4,5 +4,5 @@
 
 USER_OBJS :=
 
-LIBS := -lpthread -lgtest_main -lgtest -lssl  -lcrypto
+LIBS := -lpthread -lspdlog -lfmt -lgtest_main -lgtest -lssl  -lcrypto -ljson-c
 

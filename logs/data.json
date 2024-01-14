@@ -1,0 +1,19 @@
+{
+    "account_information": {
+        "username": "admin",
+        "password": "123123"
+    },
+    "settings": {
+        "ip-address": "1235567",
+        "logging-method": "6586",
+        "logging-level": "fgfdg",
+        "wireless-mode": "fgdf",
+        "wireless-SSID": "dfgdg",
+        "wireless-Pass-Phrase": "dfgd"
+    },
+    "firmware": {
+        "firmware": "123"
+    }
+}
+
+

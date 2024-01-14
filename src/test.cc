@@ -43,7 +43,7 @@ TEST_F(Mgard300_HandlerTest, IncrementDecrementNumberConnectionMultithreaded) {
 TEST_F(Mgard300_HandlerTest, ParseMsgClient) {
 	unsigned char validMsg[] = {0xAA, DET_STATE_SLEEP, 0x00, 0x00, 0x55, 0x00};
 }
-
+//TEST_F(Mgard300_HandlerTest, )
 
 
 

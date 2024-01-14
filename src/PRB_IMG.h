@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 #include <mutex>
-#define BUFFER_SIZE (21 * 1024 * 1024)
+#include "Common.h"
+
 class PRB_IMG {
 public:
 	PRB_IMG(PRB_IMG &other) = delete;

@@ -7,10 +7,11 @@ CC_SRCS += \
 ../src/test.cc 
 
 CPP_SRCS += \
-../src/DET_Sate.cpp \
+../src/DET_State.cpp \
 ../src/Mgard300_Handler.cpp \
 ../src/PRB_IMG.cpp \
 ../src/PowerMonitor.cpp \
+../src/Settings.cpp \
 ../src/acceptor.cpp \
 ../src/connector.cpp \
 ../src/exception.cpp \
@@ -24,10 +25,11 @@ CC_DEPS += \
 ./src/test.d 
 
 OBJS += \
-./src/DET_Sate.o \
+./src/DET_State.o \
 ./src/Mgard300_Handler.o \
 ./src/PRB_IMG.o \
 ./src/PowerMonitor.o \
+./src/Settings.o \
 ./src/acceptor.o \
 ./src/connector.o \
 ./src/exception.o \
@@ -39,10 +41,11 @@ OBJS += \
 ./src/test.o 
 
 CPP_DEPS += \
-./src/DET_Sate.d \
+./src/DET_State.d \
 ./src/Mgard300_Handler.d \
 ./src/PRB_IMG.d \
 ./src/PowerMonitor.d \
+./src/Settings.d \
 ./src/acceptor.d \
 ./src/connector.d \
 ./src/exception.d \

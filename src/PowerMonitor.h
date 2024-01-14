@@ -21,7 +21,7 @@ private:
     int serial;
 public:
     PowerMonitor(double vol, double ampere, double avgAmpere, double remain, double fullCharge,
-            double chargeCurrent, int status, int count, int serialNum);
+                            double chargeCurrent, int status, int count, int serialNum);
     double get_battery_vol() const;
 	double get_battery_ampere() const;
 	double get_avg_ampere() const;

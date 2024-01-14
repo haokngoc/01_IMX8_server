@@ -1,0 +1,1308 @@
+[2024-01-09 20:03:36.449] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.450] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.450] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.450] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.450] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.450] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.450] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.451] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.451] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.451] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.451] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.451] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.451] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.451] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.451] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.451] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.451] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.451] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.451] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.451] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.451] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.451] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.451] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.451] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.451] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.451] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.451] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.452] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.452] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.452] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.452] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.452] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.452] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.452] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.452] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.452] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.452] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.452] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.452] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.452] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.452] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.452] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.452] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.452] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.452] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.452] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.452] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.452] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.452] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.452] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.452] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.452] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.452] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.452] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.452] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.453] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.453] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.453] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.453] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.453] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.453] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.453] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.453] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.453] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.453] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.453] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.453] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.453] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.453] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.453] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.453] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.453] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.453] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.453] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.453] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.453] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.453] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.453] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.453] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.453] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.453] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.454] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.454] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.454] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.454] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.454] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.454] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.454] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.454] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.454] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.454] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.454] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.457] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.457] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.457] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.457] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.457] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.457] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.457] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.457] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.458] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.458] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.458] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.458] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.458] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.458] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.458] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.458] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.458] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.461] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.461] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.461] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.461] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.461] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.461] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.461] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.461] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.461] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.461] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.461] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.461] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.461] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.461] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.461] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.462] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.462] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.462] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.462] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.462] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.462] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.462] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.462] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.462] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.462] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.462] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.462] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.462] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.462] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.462] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.462] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.462] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.462] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.462] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.462] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.462] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.462] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.462] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.462] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.463] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.463] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.463] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.463] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.463] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.463] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.463] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.463] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.463] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.463] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.463] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.463] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.463] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.463] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.463] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.463] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.463] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.463] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.463] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.464] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.464] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.464] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.464] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.464] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.464] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.464] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.464] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.464] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.464] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.464] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.464] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.464] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.464] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.464] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.464] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.464] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.464] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.464] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.469] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.469] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.470] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.470] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.470] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.470] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.470] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.470] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.470] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.470] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.470] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.471] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.471] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.471] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.471] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.471] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.471] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.471] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.471] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.471] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.471] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.472] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.472] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.472] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.472] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.472] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.472] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.472] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.472] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.472] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.472] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.472] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.472] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.472] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.472] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.472] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.472] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.472] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.473] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.473] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.473] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.473] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.473] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.473] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.473] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.473] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.473] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.473] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.473] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.473] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.473] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.473] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.473] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.474] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.474] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.474] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.474] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.474] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.474] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.474] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.474] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.474] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.474] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.474] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.474] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.474] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.475] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.475] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.475] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.475] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.475] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.475] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.475] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.475] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.475] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.475] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.475] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.475] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.475] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.475] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.476] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.476] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.476] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.476] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.476] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.476] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.476] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.476] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.476] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.476] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.476] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.477] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.477] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.477] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.477] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.477] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.477] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.477] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.477] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.477] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.477] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.477] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.477] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.477] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.477] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.477] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.477] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.477] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.477] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.477] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.477] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.477] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.477] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.477] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.477] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.477] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.477] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.477] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.477] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.477] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.477] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.477] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.477] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.477] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.477] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.477] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.478] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.478] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.478] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.478] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.478] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.478] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.478] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.478] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.478] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.478] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.478] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.479] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.479] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.479] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.479] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.479] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.479] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.479] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.479] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.479] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.479] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.480] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.480] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.480] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.480] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.480] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.480] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.480] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.480] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.480] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.480] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.480] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.480] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.480] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.480] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.480] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.480] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.480] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.481] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.481] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.481] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.481] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.481] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.481] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.481] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.481] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.481] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.481] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.481] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.481] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.481] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.481] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.481] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.481] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.482] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.482] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.482] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.482] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.482] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.482] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.482] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.482] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.482] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.482] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.482] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.482] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.482] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.482] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.482] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.482] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.483] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.483] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.483] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.483] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.483] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.483] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.483] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.483] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.483] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.483] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.483] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.483] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.483] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.483] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.483] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.483] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.484] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.484] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.484] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.484] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.484] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.484] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.484] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.484] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.484] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.484] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.484] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.484] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.484] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.484] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.484] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.485] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.485] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.478] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.485] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.485] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.485] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.485] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.485] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.485] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.485] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.485] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.486] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.486] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.486] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.486] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.486] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.486] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.486] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.486] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.486] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.486] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.486] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.486] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.486] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.486] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.487] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.487] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.487] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.487] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.487] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.487] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.487] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.487] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.487] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.487] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.487] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.488] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.488] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.488] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.488] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.488] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.488] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.488] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.488] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.489] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.489] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.489] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.489] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.485] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.489] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.489] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.489] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.489] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.490] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.490] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.490] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.490] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.490] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.490] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.490] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.490] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.490] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.490] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.490] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.490] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.490] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.491] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.491] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.491] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.491] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.491] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.491] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.491] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.491] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.491] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.491] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.491] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.491] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.492] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.492] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.492] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.492] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.492] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.492] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.492] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.492] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.492] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.492] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.492] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.492] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.492] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.492] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.492] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.492] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.489] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.492] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.492] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.492] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.492] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.492] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.492] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.492] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.492] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.492] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.492] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.492] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.492] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.492] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.492] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.492] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.492] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.492] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.492] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.493] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.493] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.493] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.493] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.493] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.493] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.493] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.493] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.493] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.493] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.493] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.493] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.494] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.494] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.494] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.494] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.494] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.494] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.494] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.494] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.494] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.495] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.495] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.492] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.495] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.495] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.496] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.497] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.497] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.497] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.497] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.497] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.497] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.497] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.497] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.497] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.498] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.498] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.498] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.498] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.498] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.498] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.498] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.498] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.498] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.498] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.499] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.499] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.499] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.499] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.499] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.499] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.499] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.499] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.499] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.499] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.499] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.499] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.499] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.500] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.500] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.500] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.500] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.500] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.500] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.500] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.500] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.500] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.500] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.500] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.500] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.500] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.500] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.500] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.500] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.501] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.501] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.501] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.501] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.501] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.501] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.501] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.501] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.501] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.501] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.501] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.501] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.501] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.501] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.502] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.502] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.502] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.502] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.502] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.502] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.502] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.503] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.503] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.503] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.504] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.504] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.504] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.504] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.504] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.504] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.504] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.504] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.504] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.504] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.504] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.504] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.504] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.504] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.504] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.505] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.505] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.505] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.505] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.505] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.505] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.505] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.505] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.505] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.505] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.505] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.505] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.505] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.505] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.505] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.505] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.505] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.506] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.506] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.506] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.506] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.506] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.506] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.506] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.506] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.506] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.506] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.506] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.507] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.507] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.507] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.507] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.507] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.507] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.507] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.507] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.507] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.507] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.507] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.507] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.507] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.507] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.507] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.507] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.507] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.507] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.507] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.508] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.508] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.508] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.508] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.508] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.508] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.508] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.508] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.509] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.509] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.509] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.509] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.509] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.509] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.509] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.509] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.509] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.509] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.509] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.509] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.509] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.509] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.509] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.510] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.510] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.510] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.510] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.510] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.510] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.510] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.510] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.510] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.510] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.510] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.510] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.510] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.510] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.511] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.511] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.511] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.511] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.511] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.511] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.511] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.511] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.511] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.511] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.511] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.511] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.511] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.512] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.512] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.512] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.512] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.512] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.512] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.512] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.512] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.512] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.512] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.512] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.512] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.512] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.513] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.513] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.513] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.513] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.513] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.513] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.513] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.513] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.513] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.513] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.514] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.514] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.514] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.514] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.514] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.514] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.514] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.514] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.514] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.514] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.514] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.514] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.514] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.514] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.514] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.514] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.514] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.514] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.514] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.514] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.514] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.514] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.514] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.514] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.514] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.514] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.515] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.515] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.515] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.515] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.515] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.515] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.515] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.515] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.515] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.515] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.515] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.515] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.515] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.515] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.515] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.515] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.515] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.515] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.515] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.515] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.515] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.515] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.516] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.516] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.516] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.516] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.516] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.516] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.516] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.516] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.516] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.516] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.516] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.516] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.516] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.516] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.516] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.516] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.516] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.516] [DET_logger] [info] Sent 5 bytes to client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Number of Connections: 1 ID thread: 140035728856640
+[2024-01-09 20:03:36.516] [DET_logger] [info] Received: 5 bytes from client
+[2024-01-09 20:03:36.516] [DET_logger] [info] Handling sleep state...
+[2024-01-09 20:03:36.516] [DET_logger] [info] Sent 5 bytes to client
