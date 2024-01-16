@@ -14,6 +14,7 @@ public:
 	int get_IMG(char* buf);
 	int IMG_prepare();
 	int IMG_close();
+	
 private:
 	static PRB_IMG * uniqueInstance;
 	int index_;
