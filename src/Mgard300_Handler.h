@@ -5,7 +5,7 @@
 #include "DET_State.h"
 #include <queue>
 #include "spdlog/spdlog.h"
-#include "spdlog/async.h" //support for async logging.
+#include "spdlog/async.h" //support for async logging
 #include "spdlog/sinks/basic_file_sink.h"
 class Mgard300_Handler {
 public:

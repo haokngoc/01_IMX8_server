@@ -17,6 +17,7 @@ protected:
 
 };
 
+
 class WorkState : public DET_State {
 public:
     void handle(Mgard300_Handler& handler) override;

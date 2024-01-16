@@ -84,7 +84,6 @@ void perform_work(Mgard300_Handler& handler) {
     } else {
         handler.getLogger()->warn("Failed to open output file.");
     }
-    // Release memory
     delete[] buffer;
 }
 void WorkState::close_thread() {

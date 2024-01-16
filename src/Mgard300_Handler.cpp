@@ -18,7 +18,7 @@ Mgard300_Handler::~Mgard300_Handler() {
     delete this->current_state;
 }
 
-// --------------------------------------------------------------------------
+// -------------------------------------------------------------------------
 
 // tạo hàm để luồng phân tích gói tin thực hiện
 void handler_parse_msg_thread(Mgard300_Handler* mgard300_Handler) {
