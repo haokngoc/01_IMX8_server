@@ -31,6 +31,8 @@ public:
 	void close_all_threads();
 	void start_thread_parse_thread();
 	void start_thread_checkstate_thread();
+	void set_check_exist_connection(bool check_exit);
+	bool get_check_exist_connection();
 private:
     sockpp::tcp_acceptor& acceptor_;
     ssize_t n_read_bytes;
@@ -45,4 +47,5 @@ private:
 	typedef std::unordered_map<std::string, std::thread> ThreadMap;
 	ThreadMap tm_;
 	bool close_threads;
+	bool check_exist_connection;
 };

@@ -9,7 +9,7 @@
 #include <queue>
 #include "Common.h"
 
-Mgard300_Handler::Mgard300_Handler(sockpp::tcp_acceptor& acceptor) : acceptor_(acceptor), current_state(nullptr) {
+Mgard300_Handler::Mgard300_Handler(sockpp::tcp_acceptor& acceptor) : acceptor_(acceptor), current_state(nullptr),check_exist_connection(false) {
     this->number_connection = 0;
     this->_logger = spdlog::get("DET_logger");
 }
@@ -23,16 +23,18 @@ Mgard300_Handler::~Mgard300_Handler() {
 // tạo hàm để luồng phân tích gói tin thực hiện
 void handler_parse_msg_thread(Mgard300_Handler* mgard300_Handler) {
     while (true) {
+    	pthread_t id = pthread_self();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         // Gọi đối tượng MsgHandler để phân tích gói tin từ client
         int ret = mgard300_Handler->parse_msg_client(mgard300_Handler->get_current_socket());
         //std::cout << "Number of Connections: " << mgard300_Handler->get_number_connection() << " ID thread: " << id << std::endl;
-        mgard300_Handler->getLogger()->info("Number of Connections: {} ID thread: {}", mgard300_Handler->get_number_connection());
+        mgard300_Handler->getLogger()->info("Number of Connections: {} ID thread: {}", mgard300_Handler->get_number_connection(), id);
         if (ret == -1) {
             std::this_thread::sleep_for(std::chrono::seconds(3));
         }
         // kiểm tra số lượng kết nối
         if (mgard300_Handler->get_number_connection() == 2) {
+        	mgard300_Handler->set_check_exist_connection(true);
             mgard300_Handler->decrement_number_connection();
             return;
         }
@@ -293,4 +295,12 @@ void Mgard300_Handler::close_socket() {
 
 const std::shared_ptr<spdlog::logger>& Mgard300_Handler::getLogger() {
     return _logger;
+}
+void Mgard300_Handler::set_check_exist_connection(bool check_exit) {
+	std::lock_guard<std::mutex> lock(this->connection_mutex);
+	this->check_exist_connection = check_exit;
+}
+bool Mgard300_Handler::get_check_exist_connection() {
+	std::lock_guard<std::mutex> lock(this->connection_mutex);
+	return this->check_exist_connection;
 }

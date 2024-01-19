@@ -21,12 +21,8 @@ protected:
 class WorkState : public DET_State {
 public:
     void handle(Mgard300_Handler& handler) override;
-    void start_thread();
-    void close_thread();
 private:
-	typedef std::unordered_map<std::string, std::thread> ThreadMap;
-	ThreadMap tm_;
-
+    std::thread work_thread;
 };
 
 class SleepState : public DET_State {

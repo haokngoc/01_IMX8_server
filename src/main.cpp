@@ -11,6 +11,8 @@
 #include <thread>
 #include "spdlog/sinks/rotating_file_sink.h"
 #include "Settings.h"
+#include "get_connection.hpp"
+#include <string>
 
 #define Battery_Voltage 0x01
 #define Battery_Current 0x02
@@ -22,7 +24,97 @@
 #define Cycle_Count 0x08
 #define Serial_Number 0x09
 
+void added_cb(GObject *client, GAsyncResult *result, gpointer user_data)
+{
+    NMRemoteConnection *remote;
+    GError *error = NULL;
+
+    /* NM responded to our request; either handle the resulting error or
+     * print out the object path of the connection we just added.
+     */
+    remote = nm_client_add_connection_finish(NM_CLIENT(client), result, &error);
+
+    if (error) {
+        g_print("Error adding connection: %s", error->message);
+        g_error_free(error);
+    } else {
+//        g_print("Added: %s\n", nm_connection_get_path(NM_CONNECTION(remote)));
+        g_object_unref(remote);
+    }
+
+    /* Tell the mainloop we're done and we can quit now */
+    g_main_loop_quit((GMainLoop *)user_data);
+}
+void get_ip_address(NMClient *client, std::string& id)
+{
+    GError *error = NULL;
+    NMRemoteConnection *rem_con = NULL;
+    NMSettingIPConfig *s_ip4;
+    NMConnection *new_connection;
+    NMIPAddress *ip_address;
+    const char *address;
+    const char *gateway;
+    const char *method;
+    int prefix;
+    const char* cString = id.c_str();
+
+    rem_con = nm_client_get_connection_by_id(client, cString);
+
+    new_connection = nm_simple_connection_new_clone(NM_CONNECTION(rem_con));
+
+
+    s_ip4 = nm_connection_get_setting_ip4_config(new_connection);
+
+
+    method = nm_setting_ip_config_get_method(s_ip4);
+    g_print("method: %s\n", method);
+
+    if (!strcmp(method, "manual")) {
+        // Nếu phương thức là "manual", lấy địa chỉ IP và thông tin mạng khác
+        ip_address = nm_setting_ip_config_get_address(s_ip4, 0);
+        prefix = nm_ip_address_get_prefix(ip_address);
+        address = nm_ip_address_get_address(ip_address);
+        gateway = nm_setting_ip_config_get_gateway(s_ip4);
+
+        // In thông tin địa chỉ IP
+        g_print("ip_address: %s/%d\n", address, prefix);
+        g_print("gateway: %s\n", gateway);
+    }
+    else if (!strcmp(method, "auto")) {
+        // Trong trường hợp "auto", thông tin IP được lấy từ DHCP, không được cấu hình trực tiếp
+        g_print("IP address is assigned dynamically through DHCP.\n");
+    }
+}
+
+void add_wifi(NMClient *client, GMainLoop *loop, std::string& id, std::string& pass)
+{
+    NMConnection *connection;
+
+    const char *uuid;
+    const char *password;
+    const char* cString = id.c_str();
+    std::cout << "ssid: " << id << std::endl;
+    std::cout << "pass: " << pass << std::endl;
+    /* Create a new connection object */
+    uuid = nm_utils_uuid_generate();
+    GString *ssid = g_string_new(cString);
+    password = pass.c_str();
+    connection = get_client_nmconnection(cString, uuid, ssid, password);
+
+    /* Ask the settings service to add the new connection; we'll quit the
+     * mainloop and exit when the callback is called.
+     */
+    nm_client_add_connection_async(client, connection, TRUE, NULL, added_cb, loop);
+    g_object_unref(connection);
+}
 void receiveAndProcessJson(sockpp::tcp_socket& clientSocket) {
+	NMClient *client;
+	GMainLoop *loop;
+	GError *error = NULL;
+	loop = g_main_loop_new(NULL, FALSE);
+	// Connect to NetworkManager
+	client = nm_client_new(NULL, &error);
+
     std::string cmdID;
     const int bufferSize = 1024;
     char buffer[bufferSize];
@@ -48,7 +140,6 @@ void receiveAndProcessJson(sockpp::tcp_socket& clientSocket) {
     std::cout << json_object_to_json_string_ext(root, JSON_C_TO_STRING_PRETTY) << std::endl;
     config.fromJson(root);
     config.printSetting();
-
     // Lưu dữ liệu JSON vào tệp tin
     std::ofstream outputFile("received_data.json");
     if (outputFile.is_open()) {
@@ -63,8 +154,13 @@ void receiveAndProcessJson(sockpp::tcp_socket& clientSocket) {
 	clientSocket.write(confirmationMsg, strlen(confirmationMsg));
     // Giải phóng bộ nhớ
     json_object_put(root);
+    add_wifi(client, loop, config.getWirelessSsid(),config.getWirelessPassPhrase());
+    // Wait for the connection to be added
+    g_main_loop_run(loop);
+    get_ip_address(client, config.getWirelessSsid());
+    // Clean up
+    g_object_unref(client);
 }
-
 
 int main(int argc, char* argv[]) {
 	auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("logfile.txt", 1024*1024 * 100, 3);  // 100 MB size limit, 3 rotated files
@@ -106,6 +202,7 @@ int main(int argc, char* argv[]) {
 			}
 			// Nhận và xử lý dữ liệu JSON từ client
 			receiveAndProcessJson(socket_php);
+
 		}
     });
     thread_1024.join();
