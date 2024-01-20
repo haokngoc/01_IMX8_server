@@ -13,6 +13,11 @@
 #include "Settings.h"
 #include "get_connection.hpp"
 #include <string>
+#include <sys/ioctl.h>
+#include <arpa/inet.h>
+#include <net/if.h>
+#include <cstdlib>
+#include "ip_handler.h"
 
 #define Battery_Voltage 0x01
 #define Battery_Current 0x02
@@ -24,6 +29,50 @@
 #define Cycle_Count 0x08
 #define Serial_Number 0x09
 
+void setup_logger_fromk_json(const std::string& jsonFilePath, std::shared_ptr<spdlog::logger>& logger) {
+    // Đọc nội dung của tệp JSON
+    std::ifstream file(jsonFilePath);
+    if (!file.is_open()) {
+        std::cerr << "Error opening JSON file.\n";
+        return;
+    }
+
+    // Đọc nội dung của tệp JSON vào một chuỗi
+    std::string jsonContent((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+    // Đóng tệp
+    file.close();
+
+    // Phân tích chuỗi JSON để tạo đối tượng json_object
+    json_object *jsonObject = json_tokener_parse(jsonContent.c_str());
+    if (jsonObject != nullptr) {
+        // Kiểm tra và lấy giá trị mức độ log từ JSON
+        json_object *settingsObj = nullptr;
+        if (json_object_object_get_ex(jsonObject, "settings", &settingsObj)) {
+            json_object *logLevelObj = nullptr;
+            if (json_object_object_get_ex(settingsObj, "logging-level", &logLevelObj)) {
+                const char* logLevelStr = json_object_get_string(logLevelObj);
+                spdlog::level::level_enum logLevel = spdlog::level::from_str(logLevelStr);
+
+                // Đặt mức độ log của logger
+                if (logLevel != spdlog::level::off) {
+                    logger->set_level(logLevel);
+                    spdlog::info("Set log level to: {}", logLevelStr);
+                } else {
+                    spdlog::warn("Invalid log level specified in JSON: {}", logLevelStr);
+                }
+            } else {
+                spdlog::warn("Logging level not found in JSON. Defaulting to debug.");
+            }
+        } else {
+            spdlog::warn("Settings not found in JSON.");
+        }
+
+        // Giải phóng bộ nhớ của đối tượng JSON khi không cần thiết nữa
+        json_object_put(jsonObject);
+    } else {
+        spdlog::error("Error parsing JSON content.");
+    }
+}
 void added_cb(GObject *client, GAsyncResult *result, gpointer user_data)
 {
     NMRemoteConnection *remote;
@@ -45,47 +94,6 @@ void added_cb(GObject *client, GAsyncResult *result, gpointer user_data)
     /* Tell the mainloop we're done and we can quit now */
     g_main_loop_quit((GMainLoop *)user_data);
 }
-void get_ip_address(NMClient *client, std::string& id)
-{
-    GError *error = NULL;
-    NMRemoteConnection *rem_con = NULL;
-    NMSettingIPConfig *s_ip4;
-    NMConnection *new_connection;
-    NMIPAddress *ip_address;
-    const char *address;
-    const char *gateway;
-    const char *method;
-    int prefix;
-    const char* cString = id.c_str();
-
-    rem_con = nm_client_get_connection_by_id(client, cString);
-
-    new_connection = nm_simple_connection_new_clone(NM_CONNECTION(rem_con));
-
-
-    s_ip4 = nm_connection_get_setting_ip4_config(new_connection);
-
-
-    method = nm_setting_ip_config_get_method(s_ip4);
-    g_print("method: %s\n", method);
-
-    if (!strcmp(method, "manual")) {
-        // Nếu phương thức là "manual", lấy địa chỉ IP và thông tin mạng khác
-        ip_address = nm_setting_ip_config_get_address(s_ip4, 0);
-        prefix = nm_ip_address_get_prefix(ip_address);
-        address = nm_ip_address_get_address(ip_address);
-        gateway = nm_setting_ip_config_get_gateway(s_ip4);
-
-        // In thông tin địa chỉ IP
-        g_print("ip_address: %s/%d\n", address, prefix);
-        g_print("gateway: %s\n", gateway);
-    }
-    else if (!strcmp(method, "auto")) {
-        // Trong trường hợp "auto", thông tin IP được lấy từ DHCP, không được cấu hình trực tiếp
-        g_print("IP address is assigned dynamically through DHCP.\n");
-    }
-}
-
 void add_wifi(NMClient *client, GMainLoop *loop, std::string& id, std::string& pass)
 {
     NMConnection *connection;
@@ -107,6 +115,8 @@ void add_wifi(NMClient *client, GMainLoop *loop, std::string& id, std::string& p
     nm_client_add_connection_async(client, connection, TRUE, NULL, added_cb, loop);
     g_object_unref(connection);
 }
+
+
 void receiveAndProcessJson(sockpp::tcp_socket& clientSocket) {
 	NMClient *client;
 	GMainLoop *loop;
@@ -155,14 +165,89 @@ void receiveAndProcessJson(sockpp::tcp_socket& clientSocket) {
     // Giải phóng bộ nhớ
     json_object_put(root);
     add_wifi(client, loop, config.getWirelessSsid(),config.getWirelessPassPhrase());
+
     // Wait for the connection to be added
     g_main_loop_run(loop);
-    get_ip_address(client, config.getWirelessSsid());
     // Clean up
     g_object_unref(client);
+
+    // get ip address
+    IPHandler ip_handeler;
+    struct in_addr currentIP = ip_handeler.getCurrentIP();
+    char ipString[INET_ADDRSTRLEN];
+	if (inet_ntop(AF_INET, &currentIP, ipString, INET_ADDRSTRLEN) == NULL) {
+	   perror("inet_ntop");
+	}
+
+	printf("Current IP address: %s\n", ipString);
+	// Gửi địa chỉ IP về cho client
+	clientSocket.write(ipString, strlen(ipString));
+
+    // set ip
+    ip_handeler.setIP(config.getIpAddress());
+    // gửi thông báo thay đổi ip thành công
+    const char *ipAddress = config.getIpAddress().c_str();
+    std::string confirmMessage = "IP address changed successfully to " + std::string(ipAddress);
+    const char *confirm_ip = confirmMessage.c_str();
+	clientSocket.write(confirm_ip, strlen(confirm_ip));
+}
+void Read_Json_Configuration() {
+	Settings setting;
+	std::ifstream file("received_data.json");
+	if (!file.is_open()) {
+		std::cerr << "Error opening file.\n";
+	}
+
+	// Đọc nội dung của tệp JSON vào một chuỗi
+	std::string jsonContent((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+	// Đóng tệp
+	file.close();
+	// Phân tích chuỗi JSON để tạo đối tượng json_object
+	json_object *j = json_tokener_parse(jsonContent.c_str());
+
+	// Kiểm tra nếu phân tích thành công
+	if (j != nullptr) {
+		// In ra nội dung của đối tượng JSON
+		std::cout << json_object_to_json_string_ext(j, JSON_C_TO_STRING_PRETTY) << std::endl;
+		// Giải phóng bộ nhớ của đối tượng JSON khi không cần thiết nữa
+
+	} else {
+		std::cerr << "Error parsing JSON content.\n";
+	}
+	setting.fromJson(j);
+	setting.printSetting();
+	json_object_put(j);
+	// add wifi
+	NMClient *client;
+	GMainLoop *loop;
+	GError *error = NULL;
+	loop = g_main_loop_new(NULL, FALSE);
+	// Connect to NetworkManager
+	client = nm_client_new(NULL, &error);
+	add_wifi(client, loop, setting.getWirelessSsid(),setting.getWirelessPassPhrase());
+	// Wait for the connection to be added
+	g_main_loop_run(loop);
+	// Clean up
+	g_object_unref(client);
+
+	// get ip address
+	IPHandler ip_handler;
+	ip_handler.getCurrentIP();
+
+	struct in_addr currentIP = ip_handler.getCurrentIP();
+
+	// Convert the IP address to a human-readable string
+	char ipString[INET_ADDRSTRLEN];
+	if (inet_ntop(AF_INET, &currentIP, ipString, INET_ADDRSTRLEN) == NULL) {
+		perror("inet_ntop");
+	}
+	printf("Current IP address: %s\n", ipString);
+	// set ip
+	ip_handler.setIP(setting.getIpAddress());
 }
 
 int main(int argc, char* argv[]) {
+	Read_Json_Configuration();
 	auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("logfile.txt", 1024*1024 * 100, 3);  // 100 MB size limit, 3 rotated files
 	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 
@@ -171,7 +256,8 @@ int main(int argc, char* argv[]) {
 	auto logger = std::make_shared<spdlog::logger>("DET_logger", spdlog::sinks_init_list{console_sink, file_sink});
 
 	// Đặt mức độ log
-	logger->set_level(spdlog::level::debug);
+	setup_logger_fromk_json("received_data.json", logger);
+
 	spdlog::register_logger(logger);
 
     in_port_t port = 1024;
@@ -202,6 +288,7 @@ int main(int argc, char* argv[]) {
 			}
 			// Nhận và xử lý dữ liệu JSON từ client
 			receiveAndProcessJson(socket_php);
+			setup_logger_fromk_json("received_data.json", logger);
 
 		}
     });
@@ -384,5 +471,4 @@ int main(int argc, char* argv[]) {
 //	}
 //    return 0;
 //}
-
 
