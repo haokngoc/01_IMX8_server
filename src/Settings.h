@@ -36,6 +36,7 @@ public:
 	struct in_addr getCurrentIP();
 	static void added_cb(GObject *client, GAsyncResult *result, gpointer user_data);
 	void add_wifi(NMClient *client, GMainLoop *loop, std::string& id, std::string& pass);
+	void add_wifi(std::string& id, std::string& pass);
 
 private:
     std::string ip_address;
