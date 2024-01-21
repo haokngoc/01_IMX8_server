@@ -38,13 +38,9 @@ void setup_logger_fromk_json(const std::string& jsonFilePath, std::shared_ptr<sp
         std::cerr << "Error opening JSON file.\n";
         return;
     }
-
-    // Đọc nội dung của tệp JSON vào một chuỗi
     std::string jsonContent((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
     // Đóng tệp
     file.close();
-
-    // Phân tích chuỗi JSON để tạo đối tượng json_object
     json_object *jsonObject = json_tokener_parse(jsonContent.c_str());
     if (jsonObject != nullptr) {
         // Kiểm tra và lấy giá trị mức độ log từ JSON
@@ -68,8 +64,6 @@ void setup_logger_fromk_json(const std::string& jsonFilePath, std::shared_ptr<sp
         } else {
             spdlog::warn("Settings not found in JSON.");
         }
-
-        // Giải phóng bộ nhớ của đối tượng JSON khi không cần thiết nữa
         json_object_put(jsonObject);
     } else {
         spdlog::error("Error parsing JSON content.");
@@ -80,23 +74,19 @@ void receiveAndProcessJson(sockpp::tcp_socket& clientSocket,std::shared_ptr<spdl
     std::string cmdID;
     const int bufferSize = 1024;
     char buffer[bufferSize];
-
     // Nhận dữ liệu JSON từ client
     ssize_t bytesRead = clientSocket.read(buffer, bufferSize);
     if (bytesRead < 0) {
         spdlog::error("Error receiving data from client.");
         return;
     }
-
     Settings config;
-
     // Phân tích dữ liệu JSON
     struct json_object* root = json_tokener_parse(buffer);
     if (root == nullptr) {
     	 spdlog::error("Error parsing JSON data received from client.");
         return;
     }
-
     // Hiển thị giá trị JSON nhận được
     spdlog::info("Received JSON data:");
     spdlog::info("{}",json_object_to_json_string_ext(root, JSON_C_TO_STRING_PRETTY));
@@ -120,17 +110,13 @@ void receiveAndProcessJson(sockpp::tcp_socket& clientSocket,std::shared_ptr<spdl
 	NMClient *client;
 	GMainLoop *loop;
 	GError *error = NULL;
-
 	loop = g_main_loop_new(NULL, FALSE);
-
 	// Connect to NetworkManager
 	client = nm_client_new(NULL, &error);
-
 	if (client == NULL) {
 		g_print("Error creating NMClient: %s", error->message);
 		g_error_free(error);
 	}
-//	add_wifi(client, loop, config.getWirelessSsid(),config.getWirelessPassPhrase());
 	config.add_wifi(client, loop, config.getWirelessSsid(), config.getWirelessPassPhrase());
 
 	// Bắt đầu vòng lặp chính
@@ -163,7 +149,7 @@ void Read_Json_Configuration(std::shared_ptr<spdlog::logger>& logger) {
     std::ifstream file(JSON_FILE_NAME);
     if (!file.is_open()) {
         logger->error("Error opening file.");
-        return;  // or handle the error appropriately
+        return;
     }
 
     // Đọc nội dung của tệp JSON vào một chuỗi
@@ -205,15 +191,11 @@ void Read_Json_Configuration(std::shared_ptr<spdlog::logger>& logger) {
 
     // Bắt đầu vòng lặp chính
     g_main_loop_run(loop);
-
-    // Giải phóng tài nguyên trước khi thoát chương trình
     g_main_loop_unref(loop);
     g_object_unref(client);
 
     // get ip address
     struct in_addr currentIP = setting.getCurrentIP();
-
-    // Convert the IP address to a human-readable string
     char ipString[INET_ADDRSTRLEN];
     if (inet_ntop(AF_INET, &currentIP, ipString, INET_ADDRSTRLEN) == NULL) {
         perror("inet_ntop");
