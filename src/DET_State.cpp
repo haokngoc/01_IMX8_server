@@ -56,17 +56,27 @@ void WorkState::handle(Mgard300_Handler& handler) {
 		}
 
 		PRB_IMG* pPRB_IMG = PRB_IMG::getInstance();
-
+		int ret = 0;
 		// Generate data
-		pPRB_IMG->IMG_acquire();
+#ifdef IMX8_SOM
+	    ret = pPRB_IMG->intialize_stream();
+	    ret = pPRB_IMG->open_stream();
+	  //  pPRB_IMG->trigger_event();
+	    ret = pPRB_IMG->close_stream();
+#else if
+	    ret = pPRB_IMG->IMG_acquire();
+#endif
+	    ret = pPRB_IMG->IMG_acquire();
 		char* buffer = new char[BUFFER_SIZE];
-		int result = pPRB_IMG->get_IMG(buffer);
+		if (ret==0)
+			pPRB_IMG->get_IMG(buffer);
 
-		if (result != 1) {
+		if (ret != 1) {
 			handler.getLogger()->warn("Failed to get data from PRB.");
 			delete[] buffer; // Release memory
 			return;
 		}
+
 
 		// Send data to client
 		handler.send_data_to_client(buffer, BUFFER_SIZE);
