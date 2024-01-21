@@ -11,13 +11,11 @@
 #include <thread>
 #include "spdlog/sinks/rotating_file_sink.h"
 #include "Settings.h"
-#include "get_connection.hpp"
 #include <string>
 #include <sys/ioctl.h>
 #include <arpa/inet.h>
 #include <net/if.h>
 #include <cstdlib>
-#include "ip_handler.h"
 
 #define Battery_Voltage 0x01
 #define Battery_Current 0x02
@@ -28,6 +26,10 @@
 #define Battery_Status(Fault) 0x07
 #define Cycle_Count 0x08
 #define Serial_Number 0x09
+
+// Định nghĩa các tên file
+const std::string LOG_FILE_NAME = "logfile.txt";
+const std::string JSON_FILE_NAME = "received_data.json";
 
 void setup_logger_fromk_json(const std::string& jsonFilePath, std::shared_ptr<spdlog::logger>& logger) {
     // Đọc nội dung của tệp JSON
@@ -73,58 +75,8 @@ void setup_logger_fromk_json(const std::string& jsonFilePath, std::shared_ptr<sp
         spdlog::error("Error parsing JSON content.");
     }
 }
-void added_cb(GObject *client, GAsyncResult *result, gpointer user_data)
-{
-    NMRemoteConnection *remote;
-    GError *error = NULL;
 
-    /* NM responded to our request; either handle the resulting error or
-     * print out the object path of the connection we just added.
-     */
-    remote = nm_client_add_connection_finish(NM_CLIENT(client), result, &error);
-
-    if (error) {
-        g_print("Error adding connection: %s", error->message);
-        g_error_free(error);
-    } else {
-//        g_print("Added: %s\n", nm_connection_get_path(NM_CONNECTION(remote)));
-        g_object_unref(remote);
-    }
-
-    /* Tell the mainloop we're done and we can quit now */
-    g_main_loop_quit((GMainLoop *)user_data);
-}
-void add_wifi(NMClient *client, GMainLoop *loop, std::string& id, std::string& pass)
-{
-    NMConnection *connection;
-
-    const char *uuid;
-    const char *password;
-    const char* cString = id.c_str();
-    std::cout << "ssid: " << id << std::endl;
-    std::cout << "pass: " << pass << std::endl;
-    /* Create a new connection object */
-    uuid = nm_utils_uuid_generate();
-    GString *ssid = g_string_new(cString);
-    password = pass.c_str();
-    connection = get_client_nmconnection(cString, uuid, ssid, password);
-
-    /* Ask the settings service to add the new connection; we'll quit the
-     * mainloop and exit when the callback is called.
-     */
-    nm_client_add_connection_async(client, connection, TRUE, NULL, added_cb, loop);
-    g_object_unref(connection);
-}
-
-
-void receiveAndProcessJson(sockpp::tcp_socket& clientSocket) {
-	NMClient *client;
-	GMainLoop *loop;
-	GError *error = NULL;
-	loop = g_main_loop_new(NULL, FALSE);
-	// Connect to NetworkManager
-	client = nm_client_new(NULL, &error);
-
+void receiveAndProcessJson(sockpp::tcp_socket& clientSocket,std::shared_ptr<spdlog::logger>& logger) {
     std::string cmdID;
     const int bufferSize = 1024;
     char buffer[bufferSize];
@@ -132,7 +84,7 @@ void receiveAndProcessJson(sockpp::tcp_socket& clientSocket) {
     // Nhận dữ liệu JSON từ client
     ssize_t bytesRead = clientSocket.read(buffer, bufferSize);
     if (bytesRead < 0) {
-        std::cerr << "Error receiving data from client." << std::endl;
+        spdlog::error("Error receiving data from client.");
         return;
     }
 
@@ -141,114 +93,140 @@ void receiveAndProcessJson(sockpp::tcp_socket& clientSocket) {
     // Phân tích dữ liệu JSON
     struct json_object* root = json_tokener_parse(buffer);
     if (root == nullptr) {
-        std::cerr << "Error parsing JSON data received from client." << std::endl;
+    	 spdlog::error("Error parsing JSON data received from client.");
         return;
     }
 
     // Hiển thị giá trị JSON nhận được
-    std::cout << "Received JSON data:" << std::endl;
-    std::cout << json_object_to_json_string_ext(root, JSON_C_TO_STRING_PRETTY) << std::endl;
+    spdlog::info("Received JSON data:");
+    spdlog::info("{}",json_object_to_json_string_ext(root, JSON_C_TO_STRING_PRETTY));
     config.fromJson(root);
     config.printSetting();
     // Lưu dữ liệu JSON vào tệp tin
-    std::ofstream outputFile("received_data.json");
+    std::ofstream outputFile(JSON_FILE_NAME);
     if (outputFile.is_open()) {
         outputFile << json_object_to_json_string_ext(root, JSON_C_TO_STRING_PRETTY) << std::endl;
         outputFile.close();
-        std::cout << "Saved JSON data to 'received_data.json'" << std::endl;
+        spdlog::info( "Saved JSON data to 'received_data.json");
     } else {
-        std::cerr << "Error saving JSON data to file." << std::endl;
+        spdlog::error("Error saving JSON data to file.");
     }
     // Gửi thông báo xác nhận về cho client
 	const char* confirmationMsg = "Server recevied data sucessfuly";
 	clientSocket.write(confirmationMsg, strlen(confirmationMsg));
     // Giải phóng bộ nhớ
     json_object_put(root);
-    add_wifi(client, loop, config.getWirelessSsid(),config.getWirelessPassPhrase());
+    // add wifi
+	NMClient *client;
+	GMainLoop *loop;
+	GError *error = NULL;
 
-    // Wait for the connection to be added
-    g_main_loop_run(loop);
-    // Clean up
-    g_object_unref(client);
+	loop = g_main_loop_new(NULL, FALSE);
+
+	// Connect to NetworkManager
+	client = nm_client_new(NULL, &error);
+
+	if (client == NULL) {
+		g_print("Error creating NMClient: %s", error->message);
+		g_error_free(error);
+	}
+//	add_wifi(client, loop, config.getWirelessSsid(),config.getWirelessPassPhrase());
+	config.add_wifi(client, loop, config.getWirelessSsid(), config.getWirelessPassPhrase());
+
+	// Bắt đầu vòng lặp chính
+	g_main_loop_run(loop);
+
+	// Giải phóng tài nguyên trước khi thoát chương trình
+	g_main_loop_unref(loop);
+	g_object_unref(client);
 
     // get ip address
-    IPHandler ip_handeler;
-    struct in_addr currentIP = ip_handeler.getCurrentIP();
+    struct in_addr currentIP = config.getCurrentIP();
     char ipString[INET_ADDRSTRLEN];
 	if (inet_ntop(AF_INET, &currentIP, ipString, INET_ADDRSTRLEN) == NULL) {
 	   perror("inet_ntop");
 	}
-
-	printf("Current IP address: %s\n", ipString);
+    spdlog::info("Current IP address: {}",ipString);
 	// Gửi địa chỉ IP về cho client
 	clientSocket.write(ipString, strlen(ipString));
 
     // set ip
-    ip_handeler.setIP(config.getIpAddress());
+	config.setIP(config.getIpAddress());
     // gửi thông báo thay đổi ip thành công
     const char *ipAddress = config.getIpAddress().c_str();
     std::string confirmMessage = "IP address changed successfully to " + std::string(ipAddress);
     const char *confirm_ip = confirmMessage.c_str();
 	clientSocket.write(confirm_ip, strlen(confirm_ip));
 }
-void Read_Json_Configuration() {
-	Settings setting;
-	std::ifstream file("received_data.json");
-	if (!file.is_open()) {
-		std::cerr << "Error opening file.\n";
-	}
+void Read_Json_Configuration(std::shared_ptr<spdlog::logger>& logger) {
+    Settings setting;
+    std::ifstream file(JSON_FILE_NAME);
+    if (!file.is_open()) {
+        logger->error("Error opening file.");
+        return;  // or handle the error appropriately
+    }
 
-	// Đọc nội dung của tệp JSON vào một chuỗi
-	std::string jsonContent((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-	// Đóng tệp
-	file.close();
-	// Phân tích chuỗi JSON để tạo đối tượng json_object
-	json_object *j = json_tokener_parse(jsonContent.c_str());
+    // Đọc nội dung của tệp JSON vào một chuỗi
+    std::string jsonContent((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+    // Đóng tệp
+    file.close();
+    // Phân tích chuỗi JSON để tạo đối tượng json_object
+    json_object *j = json_tokener_parse(jsonContent.c_str());
 
-	// Kiểm tra nếu phân tích thành công
-	if (j != nullptr) {
-		// In ra nội dung của đối tượng JSON
-		std::cout << json_object_to_json_string_ext(j, JSON_C_TO_STRING_PRETTY) << std::endl;
-		// Giải phóng bộ nhớ của đối tượng JSON khi không cần thiết nữa
+    // Kiểm tra nếu phân tích thành công
+    if (j != nullptr) {
+        // In ra nội dung của đối tượng JSON
+        spdlog::info("JSON Content: {}", json_object_to_json_string_ext(j, JSON_C_TO_STRING_PRETTY));
+        // Giải phóng bộ nhớ của đối tượng JSON khi không cần thiết nữa
 
-	} else {
-		std::cerr << "Error parsing JSON content.\n";
-	}
-	setting.fromJson(j);
-	setting.printSetting();
-	json_object_put(j);
-	// add wifi
-	NMClient *client;
-	GMainLoop *loop;
-	GError *error = NULL;
-	loop = g_main_loop_new(NULL, FALSE);
-	// Connect to NetworkManager
-	client = nm_client_new(NULL, &error);
-	add_wifi(client, loop, setting.getWirelessSsid(),setting.getWirelessPassPhrase());
-	// Wait for the connection to be added
-	g_main_loop_run(loop);
-	// Clean up
-	g_object_unref(client);
+    } else {
+    	spdlog::error("Error parsing JSON content.");
+    }
 
-	// get ip address
-	IPHandler ip_handler;
-	ip_handler.getCurrentIP();
+    setting.fromJson(j);
+    setting.printSetting();
+    json_object_put(j);
+    // add wifi
+    NMClient *client;
+    GMainLoop *loop;
+    GError *error = NULL;
 
-	struct in_addr currentIP = ip_handler.getCurrentIP();
+    loop = g_main_loop_new(NULL, FALSE);
 
-	// Convert the IP address to a human-readable string
-	char ipString[INET_ADDRSTRLEN];
-	if (inet_ntop(AF_INET, &currentIP, ipString, INET_ADDRSTRLEN) == NULL) {
-		perror("inet_ntop");
-	}
-	printf("Current IP address: %s\n", ipString);
-	// set ip
-	ip_handler.setIP(setting.getIpAddress());
+    // Connect to NetworkManager
+    client = nm_client_new(NULL, &error);
+
+    if (client == NULL) {
+    	spdlog::error("Error creating NMClient: {}", error->message);
+        g_error_free(error);
+    }
+
+    setting.add_wifi(client, loop, setting.getWirelessSsid(), setting.getWirelessPassPhrase());
+
+    // Bắt đầu vòng lặp chính
+    g_main_loop_run(loop);
+
+    // Giải phóng tài nguyên trước khi thoát chương trình
+    g_main_loop_unref(loop);
+    g_object_unref(client);
+
+    // get ip address
+    struct in_addr currentIP = setting.getCurrentIP();
+
+    // Convert the IP address to a human-readable string
+    char ipString[INET_ADDRSTRLEN];
+    if (inet_ntop(AF_INET, &currentIP, ipString, INET_ADDRSTRLEN) == NULL) {
+        perror("inet_ntop");
+    }
+    spdlog::info("Current IP address: {}",ipString);
+    // set ip
+    setting.setIP(setting.getIpAddress());
 }
 
+
 int main(int argc, char* argv[]) {
-	Read_Json_Configuration();
-	auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("logfile.txt", 1024*1024 * 100, 3);  // 100 MB size limit, 3 rotated files
+
+	auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(LOG_FILE_NAME, 1024*1024 * 100, 3);  // 100 MB size limit, 3 rotated files
 	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 
 
@@ -256,10 +234,12 @@ int main(int argc, char* argv[]) {
 	auto logger = std::make_shared<spdlog::logger>("DET_logger", spdlog::sinks_init_list{console_sink, file_sink});
 
 	// Đặt mức độ log
-	setup_logger_fromk_json("received_data.json", logger);
+
+	logger->set_level(spdlog::level::debug);
+//	setup_logger_fromk_json("received_data.json", logger);
 
 	spdlog::register_logger(logger);
-
+	Read_Json_Configuration(logger);
     in_port_t port = 1024;
     in_port_t port_php = 12345;
     sockpp::initialize();
@@ -270,7 +250,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    std::cout << "Awaiting connections on port " << port << "..." << std::endl;
+    spdlog::info("Awaiting connections on port {}",port);
 
     // Tạo và chạy luồng cho cổng 1024
     std::thread thread_1024([&]() {
@@ -281,14 +261,14 @@ int main(int argc, char* argv[]) {
     std::thread thread_12345([&]() {
     	while(true) {
     		sockpp::tcp_socket socket_php = acc_php.accept();
-    		std::cout << "Awaiting connections on port " << port_php << "..." << std::endl;
+    		spdlog::info("Awaiting connections on port {}",port_php);
     		if (!socket_php) {
 				std::cerr << "Error accepting connection from client on port " << port_php << "." << std::endl;
 				return;
 			}
 			// Nhận và xử lý dữ liệu JSON từ client
-			receiveAndProcessJson(socket_php);
-			setup_logger_fromk_json("received_data.json", logger);
+			receiveAndProcessJson(socket_php,logger);
+			setup_logger_fromk_json(JSON_FILE_NAME, logger);
 
 		}
     });

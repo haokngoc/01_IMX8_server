@@ -47,6 +47,7 @@ void WorkState::handle(Mgard300_Handler& handler) {
 		for (int i = 1; i <= 5; ++i) {
 			if(handler.get_check_exist_connection()) {
 				handler.getLogger()->info("Exiting thread due to check_close_threads");
+
 				handler.set_check_exist_connection(false);
 				return;
 			}
@@ -100,14 +101,14 @@ void WorkState::handle(Mgard300_Handler& handler) {
 
 
 void SleepState::handle(Mgard300_Handler &handler) {
-	this->_logger->info("Handling sleep state...");
+	handler.getLogger()->info("Handling sleep state...");
 
 }
 void CloseState::handle(Mgard300_Handler &handler) {
-	this->_logger->info("Handling close state...");
+	handler.getLogger()->info("Handling close state...");
 
 	handler.close_socket();
 }
 void TriggerState::handle(Mgard300_Handler &handler) {
-	this->_logger->info("Handling Trigger state...");
+	handler.getLogger()->info("Handling Trigger state...");
 }
