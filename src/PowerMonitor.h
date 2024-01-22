@@ -4,7 +4,11 @@
  *  Created on: Dec 14, 2023
  *      Author: hk
  */
-
+#include "spdlog/sinks/basic_file_sink.h"
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
+#include "spdlog/async.h"
+#include "spdlog/cfg/env.h"
 #ifndef POWERMONITOR_H_
 #define POWERMONITOR_H_
 
@@ -46,6 +50,9 @@ private:
     unsigned char serial_number[4];
     int serial_port;
     unsigned char CRC8(const unsigned char* vptr, int len);
+    std::shared_ptr<spdlog::logger> _logger;
+    static PowerMonitor* instance;
+    PowerMonitor();
 public:
     int uart_init();
     int uart_get_data(unsigned char ID, unsigned char* data, unsigned char data_length);
@@ -85,7 +92,8 @@ public:
 
 	int BAT_get_serial_number(unsigned char * serial_number);
 
-    PowerMonitor();
+	static PowerMonitor* getInstance();
+	static void destroyInstance();
 	~PowerMonitor();
 };
 

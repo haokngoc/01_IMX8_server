@@ -7,7 +7,8 @@
 // C library headers
 #include <stdio.h>
 #include <string.h>
-
+// Khởi tạo instance thành nullptr
+PowerMonitor* PowerMonitor::instance = nullptr;
 
 PowerMonitor::PowerMonitor(){
 	this->battery_vol[BAT01] = 0;
@@ -36,6 +37,7 @@ PowerMonitor::PowerMonitor(){
 
 	this->cycle_count[BAT01] = 0;
 	this->cycle_count[BAT02] = 0;
+	this->_logger = spdlog::get("DET_logger");
 }
 
 PowerMonitor::~PowerMonitor(){
@@ -122,7 +124,8 @@ int PowerMonitor::uart_init(){
 
 	  // Read in existing settings, and handle any error
 	  if(tcgetattr(this->serial_port, &tty) != 0) {
-	      printf("Error %i from tcgetattr: %s\n", errno, strerror(errno));
+		  this->_logger->error("Error {} from tcgetattr: {}",errno,strerror(errno));
+//	      printf("Error %i from tcgetattr: %s\n", errno, strerror(errno));
 	      return -1;
 	  }
 
@@ -155,7 +158,8 @@ int PowerMonitor::uart_init(){
 
 	  // Save tty settings, also checking for error
 	  if (tcsetattr(this->serial_port, TCSANOW, &tty) != 0) {
-	      printf("Error %i from tcsetattr: %s\n", errno, strerror(errno));
+		  this->_logger->error("Error {} from tcgetattr: {}",errno,strerror(errno));
+//	      printf("Error %i from tcsetattr: %s\n", errno, strerror(errno));
 	      return -1;
 	  }
 	  return 0;
@@ -328,4 +332,18 @@ int PowerMonitor::BAT02_get_avg_ampere() const {
 int PowerMonitor::BAT02_get_capacity_remain() const {
     return capacity_remain[BAT02];
 }
+PowerMonitor* PowerMonitor::getInstance() {
+    if (instance == nullptr) {
+        instance = new PowerMonitor();
+    }
+    return instance;
+}
+void PowerMonitor::destroyInstance() {
+    if (instance != nullptr) {
+        delete instance;
+        instance = nullptr;
+    }
+}
+
+
 

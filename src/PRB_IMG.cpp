@@ -41,6 +41,7 @@ int PRB_IMG::xioctl(int fh, int request, void *arg)
 {
         int ret =0;
     	int n_try = 10;
+#ifdef 	IMX8_SOM
     	while(n_try > 0){
     		ret = v4l2_ioctl(fh, request, arg);
     		if (ret ==  0)
@@ -49,6 +50,7 @@ int PRB_IMG::xioctl(int fh, int request, void *arg)
     			n_try --;
     		usleep(10);
     	}
+#endif
     	return ret;
 }
 
@@ -78,9 +80,10 @@ int PRB_IMG::trigger_event(){
 
 
 int PRB_IMG::intialize_stream() {
-#ifdef 	IMX8_SOM
+
 		int ret  = 0;
 		unsigned int                    i, n_buffers;
+#ifdef 	IMX8_SOM
 		struct v4l2_format              v4l2_fmt;
 		struct v4l2_requestbuffers      v4l2_req;
 //		enum v4l2_buf_type              v4l2_type;
