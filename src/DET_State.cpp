@@ -42,36 +42,42 @@ void compute_md5_file(const char* filename, unsigned char* md5sum) {
 void WorkState::handle(Mgard300_Handler& handler) {
 	this->work_thread = std::thread([this, &handler]() {
 		handler.getLogger()->info("Handling work state...");
-		std::this_thread::sleep_for(std::chrono::seconds(2));
-		// Wait for 10 seconds
-		for (int i = 1; i <= 5; ++i) {
-			if(handler.get_check_exist_connection()) {
-				handler.getLogger()->info("Exiting thread due to check_close_threads");
-
-				handler.set_check_exist_connection(false);
-				return;
-			}
-			std::this_thread::sleep_for(std::chrono::seconds(1));
-			handler.getLogger()->info("Working state {}", i);
-		}
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+//		for (int i = 1; i <= 5; ++i) {
+//			if(handler.get_check_exist_connection()) {
+//				handler.getLogger()->info("Exiting thread due to check_close_threads");
+//
+//				handler.set_check_exist_connection(false);
+//				return;
+//			}
+//			std::this_thread::sleep_for(std::chrono::seconds(1));
+//			handler.getLogger()->info("Working state {}", i);
+//		}
 
 		PRB_IMG* pPRB_IMG = PRB_IMG::getInstance();
 		int ret = 0;
 		// Generate data
 #ifdef IMX8_SOM
 	    ret = pPRB_IMG->intialize_stream();
+	    if(ret != 0)
+	    	handler.getLogger()->info("intialize_stream failed");
 	    ret = pPRB_IMG->open_stream();
-	  //  pPRB_IMG->trigger_event();
+	    if(ret != 0)
+	    	handler.getLogger()->info("open_stream failed");
+	    ret = pPRB_IMG->trigger_event();
+	    if(ret != 0)
+	    	handler.getLogger()->info("trigger_event failed");
+	  //  usleep(10);
+	    ret = pPRB_IMG->IMG_acquire();
 	    ret = pPRB_IMG->close_stream();
 #else if
 	    ret = pPRB_IMG->IMG_acquire();
 #endif
-	    ret = pPRB_IMG->IMG_acquire();
 		char* buffer = new char[BUFFER_SIZE];
 		if (ret==0)
 			pPRB_IMG->get_IMG(buffer);
 
-		if (ret != 1) {
+		if (ret != 0) {
 			handler.getLogger()->warn("Failed to get data from PRB.");
 			delete[] buffer; // Release memory
 			return;
@@ -87,7 +93,7 @@ void WorkState::handle(Mgard300_Handler& handler) {
 			output_file.write(buffer, BUFFER_SIZE);
 			output_file.close();
 			handler.getLogger()->info("Data written to file: data.bin");
-	#ifdef DEBUG
+#ifdef DEBUG
 			// Compute MD5 checksum
 			handler.getLogger()->info("Computing MD5 checksum...");
 			unsigned char md5sum[MD5_DIGEST_LENGTH];
@@ -98,7 +104,7 @@ void WorkState::handle(Mgard300_Handler& handler) {
 				handler.getLogger()->info("{:02x}", static_cast<int>(md5sum[i]));
 			}
 			std::cout << std::endl;
-	#endif
+#endif
 		} else {
 			handler.getLogger()->warn("Failed to open output file.");
 		}
@@ -120,5 +126,10 @@ void CloseState::handle(Mgard300_Handler &handler) {
 	handler.close_socket();
 }
 void TriggerState::handle(Mgard300_Handler &handler) {
+//	handler.getLogger()->info("Handling Trigger state...");
+#ifdef IMX8_SOM
+//	PRB_IMG* pPRB_IMG = PRB_IMG::getInstance();
+//	pPRB_IMG->trigger_event();
+#endif
 	handler.getLogger()->info("Handling Trigger state...");
 }
