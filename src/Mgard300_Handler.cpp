@@ -24,7 +24,7 @@ Mgard300_Handler::~Mgard300_Handler() {
 void handler_parse_msg_thread(Mgard300_Handler* mgard300_Handler) {
     while (true) {
     	pthread_t id = pthread_self();
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
         // Gọi đối tượng MsgHandler để phân tích gói tin từ client
         int ret = mgard300_Handler->parse_msg_client(mgard300_Handler->get_current_socket());
         //std::cout << "Number of Connections: " << mgard300_Handler->get_number_connection() << " ID thread: " << id << std::endl;
@@ -44,7 +44,6 @@ void handler_parse_msg_thread(Mgard300_Handler* mgard300_Handler) {
 // tạo hàm để luồng check state thực hiện
 void execute_cmd_thread(Mgard300_Handler* mgard300_Handler) {
     while (true) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         int q_execute_cmd = mgard300_Handler->get_state();
         switch (q_execute_cmd) {
             case DET_STATE_WORK:
@@ -57,9 +56,10 @@ void execute_cmd_thread(Mgard300_Handler* mgard300_Handler) {
                 mgard300_Handler->transition_to_state(new CloseState());
                 break;
             case DET_STATE_TRIGGER:
-                mgard300_Handler->transition_to_state(new TriggerState());
+            	 mgard300_Handler->transition_to_state(new TriggerState());
                 break;
             default:
+                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
                 break;
         }
     }
@@ -164,7 +164,7 @@ int Mgard300_Handler::parse_msg_client(sockpp::tcp_socket& socket) {
                 break;
         }
         // gui lai 5 byte den client
-        this->send_msg(this->buf[1], this->buf[2], this->buf[3]);
+   //     this->send_msg(this->buf[1], this->buf[2], this->buf[3]);
 
     } catch (const std::exception& e) {
 #ifdef DEBUG
