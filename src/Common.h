@@ -17,4 +17,7 @@
 #define CHUNK_SIZE 1024*30
 #define TIMEOUT_MICRO_SECONDS 100000000000
 
+const std::string LOG_FILE_NAME = "logfile.txt";
+const std::string JSON_FILE_NAME = "received_data.json";
+
 #endif
