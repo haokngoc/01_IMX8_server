@@ -58,6 +58,15 @@ int PRB_IMG::trigger_event(){
 // Initialize PRB
 	  int ret = 0;
 #ifdef 	IMX8_SOM
+	  this->dev_name_prb = 			"/dev/v4l-subdev2";
+	  this->fd_prb = v4l2_open(this->dev_name_prb, O_RDWR | O_NONBLOCK, 0);
+	  if (this->fd_prb < 0) {
+			perror("MIPI camera driver doesn't work properly!");
+			exit(EXIT_FAILURE);
+	  }
+
+
+
       struct v4l2_dbg_register reg_w = {0};
       /* Set Subdevice-0 */
       reg_w.match.type = reg_w.match.type = V4L2_CHIP_MATCH_SUBDEV;
@@ -70,8 +79,8 @@ int PRB_IMG::trigger_event(){
       /* Write register */
       reg_w.val = 0x1;
       ret = this->xioctl(this->fd_prb, VIDIOC_DBG_S_REGISTER, &reg_w) ;
-	  if(ret < 0)
-		   return ret;
+	//  if(ret < 0)
+	//	   return ret;
       v4l2_close(this->fd_prb);
 #endif
       return ret;
@@ -91,7 +100,6 @@ int PRB_IMG::intialize_stream() {
 	    csi_sam_format					m_csi_sam_format;
 		this->dev_name_mxc = 			"/dev/video1";
 		this->dev_name_csi = 			"/dev/v4l-subdev0";
-		this->dev_name_prb = 			"/dev/v4l-subdev2";
 	//    struct buffer                	*dma_buffers = this->p_dma_buffers;
 
 	    this->fd_mxc = v4l2_open(this->dev_name_mxc, O_RDWR | O_NONBLOCK, 0);
@@ -106,11 +114,6 @@ int PRB_IMG::intialize_stream() {
 	            exit(EXIT_FAILURE);
 	    }
 
-	    this->fd_prb = v4l2_open(this->dev_name_prb, O_RDWR | O_NONBLOCK, 0);
-	    if (this->fd_prb < 0) {
-	            perror("MIPI camera driver doesn't work properly!");
-	            exit(EXIT_FAILURE);
-	    }
 
 	    CLEAR(v4l2_fmt);
 	    CLEAR(m_csi_sam_format);
@@ -176,28 +179,18 @@ int PRB_IMG::intialize_stream() {
 }
 
 
+
+
 int PRB_IMG::open_stream(){
 	int ret = 0;
 #ifdef 	IMX8_SOM
-	fd_set                          fds;
-	struct timeval                  tv;
-	int                             r ;
+
 	enum v4l2_buf_type              v4l2_type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
 	ret = this->xioctl(this->fd_mxc, VIDIOC_STREAMON, &v4l2_type);
 	if(ret < 0)
 		return ret;
 
-	FD_ZERO(&fds);
-	FD_SET(this->fd_mxc, &fds);
-	/* Timeout. */
-	tv.tv_sec = 5;
-	tv.tv_usec = 0;
 
-	r = select(this->fd_mxc + 1, &fds, NULL, NULL, &tv);
-	if (r == -1) {
-			perror("Waiting for Frame");
-			return errno;
-	}
 #endif
 
 	return ret;
@@ -216,7 +209,7 @@ int PRB_IMG::close_stream(){
             v4l2_munmap(this->p_dma_buffers[i].start, this->p_dma_buffers[i].length);
     v4l2_close(this->fd_mxc);
     v4l2_close(this->fd_csi);
-    v4l2_close(this->fd_prb);
+  ///  v4l2_close(this->fd_prb);
 #endif
     return ret;
 }
@@ -226,6 +219,24 @@ int PRB_IMG::IMG_acquire() {
 	pthread_mutex_lock(&this->get_connection_mutex());
 #ifdef 	IMX8_SOM
 	/* Write register */
+	fd_set                          fds;
+	struct timeval                  tv;
+	int                             r ;
+
+	FD_ZERO(&fds);
+	FD_SET(this->fd_mxc, &fds);
+	/* Timeout. */
+	tv.tv_sec = 5;
+	tv.tv_usec = 0;
+
+	r = select(this->fd_mxc + 1, &fds, NULL, NULL, &tv);
+	if (r == -1) {
+			perror("Waiting for Frame");
+			return errno;
+	}
+
+
+
     auto start = high_resolution_clock::now();
     struct v4l2_buffer   			v4l2_buf;
     v4l2_buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
