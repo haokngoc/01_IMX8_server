@@ -1,3 +1,5 @@
+#ifndef GET_CONNECTION_HPP
+#define GET_CONNECTION_HPP
 #include <glib.h>
 #include <NetworkManager.h>
 #include <stdlib.h>
@@ -5,7 +7,7 @@
 #include <string.h>
 #include <iostream>
 
-NMConnection *get_client_nmconnection(const char *connection_id, const char *uuid, GString *ssid, const char *password)
+inline NMConnection *get_client_nmconnection(const char *connection_id, const char *uuid, GString *ssid, const char *password)
 {
     NMConnection *connection = NULL;
     NMSettingConnection *s_con;
@@ -54,3 +56,4 @@ NMConnection *get_client_nmconnection(const char *connection_id, const char *uui
 
     return connection;
 }
+#endif // GET_CONNECTION_HPP

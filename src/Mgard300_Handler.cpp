@@ -20,19 +20,19 @@ Mgard300_Handler::~Mgard300_Handler() {
 
 // -------------------------------------------------------------------------
 
-// tạo hàm để luồng phân tích gói tin thực hiện
+// Create a function for the packet analysis thread to execute
 void handler_parse_msg_thread(Mgard300_Handler* mgard300_Handler) {
     while (true) {
     	pthread_t id = pthread_self();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        // Gọi đối tượng MsgHandler để phân tích gói tin từ client
+        // Call the MsgHandler object to parse packets from the client
         int ret = mgard300_Handler->parse_msg_client(mgard300_Handler->get_current_socket());
         //std::cout << "Number of Connections: " << mgard300_Handler->get_number_connection() << " ID thread: " << id << std::endl;
         mgard300_Handler->getLogger()->info("Number of Connections: {} ID thread: {}", mgard300_Handler->get_number_connection(), id);
         if (ret == -1) {
             std::this_thread::sleep_for(std::chrono::seconds(3));
         }
-        // kiểm tra số lượng kết nối
+        // Check the number of connections
         if (mgard300_Handler->get_number_connection() == 2) {
         	mgard300_Handler->set_check_exist_connection(true);
             mgard300_Handler->decrement_number_connection();
@@ -41,7 +41,7 @@ void handler_parse_msg_thread(Mgard300_Handler* mgard300_Handler) {
     }
 }
 
-// tạo hàm để luồng check state thực hiện
+// Create a function for the state check thread to execute
 void execute_cmd_thread(Mgard300_Handler* mgard300_Handler) {
     while (true) {
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -90,7 +90,6 @@ void Mgard300_Handler::close_all_threads() {
             std::cout << "Thread " << kv.first << " detached and closed immediately:" << std::endl;
         }
     }
-    // Xóa tất cả các luồng cũ từ map
     tm_.clear();
 }
 void Mgard300_Handler::start_thread_parse_thread() {
@@ -107,7 +106,7 @@ void Mgard300_Handler::start_thread_checkstate_thread() {
 }
 void Mgard300_Handler::handle_connections() {
     while (true) {
-    	// đóng tất cả các thread cũ
+    	// close all old thread
     	this->close_all_threads();
         sockpp::inet_address peer;
         this->current_socket = this->acceptor_.accept(&peer);
@@ -130,10 +129,10 @@ void Mgard300_Handler::handle_connections() {
 
 int Mgard300_Handler::parse_msg_client(sockpp::tcp_socket& socket) {
     try {
-        // Đọc dữ liệu từ socket
+        // Read data from socket
         this->n_read_bytes = socket.read(this->buf, sizeof(this->buf));
         this->_logger->info("Received: {} bytes from client", n_read_bytes);
-        // Kiểm tra xem đã đọc đúng số byte hay không
+        // Check whether the correct number of bytes has been read
 
         if (this->n_read_bytes < sizeof(this->buf)) {
             throw std::runtime_error("Not enough bytes read");
@@ -141,12 +140,11 @@ int Mgard300_Handler::parse_msg_client(sockpp::tcp_socket& socket) {
         }
 
 #ifdef DEBUG
-        // Kiểm tra marker không khớp
+        // Check for mismatched markers
         if (buf[0] != MARKER_HEAD || buf[4] != MARKER_TAIL) {
             throw std::runtime_error("Invalid markers");
         }
 #endif
-        // Xử lý dữ liệu
         switch (this->buf[1]) {
             case DET_STATE_SLEEP:
                 this->set_state(DET_STATE_SLEEP);
@@ -163,7 +161,7 @@ int Mgard300_Handler::parse_msg_client(sockpp::tcp_socket& socket) {
             default:
                 break;
         }
-        // gui lai 5 byte den client
+        // send back to the client
         this->send_msg(this->buf[1], this->buf[2], this->buf[3]);
 
     } catch (const std::exception& e) {
@@ -196,10 +194,10 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
         size_t total_sent = 0;
         this->set_is_client_closed(true);
         while (remaining_size > 0 && this->get_is_client_closed()) {
-            // Xác định kích thước của chunk cho lần gửi
+            // Determines the size of the chunk for the send
             size_t current_chunk_size = std::min(chunk_size, remaining_size);
 
-            // Gửi chunk đến client
+            // Send chunk to client
             int n = this->current_socket.write_n(data + offset, current_chunk_size);
 
             offset += n;
@@ -217,7 +215,7 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
                 this->_logger->warn("Error: Incomplete last chunk sent to client!");
                 throw std::runtime_error("Incomplete last chunk sent to client");
             }
-            // Hiển thị số byte còn lại
+            // Displays the remaining bytes
             this->_logger->info("Remaining bytes: {} | Total sent: {}", remaining_size, total_sent);
 #endif
         }

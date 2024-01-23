@@ -8,6 +8,9 @@
 #include "spdlog/cfg/env.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "sockpp/tcp_acceptor.h"
+#include <vector>
+#include <NetworkManager.h>
+#include <glib.h>
 class Settings {
 public:
 	Settings();
@@ -35,9 +38,6 @@ public:
 	void printSetting();
 	static void setIP(const std::string& ipAddress);
 	struct in_addr getCurrentIP();
-	static void added_cb(GObject *client, GAsyncResult *result, gpointer user_data);
-//	void add_wifi(NMClient *client, GMainLoop *loop, std::string& id, std::string& pass);
-//	void add_wifi(std::string& id, std::string& pass);
 	void Read_Json_Configuration();
 	void receive_processJson(sockpp::tcp_socket& clientSocket);
 private:

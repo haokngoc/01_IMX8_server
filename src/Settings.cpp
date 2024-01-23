@@ -75,57 +75,234 @@ void Settings::printSetting() {
 	this->_logger->info("wireless-SSID: {}", wireless_ssid);
 	this->_logger->info("wireless-Pass-Phrase: {}", wireless_pass_phrase);
 }
+/*---------------------------------------------Scan_wifi--------------------------------------------------------*/
+enum BandType
+{
+    BAND_NONE = 0, /* unknown */
+    BAND_2GHZ = 1, /* 2.4GHz */
+    BAND_5GHZ = 2, /* 5GHz */
+    BAND_ANY = 3   /* Dual-mode frequency band */
+};
+struct AccessPointInfo
+{
+    std::string ssid;
+    std::string bssid;
+    int rssi;
+    int frequency;
+    BandType band;
+    std::string security;
+};
+struct WifiStatus
+{
+    bool wifi_enabled;
+    NMClient *client;
+    GMainLoop *loop;
+    NMDevice *wifi_device;
+    int attempts;
+};
 
-void Settings::setIP(const std::string& ipAddress) {
-    struct ifreq ifr;
-#ifdef IMX8_SOM
-    const char *name = "wlp1s0";
-#else if
-    const char *name = "wlo1";
-#endif
-    int fd = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP);
-
-    strncpy(ifr.ifr_name, name, IFNAMSIZ);
-    ifr.ifr_addr.sa_family = AF_INET;
-
-    struct sockaddr_in *addr = (struct sockaddr_in *)&ifr.ifr_addr;
-    inet_pton(AF_INET, ipAddress.c_str(), &addr->sin_addr);
-
-    int ret = ioctl(fd, SIOCSIFADDR, &ifr);
-
-    inet_pton(AF_INET, "255.255.0.0", &addr->sin_addr);
-    ret = ioctl(fd, SIOCSIFNETMASK, &ifr);
-
-    ret = ioctl(fd, SIOCGIFFLAGS, &ifr);
-    strncpy(ifr.ifr_name, name, IFNAMSIZ);
-    ifr.ifr_flags |= (IFF_UP | IFF_RUNNING);
-
-    ret = ioctl(fd, SIOCSIFFLAGS, &ifr);
-
+BandType get_band(guint32 frequency)
+{
+    if (frequency >= 2400 && frequency <= 2495)
+    {
+        return BAND_2GHZ;
+    }
+    else if (frequency >= 5150 && frequency <= 5925)
+    {
+        return BAND_5GHZ;
+    }
+    else
+    {
+        return BAND_NONE;
+    }
 }
-struct in_addr Settings::getCurrentIP() {
-	int fd=0;
-	struct ifreq ifr;
-	struct in_addr IP;
-	fd = socket(AF_INET, SOCK_DGRAM, 0);
-	ifr.ifr_addr.sa_family = AF_INET;
-#ifdef IMX8_SOM
-	strncpy(ifr.ifr_name, "wlp1s0", IFNAMSIZ-1);
-#else if
-	strncpy(ifr.ifr_name, "wlo1", IFNAMSIZ-1);
-#endif
-	if (ioctl(fd, SIOCGIFFLAGS, &ifr) < 0) {
-		perror("SIOCGIFFLAGS");}
-	if ((ifr.ifr_flags & IFF_UP) && (ifr.ifr_flags & IFF_RUNNING)){
-		ioctl(fd, SIOCGIFADDR, &ifr);
-		close(fd);
-		IP = ((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr;
-	} else {
-		close(fd);
-		inet_aton ("127.0.0.1",&IP);
+const char *get_wifi_security_type(NMAccessPoint *ap)
+{
+    NM80211ApSecurityFlags wpa_flags = nm_access_point_get_wpa_flags(ap);
+    NM80211ApSecurityFlags rsn_flags = nm_access_point_get_rsn_flags(ap);
+
+    if (wpa_flags & NM_802_11_AP_SEC_KEY_MGMT_PSK || rsn_flags & NM_802_11_AP_SEC_KEY_MGMT_PSK)
+    {
+        return "WPA-PSK";
+    }
+    else if (wpa_flags & NM_802_11_AP_SEC_KEY_MGMT_802_1X || rsn_flags & NM_802_11_AP_SEC_KEY_MGMT_802_1X)
+    {
+        return "WPA-Enterprise";
+    }
+    else if (wpa_flags == 0 && rsn_flags == 0)
+    {
+        return "None";
+    }
+    else
+    {
+        return "Unknown";
+    }
+}
+void on_wifi_scan_finished(GObject *source_object, GAsyncResult *res, gpointer user_data)
+{
+    WifiStatus *wifi_status = (WifiStatus *)user_data;
+    GError *error = NULL;
+    gboolean success = nm_device_wifi_request_scan_finish(NM_DEVICE_WIFI(source_object), res, &error);
+    if (!success)
+    {
+        if (g_strrstr(error->message, "Scanning not allowed") != NULL)
+        {
+            // Scanning not allowed immediately following previous scan
+            // Retry after a short delay
+            g_print("Scanning not allowed, retrying in 4 seconds...\n");
+            g_error_free(error);
+            sleep(4);
+
+            // Check if attempts is less than 10
+            if (wifi_status->attempts < 10)
+            {
+                wifi_status->attempts++; // Increment attempts
+                nm_device_wifi_request_scan_async(NM_DEVICE_WIFI(source_object), NULL, on_wifi_scan_finished, wifi_status);
+            }
+            else
+            {
+                g_print("Reached maximum retries, terminating...\n");
+            }
+
+            return;
+        }
+
+        g_print("Error scanning for WiFi networks: %s\n", error->message);
+        g_error_free(error);
+    }
+    GMainLoop *loop = wifi_status->loop;
+    g_main_loop_quit(loop);
+}
+
+bool scan_wifi(WifiStatus *wifi_status)
+{
+    GMainLoop *loop = g_main_loop_new(NULL, FALSE);
+    wifi_status->loop = loop;
+    nm_device_wifi_request_scan_async(NM_DEVICE_WIFI(wifi_status->wifi_device), NULL, on_wifi_scan_finished, wifi_status);
+    g_main_loop_run(loop);
+    g_main_loop_unref(loop);
+    return true;
+}
+std::vector<AccessPointInfo> get_scan_info(WifiStatus *wifi_status, const std::string &target_ssid)
+{
+    std::vector<AccessPointInfo> ap_info_list;
+
+    if (wifi_status->wifi_device != NULL)
+    {
+        const GPtrArray *aps = nm_device_wifi_get_access_points(NM_DEVICE_WIFI(wifi_status->wifi_device));
+        if (aps != NULL)
+        {
+            for (guint i = 0; i < aps->len; i++)
+            {
+                NMAccessPoint *ap = (NMAccessPoint *)g_ptr_array_index(aps, i);
+                GBytes *ssid_bytes = nm_access_point_get_ssid(ap);
+                if (ssid_bytes != NULL)
+                {
+                    gsize ssid_len;
+                    const gchar *ssid_str = (const gchar *)g_bytes_get_data(ssid_bytes, &ssid_len);
+                    std::string ssid(ssid_str, ssid_len);
+                    g_bytes_unref(ssid_bytes);
+
+                    // Kiểm tra xem SSID có khớp với mục tiêu không
+                    if (ssid == target_ssid)
+                    {
+                        AccessPointInfo ap_info;
+
+                        ap_info.ssid = ssid;
+                        ap_info.bssid = nm_access_point_get_bssid(ap);
+                        ap_info.rssi = nm_access_point_get_strength(ap);
+                        ap_info.frequency = nm_access_point_get_frequency(ap);
+                        ap_info.band = get_band(nm_access_point_get_frequency(ap));
+                        ap_info.security = get_wifi_security_type(ap);
+
+                        ap_info_list.push_back(ap_info);
+                    }
+                }
+            }
+        }
+    }
+
+    return ap_info_list;
+}
+bool init_wifi_device(WifiStatus *wifi_status)
+{
+    GError *error = NULL;
+    NMClient *client = NULL;
+    client = nm_client_new(NULL, &error);
+    if (!client)
+    {
+        g_print("Could not connect to NetworkManager: %s\n", error->message);
+        g_error_free(error);
+        return false;
+    }
+    wifi_status->client = client;
+
+    const GPtrArray *devices = nm_client_get_devices(client);
+    if (devices == NULL)
+    {
+        g_print("Could not get devices: %s\n", error->message);
+        g_error_free(error);
+        return false;
+    }
+
+    for (guint i = 0; i < devices->len; i++)
+    {
+        NMDevice *device = (NMDevice *)g_ptr_array_index(devices, i);
+        if (NM_IS_DEVICE_WIFI(device))
+        {
+            wifi_status->wifi_device = device;
+            break;
+        }
+    }
+    if (wifi_status->wifi_device == NULL)
+    {
+        g_print("Could not find WiFi device\n");
+        return false;
+    }
+    return true;
+}
+std::string getWifiInfoAsString(const AccessPointInfo &ap_info)
+{
+    std::ostringstream oss;
+    oss << "SSID: " << ap_info.ssid << "\n"
+        << "BSSID: " << ap_info.bssid << "\n"
+        << "RSSI: " << ap_info.rssi << "/100\n"
+        << "Frequency: " << ap_info.frequency << " MHz\n"
+        << "Band: " << ap_info.band << " GHz\n"
+        << "Security: " << ap_info.security << "\n\n";
+
+    return oss.str();
+}
+std::string scan_info_wifi(const std::string& ssid){
+	std::shared_ptr<spdlog::logger> _logger;
+	_logger = spdlog::get("DET_logger");
+	WifiStatus wifi_status;
+	wifi_status.wifi_enabled = init_wifi_device(&wifi_status);
+	wifi_status.attempts = 0;
+	std::string target_ssid = ssid;
+	std::string wifiInfoString;
+
+	if (wifi_status.wifi_enabled)
+	{
+		if (scan_wifi(&wifi_status))
+		{
+			std::vector<AccessPointInfo> ap_info_list = get_scan_info(&wifi_status, target_ssid);
+			for (const auto &ap_info : ap_info_list)
+			{
+				wifiInfoString += getWifiInfoAsString(ap_info);
+			}
+		}
+		else
+		{
+			_logger->error("Scan failed\n");
+		}
 	}
-	return  IP;
+	_logger->info(wifiInfoString);
+//	std::cout << wifiInfoString;
+	return wifiInfoString;
 }
+/*---------------------------------------------Scan_wifi--------------------------------------------------------*/
+
 void set_IP(const std::string& ipAddress) {
     struct ifreq ifr;
 #ifdef IMX8_SOM
@@ -154,21 +331,30 @@ void set_IP(const std::string& ipAddress) {
 
 }
 
-void Settings::added_cb(GObject *client, GAsyncResult *result, gpointer user_data) {
-    NMRemoteConnection *remote;
-    GError *error = NULL;
+void creat_wifi_voyance(sockpp::tcp_socket& clientSocket) {
+	std::shared_ptr<spdlog::logger> _logger;
+	_logger = spdlog::get("DET_logger");
+	const char* command = "nmcli con add type wifi ifname wlo1 mode ap con-name WIFI_AP ssid voyance && \
+						   nmcli con modify WIFI_AP 802-11-wireless.band bg && \
+						   nmcli con modify WIFI_AP 802-11-wireless.channel 1 && \
+						   nmcli con modify WIFI_AP 802-11-wireless-security.key-mgmt wpa-psk && \
+						   nmcli con modify WIFI_AP 802-11-wireless-security.proto rsn && \
+						   nmcli con modify WIFI_AP 802-11-wireless-security.group ccmp && \
+						   nmcli con modify WIFI_AP 802-11-wireless-security.pairwise ccmp && \
+						   nmcli con modify WIFI_AP 802-11-wireless-security.psk 123456789 && \
+						   nmcli con modify WIFI_AP ipv4.method shared && \
+						   nmcli con up WIFI_AP";
 
-    remote = nm_client_add_connection_finish(NM_CLIENT(client), result, &error);
-
-    if (error) {
-//    	this->_logger->info("Error adding connection: {}");
-        g_print("Error adding connection: %s", error->message);
-        g_error_free(error);
-    } else {
-        g_object_unref(remote);
-    }
-
-    g_main_loop_quit((GMainLoop *)user_data);
+	//Execute system commands
+	int result = std::system(command);
+	if (result == 0) {
+		_logger->info("Command executed successfully.");
+		std::string message = "Switched to Access Point.";
+		_logger->info("Switched to Access Point.");
+		clientSocket.write_n(message.c_str(), message.size());
+	} else {
+		_logger->info("Command execution failed.");
+	}
 }
 
 void addAndActivateConnectionCallback(GObject *object, GAsyncResult *res, gpointer user_data)
@@ -182,9 +368,15 @@ void addAndActivateConnectionCallback(GObject *object, GAsyncResult *res, gpoint
     nm_client_add_and_activate_connection_finish(client, res, &error);
     if (error)
     {
-    	_logger->error("Error adding and activating connection: {}",error->message);
-//        std::cerr << "Error adding and activating connection: " << error->message << std::endl;
-        g_error_free(error);
+		if (strstr(error->message, "SSID not found") != nullptr || strstr(error->message, "Invalid key") != nullptr)
+		{
+			_logger->error("Connection failed: Invalid SSID or password");
+		}
+		else
+		{
+			_logger->error("Error adding and activating connection: {}", error->message);
+		}
+		g_error_free(error);
     }
     else
     {
@@ -311,19 +503,15 @@ void Settings::Read_Json_Configuration() {
         logger->error("Error opening file.");
         return;
     }
-    // Đọc nội dung của tệp JSON vào một chuỗi
+    // Read the contents of a JSON file into a string
     std::string jsonContent((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
     // Đóng tệp
     file.close();
-    // Phân tích chuỗi JSON để tạo đối tượng json_object
+    // Parse the JSON string to create a json_object
     json_object *j = json_tokener_parse(jsonContent.c_str());
 
-    // Kiểm tra nếu phân tích thành công
     if (j != nullptr) {
-        // In ra nội dung của đối tượng JSON
     	logger->info("JSON Content: {}", json_object_to_json_string_ext(j, JSON_C_TO_STRING_PRETTY));
-        // Giải phóng bộ nhớ của đối tượng JSON khi không cần thiết nữa
-
     } else {
     	logger->error("Error parsing JSON content.");
     }
@@ -340,6 +528,7 @@ void Settings::Read_Json_Configuration() {
 				this->logging_level = json_object_get_string(val);
 			} else if (strcmp(key, "wireless-mode") == 0) {
 				this->wireless_mode = json_object_get_string(val);
+
 			} else if (strcmp(key, "wireless-SSID") == 0) {
 				this->wireless_ssid = json_object_get_string(val);
 				ssid = json_object_get_string(val);
@@ -368,6 +557,8 @@ void Settings::Read_Json_Configuration() {
     logger->info("Current IP address: {}",ipString);
     // set ip
     set_IP(ip_address);
+    // scan_wifi
+    std::string info_wifi = scan_info_wifi(ssid);
 }
 void Settings::receive_processJson(sockpp::tcp_socket& clientSocket) {
     std::shared_ptr<spdlog::logger> logger;
@@ -375,22 +566,22 @@ void Settings::receive_processJson(sockpp::tcp_socket& clientSocket) {
 	std::string cmdID;
 	const int bufferSize = 1024;
 	char buffer[bufferSize];
-	// Nhận dữ liệu JSON từ client
+	// Receive JSON data from client
 	ssize_t bytesRead = clientSocket.read(buffer, bufferSize);
 	if (bytesRead < 0) {
 		spdlog::error("Error receiving data from client.");
 		return;
 	}
-	// Phân tích dữ liệu JSON
+	//Parse JSON data
 	struct json_object* j = json_tokener_parse(buffer);
 	if (j == nullptr) {
 		 spdlog::error("Error parsing JSON data received from client.");
 		return;
 	}
-	// Hiển thị giá trị JSON nhận được
+	// Displays the received JSON value
 	logger->info("Received JSON data:");
 	logger->info("{}",json_object_to_json_string_ext(j, JSON_C_TO_STRING_PRETTY));
-	// Lưu dữ liệu JSON vào tệp tin
+	//Save JSON data to file
 	std::ofstream outputFile(JSON_FILE_NAME);
 	if (outputFile.is_open()) {
 		outputFile << json_object_to_json_string_ext(j, JSON_C_TO_STRING_PRETTY) << std::endl;
@@ -402,6 +593,7 @@ void Settings::receive_processJson(sockpp::tcp_socket& clientSocket) {
 	std::string ssid;
 	std::string password;
 	std::string ip;
+	std::string wl_mode;
 	json_object* settingsObj = nullptr;
 	if (json_object_object_get_ex(j, "settings", &settingsObj)) {
 		json_object_object_foreach(settingsObj, key, val) {
@@ -414,6 +606,7 @@ void Settings::receive_processJson(sockpp::tcp_socket& clientSocket) {
 				this->logging_level = json_object_get_string(val);
 			} else if (strcmp(key, "wireless-mode") == 0) {
 				this->wireless_mode = json_object_get_string(val);
+				wl_mode = json_object_get_string(val);
 			} else if (strcmp(key, "wireless-SSID") == 0) {
 				this->wireless_ssid = json_object_get_string(val);
 				ssid = json_object_get_string(val);
@@ -432,34 +625,36 @@ void Settings::receive_processJson(sockpp::tcp_socket& clientSocket) {
 	logger->info("wireless-Pass-Phrase: {}", this->wireless_pass_phrase);
 	json_object_put(j);
 
-	// Gửi thông báo xác nhận về cho client
+	// Send a confirmation message to the client
 	const char* confirmationMsg = "Server recevied data sucessfuly";
 	clientSocket.write(confirmationMsg, strlen(confirmationMsg));
-	// add wifi
-	add_wifi(ssid,password);
+	logger->info("wl mode: {}",wl_mode);
+	if(wl_mode == "station") {
+			// add wifi
+		add_wifi(ssid,password);
 
-	// Bắt đầu vòng lặp chính
-//	g_main_loop_run(loop);
-
-	// Giải phóng tài nguyên trước khi thoát chương trình
-//	g_main_loop_unref(loop);
-//	g_object_unref(client);
-
-	// get ip address
-	struct in_addr currentIP = get_IP();
-	char ipString[INET_ADDRSTRLEN];
-	if (inet_ntop(AF_INET, &currentIP, ipString, INET_ADDRSTRLEN) == NULL) {
-	   perror("inet_ntop");
+		// get ip address
+		struct in_addr currentIP = get_IP();
+		char ipString[INET_ADDRSTRLEN];
+		if (inet_ntop(AF_INET, &currentIP, ipString, INET_ADDRSTRLEN) == NULL) {
+		   perror("inet_ntop");
+		}
+		logger->info("Current IP address: {}",ipString);
+		// Send IP address to client
+		clientSocket.write(ipString, strlen(ipString));
+		// set ip
+		set_IP(ip);
+		// Send notification of ip change successfully
+		const char *ipAddress = ip.c_str();
+		std::string confirmMessage = "IP address changed successfully to " + std::string(ipAddress);
+		const char *confirm_ip = confirmMessage.c_str();
+		clientSocket.write(confirm_ip, strlen(confirm_ip));
+	    // scan_wifi
+	    std::string info_wifi = scan_info_wifi(ssid);
+	    const char *wifi_info = info_wifi.c_str();
+	    clientSocket.write(wifi_info, strlen(wifi_info));
+	} else {
+		creat_wifi_voyance(clientSocket);
 	}
-	logger->info("Current IP address: {}",ipString);
-	// Gửi địa chỉ IP về cho client
-	clientSocket.write(ipString, strlen(ipString));
-	// set ip
-	set_IP(ip);
-	// gửi thông báo thay đổi ip thành công
-	const char *ipAddress = ip.c_str();
-	std::string confirmMessage = "IP address changed successfully to " + std::string(ipAddress);
-	const char *confirm_ip = confirmMessage.c_str();
-	clientSocket.write(confirm_ip, strlen(confirm_ip));
 }
 

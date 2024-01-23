@@ -60,14 +60,14 @@ CPP_DEPS += \
 src/%.o: ../src/%.cpp src/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DDEBUG -I"/home/hk/eclipse-workspace/01_IMX8_Server_x86/include" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	g++ -DDEBUG -I"/home/hk/eclipse-workspace/01_IMX8_Server_x86/include" -I-I/usr/include/blkid -I/usr/include/glib-2.0 -I/usr/include/libnm/ -I/usr/lib/x86_64-linux-gnu/glib-2.0/include/ -I/usr/include/blkid -I/usr/include/ -I/usr/include/libmount -I/usr/include/libnm -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 src/%.o: ../src/%.cc src/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -DDEBUG -I"/home/hk/eclipse-workspace/01_IMX8_Server_x86/include" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	g++ -DDEBUG -I"/home/hk/eclipse-workspace/01_IMX8_Server_x86/include" -I-I/usr/include/blkid -I/usr/include/glib-2.0 -I/usr/include/libnm/ -I/usr/lib/x86_64-linux-gnu/glib-2.0/include/ -I/usr/include/blkid -I/usr/include/ -I/usr/include/libmount -I/usr/include/libnm -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

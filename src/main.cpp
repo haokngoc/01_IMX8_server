@@ -17,23 +17,22 @@
 #include <net/if.h>
 #include <cstdlib>
 
-// Định nghĩa các tên file
 const std::string LOG_FILE_NAME = "logfile.txt";
 const std::string JSON_FILE_NAME = "received_data.json";
 
 void setup_logger_fromk_json(const std::string& jsonFilePath, std::shared_ptr<spdlog::logger>& logger) {
-    // Đọc nội dung của tệp JSON
+    // Read the contents of the JSON file
     std::ifstream file(jsonFilePath);
     if (!file.is_open()) {
         std::cerr << "Error opening JSON file.\n";
         return;
     }
     std::string jsonContent((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-    // Đóng tệp
+    // close file
     file.close();
     json_object *jsonObject = json_tokener_parse(jsonContent.c_str());
     if (jsonObject != nullptr) {
-        // Kiểm tra và lấy giá trị mức độ log từ JSON
+        // Check and get log level value from JSON
         json_object *settingsObj = nullptr;
         if (json_object_object_get_ex(jsonObject, "settings", &settingsObj)) {
             json_object *logLevelObj = nullptr;
@@ -41,7 +40,7 @@ void setup_logger_fromk_json(const std::string& jsonFilePath, std::shared_ptr<sp
                 const char* logLevelStr = json_object_get_string(logLevelObj);
                 spdlog::level::level_enum logLevel = spdlog::level::from_str(logLevelStr);
 
-                // Đặt mức độ log của logger
+                // Set the logger's log level
                 if (logLevel != spdlog::level::off) {
                     logger->set_level(logLevel);
                     spdlog::info("Set log level to: {}", logLevelStr);
@@ -67,10 +66,10 @@ int main(int argc, char* argv[]) {
 	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 
 
-	// Tạo logger với cả hai sinks
+	// Create logger with 2 sinks
 	auto logger = std::make_shared<spdlog::logger>("DET_logger", spdlog::sinks_init_list{console_sink, file_sink});
 	Settings settings;
-	// Đặt mức độ log
+	// Set the logger's log level
 	logger->set_level(spdlog::level::debug);
 //	setup_logger_fromk_json("received_data.json", logger);
 
@@ -89,12 +88,12 @@ int main(int argc, char* argv[]) {
 
     logger->info("Awaiting connections on port {}",port);
 
-    // Tạo và chạy luồng cho cổng 1024
+    // Create and run for port 1024
     std::thread thread_1024([&]() {
         Mgard300_Handler mgard300_Handler(acc);
         mgard300_Handler.handle_connections();
     });
-    // Tạo và chạy luồng cho cổng 12345
+    // Create and run for port 12345
     std::thread thread_12345([&]() {
     	while(true) {
     		sockpp::tcp_socket socket_php = acc_php.accept();
@@ -103,7 +102,7 @@ int main(int argc, char* argv[]) {
     			logger->error("Error accepting connection from client on port {}",port_php);
 				return;
 			}
-			// Nhận và xử lý dữ liệu JSON từ client
+			// Receive and process JSON data from the client
 			settings.receive_processJson(socket_php);
 //			setup_logger_fromk_json(JSON_FILE_NAME, logger);
 
