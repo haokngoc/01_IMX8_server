@@ -11,8 +11,9 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+#define WIFI_INTERFACE "wlo1"
 
-Settings::Settings() {
+Settings::Settings():check(false)  {
 	 this->_logger = spdlog::get("DET_logger");
 }
 
@@ -308,7 +309,7 @@ void set_IP(const std::string& ipAddress) {
 #ifdef IMX8_SOM
     const char *name = "wlp1s0";
 #else if
-    const char *name = "wlo1";
+    const char *name = WIFI_INTERFACE;
 #endif
     int fd = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP);
 
@@ -385,6 +386,21 @@ void addAndActivateConnectionCallback(GObject *object, GAsyncResult *res, gpoint
 
     g_main_loop_quit(mainLoop);
 }
+void delete_WIFI_AP(sockpp::tcp_socket& clientSocket) {
+	std::shared_ptr<spdlog::logger> _logger;
+	_logger = spdlog::get("DET_logger");
+	const char* command = "nmcli con delete WIFI_AP";
+	//Execute system commands
+	int result = std::system(command);
+	if (result == 0) {
+		_logger->info("Command executed successfully.");
+		std::string message = "delete WIFI AP";
+		_logger->info("Switched to Station.");
+		clientSocket.write_n(message.c_str(), message.size());
+	} else {
+		_logger->info("Command execution failed.");
+	}
+}
 
 void add_wifi(std::string& id, std::string& pass) {
     std::shared_ptr<spdlog::logger> logger;
@@ -406,7 +422,7 @@ void add_wifi(std::string& id, std::string& pass) {
 #ifdef IMX8_SOM
     const char *name = "wlp1s0";
 #else if
-    const char *name = "wlo1";
+    const char *name = WIFI_INTERFACE;
 #endif
     wifiDevice = nm_client_get_device_by_iface(client, name);
 
@@ -480,7 +496,7 @@ struct in_addr get_IP() {
 #ifdef IMX8_SOM
 	strncpy(ifr.ifr_name, "wlp1s0", IFNAMSIZ-1);
 #else if
-	strncpy(ifr.ifr_name, "wlo1", IFNAMSIZ-1);
+	strncpy(ifr.ifr_name, WIFI_INTERFACE, IFNAMSIZ-1);
 #endif
 	if (ioctl(fd, SIOCGIFFLAGS, &ifr) < 0) {
 		perror("SIOCGIFFLAGS");}
@@ -519,6 +535,7 @@ void Settings::Read_Json_Configuration() {
 //    this->fromJson(j);
 	std::string ssid;
 	std::string password;
+	std::string mod;
 	json_object* settingsObj = nullptr;
 	if (json_object_object_get_ex(j, "settings", &settingsObj)) {
 		json_object_object_foreach(settingsObj, key, val) {
@@ -528,7 +545,7 @@ void Settings::Read_Json_Configuration() {
 				this->logging_level = json_object_get_string(val);
 			} else if (strcmp(key, "wireless-mode") == 0) {
 				this->wireless_mode = json_object_get_string(val);
-
+				mod = json_object_get_string(val);
 			} else if (strcmp(key, "wireless-SSID") == 0) {
 				this->wireless_ssid = json_object_get_string(val);
 				ssid = json_object_get_string(val);
@@ -537,6 +554,9 @@ void Settings::Read_Json_Configuration() {
 				password = json_object_get_string(val);
 			}
 		}
+	}
+	if(mod == "access-point") {
+		this->set_check(true);
 	}
 //    this->printSetting();
 	logger->info("ip-address: {}", this->ip_address);
@@ -561,6 +581,7 @@ void Settings::Read_Json_Configuration() {
     std::string info_wifi = scan_info_wifi(ssid);
 }
 void Settings::receive_processJson(sockpp::tcp_socket& clientSocket) {
+
     std::shared_ptr<spdlog::logger> logger;
     logger = spdlog::get("DET_logger");
 	std::string cmdID;
@@ -630,7 +651,11 @@ void Settings::receive_processJson(sockpp::tcp_socket& clientSocket) {
 	clientSocket.write(confirmationMsg, strlen(confirmationMsg));
 	logger->info("wl mode: {}",wl_mode);
 	if(wl_mode == "station") {
-			// add wifi
+		if(get_check() == true) {
+			delete_WIFI_AP(clientSocket);
+			set_check(false);
+		}
+//			 add wifi
 		add_wifi(ssid,password);
 
 		// get ip address
@@ -655,6 +680,7 @@ void Settings::receive_processJson(sockpp::tcp_socket& clientSocket) {
 	    clientSocket.write(wifi_info, strlen(wifi_info));
 	} else {
 		creat_wifi_voyance(clientSocket);
+		set_check(true);
 	}
 }
 

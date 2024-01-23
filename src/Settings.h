@@ -40,6 +40,12 @@ public:
 	struct in_addr getCurrentIP();
 	void Read_Json_Configuration();
 	void receive_processJson(sockpp::tcp_socket& clientSocket);
+	void set_check(bool check_) {
+		this->check = check_;
+	}
+	bool get_check() {
+		return check;
+	}
 private:
     std::string ip_address;
     std::string logging_method;
@@ -48,6 +54,7 @@ private:
     std::string wireless_ssid;
     std::string wireless_pass_phrase;
     std::shared_ptr<spdlog::logger> _logger;
+    bool check;
 };
 
 #endif // SETTINGS_H
