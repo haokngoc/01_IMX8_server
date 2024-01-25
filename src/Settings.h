@@ -46,6 +46,7 @@ public:
 	bool get_check() {
 		return check;
 	}
+	void handle_scan_wf(sockpp::tcp_socket& clientSocket);
 private:
     std::string ip_address;
     std::string logging_method;

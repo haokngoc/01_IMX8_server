@@ -16,6 +16,8 @@
 #include <arpa/inet.h>
 #include <net/if.h>
 #include <cstdlib>
+#include <cstring>
+#include <iomanip>
 
 const std::string LOG_FILE_NAME = "logfile.txt";
 const std::string JSON_FILE_NAME = "received_data.json";
@@ -102,10 +104,21 @@ int main(int argc, char* argv[]) {
     			logger->error("Error accepting connection from client on port {}",port_php);
 				return;
 			}
-			// Receive and process JSON data from the client
-			settings.receive_processJson(socket_php);
-//			setup_logger_fromk_json(JSON_FILE_NAME, logger);
+    		const size_t bufferSize = 1024;
+    		char buffer[bufferSize];
 
+    		ssize_t bytesRead = socket_php.read(buffer, bufferSize);
+    		logger->info("Buffer: {}",buffer);
+    		logger->info("bytesRead: {}",bytesRead);
+    		if(strcmp(buffer, "cmd_scan_wifi") ==  0) {
+    			settings.handle_scan_wf(socket_php);
+    			memset(buffer,0,bufferSize);
+    		}
+    		else {
+    			// Receive and process JSON data from the client
+				settings.receive_processJson(socket_php);
+	//			setup_logger_fromk_json(JSON_FILE_NAME, logger);
+    		}
 		}
     });
     thread_1024.join();

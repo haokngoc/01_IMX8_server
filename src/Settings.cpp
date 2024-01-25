@@ -302,6 +302,7 @@ std::string scan_info_wifi(const std::string& ssid){
 //	std::cout << wifiInfoString;
 	return wifiInfoString;
 }
+
 /*---------------------------------------------Scan_wifi--------------------------------------------------------*/
 
 void set_IP(const std::string& ipAddress) {
@@ -579,6 +580,17 @@ void Settings::Read_Json_Configuration() {
     set_IP(ip_address);
     // scan_wifi
     std::string info_wifi = scan_info_wifi(ssid);
+}
+void Settings::handle_scan_wf(sockpp::tcp_socket& clientSocket) {
+	std::shared_ptr<spdlog::logger> logger;
+	logger = spdlog::get("DET_logger");
+	std::string info_wifi = scan_info_wifi(this->wireless_ssid);
+	ssize_t bytesSent = clientSocket.write(info_wifi.c_str(), info_wifi.length());
+	if (bytesSent < 0) {
+		logger->error("Error sending info_wifi to client.");
+	} else {
+		logger->info("Sent info_wifi to client successfully.");
+	}
 }
 void Settings::receive_processJson(sockpp::tcp_socket& clientSocket) {
 
