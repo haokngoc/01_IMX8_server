@@ -1,0 +1,17 @@
+{
+  "account_information":{
+    "username":"admin",
+    "password":"123"
+  },
+  "settings":{
+    "ip-address":"192.168.2.33",
+    "logging-level":"error",
+    "wireless-mode":"station",
+    "wireless-SSID":"Phong 401",
+    "wireless-Pass-Phrase":"12345687"
+  },
+  "firmware":{
+    "filename":"baitest1.cpp",
+    "path":"uploads\/baitest1.cpp"
+  }
+}
