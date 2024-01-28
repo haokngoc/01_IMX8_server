@@ -71,7 +71,7 @@ void WorkState::handle(Mgard300_Handler& handler) {
 		if (ret==0)
 			pPRB_IMG->get_IMG(buffer);
 
-		if (ret != 1) {
+		if (ret != 0) {
 			handler.getLogger()->warn("Failed to get data from PRB.");
 			delete[] buffer; // Release memory
 			return;
