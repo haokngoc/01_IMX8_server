@@ -11,7 +11,14 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
-#define WIFI_INTERFACE "wlo1"
+#define WIFI_SSID "voyance"
+#define WIFI_PASS "123456789"
+
+#ifdef IMX8_SOM
+   #define WIFI_INTERFACE "wlp1s0"
+#else if
+	#define WIFI_INTERFACE "wlo1"
+#endif
 
 Settings::Settings():check(false)  {
 	 this->_logger = spdlog::get("DET_logger");
@@ -308,7 +315,8 @@ std::string scan_info_wifi(const std::string& ssid){
 void set_IP(const std::string& ipAddress) {
     struct ifreq ifr;
 #ifdef IMX8_SOM
-    const char *name = "wlp1s0";
+    const char *name = WIFI_INTERFACE;
+    		"wlp1s0";
 #else if
     const char *name = WIFI_INTERFACE;
 #endif
@@ -336,16 +344,16 @@ void set_IP(const std::string& ipAddress) {
 void creat_wifi_voyance(sockpp::tcp_socket& clientSocket) {
 	std::shared_ptr<spdlog::logger> _logger;
 	_logger = spdlog::get("DET_logger");
-	const char* command = "nmcli con add type wifi ifname wlo1 mode ap con-name WIFI_AP ssid voyance && \
-						   nmcli con modify WIFI_AP 802-11-wireless.band bg && \
-						   nmcli con modify WIFI_AP 802-11-wireless.channel 1 && \
-						   nmcli con modify WIFI_AP 802-11-wireless-security.key-mgmt wpa-psk && \
-						   nmcli con modify WIFI_AP 802-11-wireless-security.proto rsn && \
-						   nmcli con modify WIFI_AP 802-11-wireless-security.group ccmp && \
-						   nmcli con modify WIFI_AP 802-11-wireless-security.pairwise ccmp && \
-						   nmcli con modify WIFI_AP 802-11-wireless-security.psk 123456789 && \
-						   nmcli con modify WIFI_AP ipv4.method shared && \
-						   nmcli con up WIFI_AP";
+    const char* command = "nmcli con add type wifi ifname " WIFI_INTERFACE " mode ap con-name WIFI_AP ssid " WIFI_SSID " && \
+                           nmcli con modify WIFI_AP 802-11-wireless.band bg && \
+                           nmcli con modify WIFI_AP 802-11-wireless.channel 1 && \
+                           nmcli con modify WIFI_AP 802-11-wireless-security.key-mgmt wpa-psk && \
+                           nmcli con modify WIFI_AP 802-11-wireless-security.proto rsn && \
+                           nmcli con modify WIFI_AP 802-11-wireless-security.group ccmp && \
+                           nmcli con modify WIFI_AP 802-11-wireless-security.pairwise ccmp && \
+                           nmcli con modify WIFI_AP 802-11-wireless-security.psk " WIFI_PASS " && \
+                           nmcli con modify WIFI_AP ipv4.method shared && \
+                           nmcli con up WIFI_AP";
 
 	//Execute system commands
 	int result = std::system(command);
