@@ -9,7 +9,7 @@
 #include <queue>
 #include "Common.h"
 
-Mgard300_Handler::Mgard300_Handler(sockpp::tcp_acceptor& acceptor) : acceptor_(acceptor), current_state(nullptr),check_exist_connection(false) {
+Mgard300_Handler::Mgard300_Handler(sockpp::tcp_acceptor& acceptor) : acceptor_(acceptor), current_state(nullptr),check_exist_connection(false), is_working(false) {
     this->number_connection = 0;
     this->_logger = spdlog::get("DET_logger");
 }
@@ -23,19 +23,19 @@ Mgard300_Handler::~Mgard300_Handler() {
 // Create a function for the packet analysis thread to execute
 void handler_parse_msg_thread(Mgard300_Handler* mgard300_Handler) {
     while (true) {
+//    	mgard300_Handler->set_is_working(true);
     	pthread_t id = pthread_self();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         // Call the MsgHandler object to parse packets from the client
         int ret = mgard300_Handler->parse_msg_client(mgard300_Handler->get_current_socket());
-        //std::cout << "Number of Connections: " << mgard300_Handler->get_number_connection() << " ID thread: " << id << std::endl;
         mgard300_Handler->getLogger()->info("Number of Connections: {} ID thread: {}", mgard300_Handler->get_number_connection(), id);
         if (ret == -1) {
             std::this_thread::sleep_for(std::chrono::seconds(3));
         }
         // Check the number of connections
         if (mgard300_Handler->get_number_connection() == 2) {
-        	mgard300_Handler->set_check_exist_connection(true);
             mgard300_Handler->decrement_number_connection();
+			mgard300_Handler->set_check_exist_connection(true);
             return;
         }
     }
@@ -96,13 +96,13 @@ void Mgard300_Handler::start_thread_parse_thread() {
 	std::thread parse_thread = std::thread(handler_parse_msg_thread, this);
 	parse_thread.detach();
 	this->tm_["parse_thread"] = std::move(parse_thread);
-	std::cout << "Thread " << "parse_thread" << " created" << std::endl;
+//	std::cout << "Thread " << "parse_thread" << " created" << std::endl;
 }
 void Mgard300_Handler::start_thread_checkstate_thread() {
 	std::thread checkstate_thread = std::thread(execute_cmd_thread, this);
 	checkstate_thread.detach();
 	this->tm_["checkstate_thread"] = std::move(checkstate_thread);
-	std::cout << "Thread " << "checkstate_thread" << " created" << std::endl;
+//	std::cout << "Thread " << "checkstate_thread" << " created" << std::endl;
 }
 void Mgard300_Handler::handle_connections() {
     while (true) {
@@ -216,7 +216,7 @@ void Mgard300_Handler::send_data_to_client(const char* data, size_t data_size) {
                 throw std::runtime_error("Incomplete last chunk sent to client");
             }
             // Displays the remaining bytes
-            this->_logger->info("Remaining bytes: {} | Total sent: {}", remaining_size, total_sent);
+//            this->_logger->info("Remaining bytes: {} | Total sent: {}", remaining_size, total_sent);
 #endif
         }
         if (!this->get_is_client_closed()) {
@@ -302,3 +302,14 @@ bool Mgard300_Handler::get_check_exist_connection() {
 	std::lock_guard<std::mutex> lock(this->connection_mutex);
 	return this->check_exist_connection;
 }
+void Mgard300_Handler::set_is_working(bool check_) {
+	std::lock_guard<std::mutex> lock(this->connection_mutex);
+	this->is_working = check_;
+
+}
+bool Mgard300_Handler::get_is_working() {
+	std::lock_guard<std::mutex> lock(this->connection_mutex);
+	return this->is_working;
+}
+
+

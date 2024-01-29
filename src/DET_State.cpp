@@ -40,17 +40,35 @@ void compute_md5_file(const char* filename, unsigned char* md5sum) {
 #endif
 
 void WorkState::handle(Mgard300_Handler& handler) {
+//	std::lock_guard<std::mutex> lock(this->connection_mutex);
+//	handler.getLogger()->info("a {}",this->get_is_a());
+//
+//	if (this->get_is_working()) {
+//		while (this->get_is_working()) {
+//			std::this_thread::sleep_for(std::chrono::milliseconds(100));
+//		}
+//	}
+	handler.getLogger()->info("is_working: {}",handler.get_is_working());
+	if(handler.get_is_working()) {
+		while(handler.get_is_working()) {
+			std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		}
+	}
+	// Set the flag to indicate that work is in progress
+//	this->set_is_working(true);
+//	this->set_is_a(1);
+	handler.set_is_working(true);
+
 	this->work_thread = std::thread([this, &handler]() {
 		handler.getLogger()->info("Handling work state...");
-		std::this_thread::sleep_for(std::chrono::seconds(2));
 		// Wait for 10 seconds
-		for (int i = 1; i <= 5; ++i) {
-			if(handler.get_check_exist_connection()) {
-				handler.getLogger()->info("Exiting thread due to check_close_threads");
-
-				handler.set_check_exist_connection(false);
-				return;
-			}
+		for (int i = 1; i <= 10; ++i) {
+//			if(handler.get_check_exist_connection()) {
+//				handler.getLogger()->info("Exiting thread due to check_close_threads");
+//
+//				handler.set_check_exist_connection(false);
+//				return;
+//			}
 			std::this_thread::sleep_for(std::chrono::seconds(1));
 			handler.getLogger()->info("Working state {}", i);
 		}
@@ -103,7 +121,11 @@ void WorkState::handle(Mgard300_Handler& handler) {
 			handler.getLogger()->warn("Failed to open output file.");
 		}
 		delete[] buffer;
+		handler.set_is_working(false);
+		this->set_is_working(false);
+		this->set_is_a(0);
     });
+	handler.getLogger()->info("is_working: {}",handler.get_is_working());
 
 	work_thread.detach();
 }

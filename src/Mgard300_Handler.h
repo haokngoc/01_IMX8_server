@@ -33,6 +33,8 @@ public:
 	void start_thread_checkstate_thread();
 	void set_check_exist_connection(bool check_exit);
 	bool get_check_exist_connection();
+	void set_is_working(bool check_);
+	bool get_is_working();
 private:
     sockpp::tcp_acceptor& acceptor_;
     ssize_t n_read_bytes;
@@ -48,4 +50,5 @@ private:
 	ThreadMap tm_;
 	bool close_threads;
 	bool check_exist_connection;
+	bool is_working;
 };
